@@ -6,7 +6,7 @@ use App\Http\Controllers\CredentialController;
 use App\Http\Controllers\MockCartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MainPageController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DeliveryCostController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +47,6 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/order/{id}', [ProfileController::class, 'order'])->name('order.details');
 
 Route::resource('credentials', CredentialController::class);
-Route::get('posts', [PostController::class, 'postsList'])->name('posts.list');
-Route::get('{slug}', [PostController::class, 'show'])->name('post');
+Route::get('articles', [ArticleController::class, 'postsList'])->name('posts.list');
+Route::get('{slug}', [ArticleController::class, 'show'])->name('post');
 

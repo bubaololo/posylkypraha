@@ -8,7 +8,7 @@ use Exception;
 
 use Storage;
 
-class PostController extends Controller
+class ArticleController extends Controller
 {
     public function postsList() {
         $posts = Post::all();
