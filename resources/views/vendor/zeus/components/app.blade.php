@@ -24,6 +24,14 @@
         * {font-family: 'KoHo', 'Almarai', sans-serif;}
         [x-cloak] {display: none !important;}
     </style>
+    <style>
+        /*custom styles*/
+        .main-logo {
+            max-width: 80px;
+            display: inline-block;
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body class="font-sans antialiased bg-gray-50 text-gray-900 dark:text-gray-100 dark:bg-gray-900 @if(app()->isLocal()) debug-screens @endif">
 
@@ -33,8 +41,7 @@
             <div class="flex">
                 <div class="flex-shrink-0 flex items-center">
                     <a class="italic flex gap-2 group" href="{{ url('/') }}">
-                        <img class="w-7" src="https://larazeus.com/images/zeus-logo.png" alt="{{ config('zeus.wind.name', config('app.name', 'Laravel')) }}">
-                        @zeus
+                        <img class="main-logo" src="{{ asset('images/oolong_logo.svg') }}" alt="">
                     </a>
                 </div>
 
@@ -77,9 +84,7 @@
 </div>
 
 <footer class="bg-gray-100 dark:bg-gray-800 p-6 text-center font-light">
-    <a href="https://larazeus.com" target="_blank">
-        a gift with ❤️ &nbsp;from @zeus
-    </a>
+Oloong.me
 </footer>
 
 @stack('scripts')
