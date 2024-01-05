@@ -6,7 +6,7 @@ return [
     /**
      * set the default path for the blog homepage.
      */
-    'prefix' => 'blog',
+    'prefix' => env('BLOG_URI'),
 
     /**
      * the middleware you want to apply on all the blog routes

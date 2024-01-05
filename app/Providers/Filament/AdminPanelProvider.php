@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('admin')
+            ->path(env('ADMIN_PANEL_URI'))
             ->login()
             ->colors([
                 'primary' => Color::Amber,
@@ -57,7 +57,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->plugins([
-                SpatieLaravelTranslatablePlugin::make()->defaultLocales([config('app.locale')]),
+                SpatieLaravelTranslatablePlugin::make()->defaultLocales(['en','es']),
                 SkyPlugin::make(),
             ]);
     }
