@@ -52,7 +52,7 @@
             </div>
             <div class=" sm:flex sm:items-center sm:ml-6">
                 {{--Account menu and other icons--}}
-
+                {{--lang switcher--}}
                 <div class="flex justify-center items-center">
                     <div class="relative inline-block text-left" id="language-dropdown">
                         <div>
@@ -72,7 +72,6 @@
                         </div>
                     </div>
 
-                    <script src="https://cdn.tailwindcss.com"></script>
                     <script>
                       var currentLang = "{{ app()->getLocale() }}"; // Замените на динамическое значение из Laravel, например,
 
@@ -101,17 +100,58 @@
                       }
                     </script>
                 </div>
+                {{--lang switcher--}}
 
+                {{--theme switcher--}}
 
+                <div class="flex justify-center items-center">
+                    <div class="relative inline-block text-left" id="theme-dropdown">
+                        <div>
+                            <button type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" id="theme-button" aria-expanded="true" aria-haspopup="true" onclick="toggleThemeDropdown()">
+                                <span id="selected-theme">Theme</span>
+                                <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="theme-button" tabindex="-1" id="theme-dropdown-menu">
+                            <div class="py-1" role="none">
+                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" onclick="switchTheme('light')">Light</a>
+                                <a href="#" class="text-gray-700 block px-4 py-2 text-sm" onclick="switchTheme('dark')">Dark</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://cdn.tailwindcss.com"></script>
+                <script>
+                  function toggleThemeDropdown() {
+                    document.getElementById('theme-dropdown-menu').classList.toggle('hidden');
+                  }
+
+                  function switchTheme(theme) {
+                    if (theme === 'dark') {
+                      document.documentElement.classList.add('dark');
+                    } else {
+                      document.documentElement.classList.remove('dark');
+                    }
+                    // Закрыть выпадающее меню после выбора
+                    document.getElementById('theme-dropdown-menu').classList.add('hidden');
+                  }
+                </script>
+
+                {{--theme switcher--}}
+
+            </div>
         </div>
-    </div>
 </header>
 
 <header class="bg-gray-100 dark:bg-gray-800">
-        <div class="container mx-auto py-2 px-3">
-            <div class="flex justify-between items-center">
-                <div class="w-full">
-                    @if(isset($breadcrumbs))
+    <div class="container mx-auto py-2 px-3">
+        <div class="flex justify-between items-center">
+            <div class="w-full">
+                @if(isset($breadcrumbs))
                         <nav class="text-gray-400 font-bold my-1" aria-label="Breadcrumb">
                             <ol class="list-none p-0 inline-flex">
                                 {{ $breadcrumbs }}
