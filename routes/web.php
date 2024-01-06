@@ -3,6 +3,7 @@
 use App\Http\Controllers\BuyNowController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CredentialController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MockCartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MainPageController;
@@ -43,6 +44,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function() {
     return redirect('/blog');
 })->name('index');
+
+Route::get('/switchLang/{lang}', [LanguageController::class, 'switchLang']);
+
 //Auth::routes();
 
 //Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

@@ -50,8 +50,28 @@
                 </div>
 
             </div>
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class=" sm:flex sm:items-center sm:ml-6">
                 {{--Account menu and other icons--}}
+                <div class="flex justify-center items-center">
+                    <div class="text-center">
+                        <button onclick="switchLang('en')" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100">English</button>
+                        <button onclick="switchLang('es')" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-100 ml-2">Spanish</button>
+                    </div>
+
+                    <script src="https://cdn.tailwindcss.com"></script>
+                    <script>
+                      function switchLang(lang) {
+                        fetch('/switchLang/' + lang)
+                            .then(response => {
+                              if (response.ok) {
+                                window.location.reload();
+                              }
+                            })
+                            .catch(error => console.error('Error:', error));
+                      }
+                    </script>
+                </div>
+
             </div>
         </div>
     </div>
