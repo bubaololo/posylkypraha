@@ -181,13 +181,13 @@ Oloong.me
 @filamentScripts
 @livewire('notifications')
 
-{{--<script>--}}
-{{--    const theme = localStorage.getItem('theme')--}}
+<script>
+    const theme = localStorage.getItem('theme')
 
-{{--    if ((theme === 'dark') || (! theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {--}}
-{{--        document.documentElement.classList.add('dark')--}}
-{{--    }--}}
-{{--</script>--}}
+    if ((theme === 'dark') || (! theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+    }
+</script>
 
 </body>
 </html>
