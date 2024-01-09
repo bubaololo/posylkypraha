@@ -6,20 +6,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="application-name" content="{{ config('app.name', 'Laravel') }}">
 
-    <!-- Seo Tags -->
+{{--custom meta--}}
+
+@php
+    $metas = \App\Models\Meta::all()->pluck('content')->join(' ');
+@endphp
+
+{!! $metas !!}
+
+{{--custom meta--}}
+
+<!-- Seo Tags -->
     <x-seo::meta/>
     <!-- Seo Tags -->
-
-    {{--custom meta--}}
-
-    @php $metas = \LaraZeus\Sky\SkyPlugin::get()->getModel('Navigation')::fromHandle('main-header-menu'); @endphp
-    @foreach($menu->items as $item)
-        {!! \LaraZeus\Sky\Classes\RenderNavItem::render($item,'px-5 py-2 text-sm font-medium text-gray-600 hover:text-blue-500 dark:text-gray-400') !!}
-    @endforeach
-
-    {{--custom meta--}}
-
-
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

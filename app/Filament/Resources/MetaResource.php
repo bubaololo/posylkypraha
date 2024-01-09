@@ -27,7 +27,8 @@ class MetaResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('comment')
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('content')
+                Forms\Components\Textarea::make('content')
+                    ->rows(20)
                     ->required(),
             ]);
     }
