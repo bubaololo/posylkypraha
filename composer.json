@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "livewire/livewire": "^3",
+        "mohamedsabil83/filament-forms-tinyeditor": "^2.2",
         "proengsoft/laravel-jsvalidation": "^4.7",
         "spatie/laravel-sitemap": "^6.2"
     },
