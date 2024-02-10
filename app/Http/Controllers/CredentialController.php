@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Credential;
+use App\Models\RecipientCredential;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -59,7 +59,7 @@ class CredentialController extends Controller
             return view('profile', compact('credentials'));
         } else {
             
-            $credentials = Credential::create([
+            $credentials = RecipientCredential::create([
                 
                 'name' => $requestData['name']?? null,
                 'user_id' => $user->id,

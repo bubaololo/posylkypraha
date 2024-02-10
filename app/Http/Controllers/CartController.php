@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Order;
-use App\Models\Credential;
-use App\Models\OrderProduct;
+use App\Models\Parcel;
+use App\Models\RecipientCredential;
+use App\Models\ParcelEnclosure;
 use App\Models\Enclosure;
 use JsValidator;
 
@@ -146,7 +146,7 @@ class CartController extends Controller
             $deliveryInfo[$key] = trim($value);
         }
         
-        $credential = Credential::create([
+        $credential = RecipientCredential::create([
             'name' => $deliveryInfo['name'],
             'surname' => $deliveryInfo['surname'],
             'middle_name' => $deliveryInfo['middle_name'],
@@ -159,7 +159,7 @@ class CartController extends Controller
             'email' => $deliveryInfo['email'],
         ]);
         
-        $order = Order::create([
+        $order = Parcel::create([
             'order_num' => $orderNum,
             'credential_id' => $credential->id,
             'total' => $total,
@@ -174,7 +174,7 @@ class CartController extends Controller
             $order->user_id = $user_id;
             $order->save();
             
-            $currentUserCredentials = Credential::where('user_id', $user_id)->first();
+            $currentUserCredentials = RecipientCredential::where('user_id', $user_id)->first();
             if (!$currentUserCredentials) {
                 $credential->user_id = $user_id;
                 $credential->save();
@@ -182,7 +182,7 @@ class CartController extends Controller
         }
         
         foreach ($cartItems as $item) {
-            $products = new OrderProduct;
+            $products = new ParcelEnclosure;
             $products->order_id = $order->id;
             $products->product_id = $item['id'];
             $products->quantity = $item['quantity'];

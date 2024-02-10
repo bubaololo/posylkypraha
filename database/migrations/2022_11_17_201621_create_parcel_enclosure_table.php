@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order_enclosure', function (Blueprint $table) {
-            $table->foreignId('enclosure_id')
+        Schema::create('parcel_enclosure', function (Blueprint $table) {
+            $table->foreignId('parcel_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
@@ -23,7 +23,7 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->tinyInteger('quantity')->default(1);
-            $table->unique(['order_id', 'enclosure_id']);
+            $table->unique(['parcel_id', 'enclosure_id']);
         });
     }
 
@@ -35,7 +35,7 @@ return new class extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::dropIfExists('order_enclosure');
+        Schema::dropIfExists('parcel_enclosure');
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 };

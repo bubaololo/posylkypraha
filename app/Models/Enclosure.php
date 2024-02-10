@@ -20,20 +20,12 @@ class Enclosure extends Model
         'description',
     ];
     
-    public function orders()
+    public function parcels()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->belongsToMany(Parcel::class);
     }
     
     
-    public static function boot()
-    {
-        parent::boot();
-        
-        static::saving(function ($product) {
-            $product->slugify();
-        });
-    }
     
     
 }

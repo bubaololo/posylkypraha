@@ -44,13 +44,13 @@ class User extends Authenticatable implements FilamentUser
         'email_verified_at' => 'datetime',
     ];
     
-    public function order()
+    public function parcel()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Parcel::class);
     }
     public function credential()
     {
-        return $this->hasOne(Credential::class);
+        return $this->hasOne(RecipientCredential::class);
     }
     public function canAccessPanel(Panel $panel): bool
     {

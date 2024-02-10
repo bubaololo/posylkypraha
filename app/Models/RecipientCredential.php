@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Credential extends Model
+class RecipientCredential extends Model
 {
     use HasFactory;
     
     protected $guarded = [];
     
-    public function orders()
+    public function parcels()
     {
-        return $this->hasMany(Order::class);
+        return $this->hasMany(Parcel::class);
     }
     public function user()
     {

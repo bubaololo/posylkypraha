@@ -5,31 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Parcel extends Model
 {
     use HasFactory;
     
     protected $guarded = [];
     
-    
-//    public function products() {
-//        return $this->hasManyThrough(Product::class, OrderProduct::class,
-//        );
-//    }
 
-//    public function products() {
-//        return $this->hasMany(OrderProduct::class);
-//    }
     
-    public function product()
+    public function enclosure()
     {
         return $this->belongsToMany(Enclosure::class)->withPivot(['quantity']);
     }
     
-    public function credential()
+    public function recipient_credential()
     {
-        return $this->belongsTo(Credential::class);
+        return $this->belongsTo(RecipientCredential::class);
     }
+    public function sender_credential()
+    {
+        return $this->belongsTo(SenderCredential::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('parcels', function (Blueprint $table) {
             $table->id();
             $table->integer('order_num');
             $table->foreignId('user_id')
@@ -20,18 +20,16 @@ return new class extends Migration {
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('credential_id')
+            $table->foreignId('recipient_credential_id')
+                ->constrained();
+            $table->foreignId('sender_credential_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->unsignedDecimal('total', $precision = 8, $scale = 2)->default(0);
-            $table->unsignedDecimal('subtotal', $precision = 8, $scale = 2)->default(0);
-            $table->unsignedDecimal('delivery_cost', $precision = 8, $scale = 2)->default(0);
             $table->boolean('paid')->default(0);
-            $table->enum('delivery', ['post', 'sdek']);
             $table->text('comment')->nullable();
             $table->text('track')->nullable();
-            $table->enum('status', ['в обработке', 'отправлен'])->default('в обработке');
+            $table->enum('status', ['в обработке', 'отправлена'])->default('в обработке');
             $table->timestamps();
         });
     }
@@ -44,7 +42,7 @@ return new class extends Migration {
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('parcels');
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 };
