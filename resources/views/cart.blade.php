@@ -36,7 +36,7 @@
 
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <div>
-                                    @livewire('cart-counter')
+                                    {{--@livewire('cart-counter')--}}
                                 </div>
 
                             </div>
@@ -59,7 +59,7 @@
                                                 <h5 class="mb-0 cart-item__price">{{ $item->price }}
                                                     руб.</h5>
 
-                                                @livewire('quantity-handler', ['CartItem' => $item])
+                                                {{--@livewire('quantity-handler', ['CartItem' => $item])--}}
 
                                                 <form class="cart-item__del"
                                                         action="{{ route('cart.remove') }}"
@@ -84,12 +84,12 @@
                                 </form>
                                 <hr class="my-4">
 
-                                @livewire('cart-total')
+                                {{--@livewire('cart-total')--}}
                         </div>
                         @else
                             <a class="btn btn-success" href="{{ route('products.list')  }}">Выбрать</a>
                         @endif
-                        @if(count($cartItems))
+                       
                             <div class="col-lg-5">
                                 <section class="checkout__slider">
                                     <div class="quest">
@@ -169,7 +169,7 @@
                                                                     <input type="text" id="comment" name="comment" class="quest__input"
                                                                             value="@isset($credentials['comment']) {{ $credentials['comment'] }} @endisset" placeholder="любые уточнения">
                                                                 </div>
-                                                                @livewire('delivery-selector')
+                                                                {{--@livewire('delivery-selector')--}}
                                                             </div>
                                                         </div>
                                                         <div class="quest__slider_buttons_wrapper">
@@ -342,7 +342,7 @@
                                     </div>
                                 </section>
                             </div>
-                        @endif
+
                     </div>
                 </div>
             </section>

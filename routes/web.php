@@ -41,10 +41,9 @@ Route::get('profile',[ProfileController::class, 'index'])->name('profile');
 Route::get('test', [MockCartController::class, 'store'])->name('cart.mock');
 
 //Route::get('/', [MainPageController::class, 'index'])->name('index'); // TODO найти где ещё есть обращение к имени роута и изменить его
-Route::get('/form', [OrderController::class, 'index'])->name('form'); // TODO найти где ещё есть обращение к имени роута и изменить его
 
 Route::get('/', function() {
-    return redirect('/form');
+    return redirect('/cart');
 })->name('index');
 
 Route::get('/switchLang/{lang}', [LanguageController::class, 'switchLang']);
