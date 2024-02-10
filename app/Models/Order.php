@@ -23,7 +23,7 @@ class Order extends Model
     
     public function product()
     {
-        return $this->belongsToMany(Product::class)->withPivot(['quantity']);
+        return $this->belongsToMany(Enclosure::class)->withPivot(['quantity']);
     }
     
     public function credential()

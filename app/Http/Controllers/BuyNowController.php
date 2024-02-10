@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Enclosure;
 
 class BuyNowController extends Controller
 {
     public function buySpecificProduct($id)
     {
-        $product = Product::where('id', '=', $id)->first();
+        $product = Enclosure::where('id', '=', $id)->first();
         
         \Cart::add([
             'id' => $product->id,

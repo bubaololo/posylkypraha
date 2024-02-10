@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Product;
+use App\Models\Enclosure;
 use Livewire\Component;
 
 class ProductsTable extends Component
@@ -12,7 +12,7 @@ class ProductsTable extends Component
     public array $quantity = [];
     public function mount()
     {
-        $this->products = Product::all();
+        $this->products = Enclosure::all();
         foreach ($this->products as $product) {
         $this->quantity[$product->id] = 1;
         }

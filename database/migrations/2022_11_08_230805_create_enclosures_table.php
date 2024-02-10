@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('enclosures', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->string('meta_description')->nullable();
             $table->double('price');
-            $table->integer('weight');
+            $table->integer('weight_kg');
+            $table->integer('weight_g')->default(0);
+            $table->integer('quantity')->default(1);
             $table->text('description');
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
@@ -34,7 +32,7 @@ return new class extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('enclosures');
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 };

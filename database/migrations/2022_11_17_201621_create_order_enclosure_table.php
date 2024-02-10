@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_images', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('product_id')
+        Schema::create('order_enclosure', function (Blueprint $table) {
+            $table->foreignId('enclosure_id')
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->string('file');
-            $table->string('alt')->nullable();
-            $table->boolean('primary')->default(false);
-            $table->unique(['product_id', 'primary']);
-            $table->timestamps();
+            $table->foreignId('enclosure_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->tinyInteger('quantity')->default(1);
+            $table->unique(['order_id', 'enclosure_id']);
         });
     }
 
@@ -35,8 +35,7 @@ return new class extends Migration
     public function down()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Schema::dropIfExists('product_images');
+        Schema::dropIfExists('order_enclosure');
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-    
     }
 };

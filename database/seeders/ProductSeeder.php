@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Product;
+use App\Models\Enclosure;
 use App\Models\ProductImage;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -46,7 +46,7 @@ class ProductSeeder extends Seeder
         foreach ($products as &$product) {
             $product['slug'] = Str::slug($product['name'].$product['weight'].'gramm'.$product['price'].'rub');
         }
-        Product::insert($products);
+        Enclosure::insert($products);
         $images = [
             [
                 'product_id' => 1,

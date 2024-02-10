@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Order;
 use App\Models\Credential;
 use App\Models\OrderProduct;
-use App\Models\Product;
+use App\Models\Enclosure;
 use JsValidator;
 
 class CartController extends Controller
@@ -38,7 +38,7 @@ class CartController extends Controller
         }
 //        $validator = JsValidator::make($this->validationRules);
         foreach ($cartItems as $item) {
-            $productSlug = Product::find($item->id)->slug;
+            $productSlug = Enclosure::find($item->id)->slug;
             $item->slug = $productSlug;
         }
         return view('cart', compact('cartItems',));
