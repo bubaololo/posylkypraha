@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Корзина')
-@section('meta_description', 'Купить красный мухомор')
+@section('meta_description', 'Оформить посылку')
 @section('content')
     @push('styles')
         <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}"/>
@@ -40,23 +40,23 @@
                                 </div>
 
                             </div>
-                            @if(count($cartItems))
-                                @foreach ($cartItems as $item)
+
+
                                     <div class="card mb-3">
                                         <div class="card-body">
                                             <div class="cart-item__inner">
 
-                                                <a href="/product/{{ $item->slug }}" class="cart-item__img">
-                                                    <img src="{{ asset(Storage::url($item->attributes->image)) }}"
+                                                <a href="/product/azaza" class="cart-item__img">
+                                                    <img src="azaza"
                                                             class="rounded-3"
                                                             alt="Мухомор">
                                                 </a>
-                                                <a href="/product/{{ $item->slug }}" class="cart-item__info">
-                                                    <h5>{{ $item->name }}</h5>
-                                                    <p class="mb-0">{{ $item->attributes->weight }} гр.</p>
+                                                <a href="/product/zazazaz" class="cart-item__info">
+                                                    <h5>вещь</h5>
+                                                    <p class="mb-0">666 гр.</p>
                                                 </a>
 
-                                                <h5 class="mb-0 cart-item__price">{{ $item->price }}
+                                                <h5 class="mb-0 cart-item__price">1000
                                                     руб.</h5>
 
                                                 {{--@livewire('quantity-handler', ['CartItem' => $item])--}}
@@ -65,7 +65,7 @@
                                                         action="{{ route('cart.remove') }}"
                                                         method="POST">
                                                     @csrf
-                                                    <input type="hidden" value="{{ $item->id }}"
+                                                    <input type="hidden" value="azaz"
                                                             name="id">
                                                     <button class="del-button">
 
@@ -75,7 +75,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+
                                 <form
                                         action="{{ route('cart.clear') }}"
                                         method="POST">
@@ -86,9 +86,7 @@
 
                                 {{--@livewire('cart-total')--}}
                         </div>
-                        @else
-                            <a class="btn btn-success" href="{{ route('products.list')  }}">Выбрать</a>
-                        @endif
+
                        
                             <div class="col-lg-5">
                                 <section class="checkout__slider">
@@ -126,7 +124,7 @@
                                                         <div class="quest__input-group">
                                                             <div class="quest__slide_title_wrapper">
                                                                 <div class="quest__slide_title">
-                                                                    Адрес
+                                                                    Адрес получателя
                                                                     @isset($credentials)
                                                                         <span class="badge badge-info cart-badge">данные взяты из <a href="{{ route('profile') }}">профиля</a> </span>@endisset
                                                                 </div>
@@ -355,7 +353,7 @@
         <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
         <script src="https://unpkg.com/@popperjs/core@2"></script>
         <script src="https://unpkg.com/tippy.js@6"></script>
-        <script src="https://api-maps.yandex.ru/2.1/?apikey=13c7547f-2a6d-45df-b5d4-e5d0ab448ddc&lang=ru_RU" type="text/javascript"></script>
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=13c7547f-2a6d-45df-b5d4-e5d0ab448ddc&suggest_apikey=8fcb8959-11fc-479a-86ad-9e33372a96e2" type="text/javascript"></script>
         <script>
           let addressIsValid = null;
           ymaps.ready(init);
@@ -391,7 +389,6 @@
             }
 
             function geocode() {
-
               // Забираем запрос из поля ввода.
               var request = $('#suggest').val();
               // Геокодируем введённые данные.
@@ -438,39 +435,19 @@
             }
 
             function showResult(obj) {
+              console.log(obj)
               //Извлекаем город из адреса
               // const adressString = obj.getAddressLine();
-              // const city = adressString.match(/^[^,]*/)[0];
+
               addressRetryCount = 0;
               const coord = obj.properties.get('boundedBy')[0];
               const city = obj._getParsedXal().localities[0];
+              const street = obj._getParsedXal().thoroughfare;
+              const house = obj._getParsedXal().premiseNumber;
+              console.log(house)
               const post_index = obj.properties.get('metaDataProperty').GeocoderMetaData.Address.postal_code;
               addressIsValid = true;
-              const sendCityToCDEK = (city) => {
-                fetch('/delivery', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    city,
-                    post_index,
-                    coord
-                  }),
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                  }
-                })
-                    .then((response) => {
-                      return response.json();
-                    })
-                    .then((result) => {
-                      // console.log(result);
-                    })
-                    .catch((error) => {
-                      console.log('Error:', error);
-                    });
-              };
 
-              sendCityToCDEK(city);
               // Удаляем сообщение об ошибке, если найденный адрес совпадает с поисковым запросом.
               $('#suggest').removeClass('input_error');
               $('#notice').css('display', 'none');
@@ -493,9 +470,9 @@
               createMap(mapState, shortAddress);
               // Выводим сообщение под картой.
               showFullMessage(address);
-              setTimeout(function() {
-                Livewire.emit('delivery_price_set');
-              }, 1500);
+              // setTimeout(function() {
+              //   Livewire.emit('delivery_price_set');
+              // }, 1500);
 
             }
 
@@ -595,8 +572,8 @@
           document.getElementById('address-button').addEventListener('click', () => {
               @if( empty($credentials['address']) )
             let address = form.validate().element('#suggest');
-            let delivery = form.validate().element('#sdek');
-            let addressCondition = address && addressIsValid && delivery;
+
+            let addressCondition = address && addressIsValid;
             if (address && !addressIsValid) {
               $('#notice').text('некорректный или неполный адрес');
               $('#suggest').addClass('input_error');
