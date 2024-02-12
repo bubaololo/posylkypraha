@@ -1600,7 +1600,6 @@ img.post-image {
     -webkit-text-fill-color: transparent;
     background: -webkit-linear-gradient(-70deg, #db469f, #2188ff);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-box-decoration-break: clone;
 }
 
@@ -2389,52 +2388,6 @@ span.prev-price {
     }
 }
 
-.main-logo__part {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.main-logo__part_base {
-    position: relative;
-}
-
-.main-logo__part-eye {
-    aspect-ratio: 1 / 1;
-    width: 5.2%;
-    position: absolute;
-    top: 33%;
-}
-
-.main-logo__part_left-eye {
-    left: 8.4%;
-    animation-name: staring;
-    animation-direction: alternate;
-    animation-duration: 4s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-.main-logo__part_right-eye {
-    left: 17%;
-    animation-name: staring;
-    animation-direction: alternate;
-    animation-duration: 4s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-delay: 4s;
-}
-
-@keyframes staring {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.4);
-    }
-}
 
 .del-button {
     width: inherit;
