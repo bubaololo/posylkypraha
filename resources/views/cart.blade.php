@@ -31,7 +31,7 @@
 
                         <div class="col-lg-7">
                             <h5 class="mb-3"><a href="#!" class="text-body"><i
-                                            class="fas fa-long-arrow-alt-left me-2"></i>Ваши товары</a></h5>
+                                            class="fas fa-long-arrow-alt-left me-2"></i>Содержимое посылки</a></h5>
                             <hr>
 
                             <div class="d-flex justify-content-between align-items-center mb-4">
@@ -48,55 +48,42 @@
                                             {{--<label for="enclosureDescription" class="form-label">Disabled input</label>--}}
                                             <input type="text" id="enclosureDescription" class="form-control" placeholder="Описание вложения">
                                         </div>
+                                        <div class="cart-item__controls-wrap">
+                                            <div class="cart-item__controls-left">
+                                                <div class="cart-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
+                                                    <span class="input-group-text">Вес</span>
+                                                    <input type="number" min="0" id="weight_kg" class="cart-item__weight form-control" placeholder="кг">
+                                                    <input type="number" min="0" id="weight_g" class="cart-item__weight form-control" placeholder="г">
+                                                </div>
 
-                                        <div class="input-group">
-                                            <span class="input-group-text">Вес</span>
-                                            <input type="number" id="weight_kg" class="form-control" placeholder="кг">
-                                            <input type="number" id="weight_g" class="form-control" placeholder="г">
-                                        </div>
+                                                <div class="cart-item__quantity">
 
+                                                    <div class="btn btn-light px-3 cart-item__quantity-btn">
+                                                        -
+                                                    </div>
 
-                                        <div class="d-flex cart-item__quantity" type="text">
-                                            <form wire:submit.prevent="decrement()" class="qty-btn">
-                                                @csrf
-                                                <button class="btn btn-light px-3 ">
-                                                    -
-                                                </button>
-                                            </form>
-                                            <div class="form-outline">
-                                                <div id="form1">1</div>
-                                                <label class="form-label mb-0" for="form1">шт.</label>
+                                                    <div class="cart-item__quantity-text">
+                                                        <strong class="cart-item__quantity-digit">1</strong>
+                                                        <div class="cart-item__quantity-measure">шт.</div>
+                                                    </div>
+
+                                                    <div class="btn btn-light px-3 me-2 cart-item__quantity-btn">
+                                                        +
+                                                    </div>
+
+                                                </div>
                                             </div>
 
-                                            <form wire:submit.prevent="increment()" class="qty-btn">
-                                                @csrf
-                                                <button class="btn btn-light px-3 me-2 ">
-                                                    +
-                                                </button>
-                                            </form>
+                                            <div class="cart-item__del">
+
+                                            </div>
                                         </div>
-
-                                        <form class="cart-item__del"
-                                                action="{{ route('cart.remove') }}"
-                                                method="POST">
-                                            @csrf
-                                            <input type="hidden" value="azaz"
-                                                    name="id">
-                                            <button class="del-button">
-
-                                            </button>
-                                        </form>
 
                                     </div>
                                 </div>
                             </div>
 
-                            <form
-                                    action="{{ route('cart.clear') }}"
-                                    method="POST">
-                                @csrf
-                                <input type=submit class="btn btn-outline-secondary btn-sm" value="очистить корзину">
-                            </form>
+                            <div class="btn btn-outline-secondary btn-sm">добавить вложение</div>
                             <hr class="my-4">
 
                             {{--@livewire('cart-total')--}}
