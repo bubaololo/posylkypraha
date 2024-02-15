@@ -791,14 +791,14 @@ body {
     height: auto;
     margin-right: 6px;
 }
-.cart-item__quantity {
+.package-item__quantity {
     display: flex;
     align-items: center;
     font-size: 12px;
     line-height: 12px;
     gap: 8px;
 }
-.cart-item__quantity-text {
+.package-item__quantity-text {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -823,7 +823,7 @@ body {
 
 
 
-.cart-item__del {
+.package-item__del {
     background-image: url('/images/icons/red-delete-10437.svg');
     background-size: cover;
     width: 20px;
@@ -837,25 +837,25 @@ body {
     font-size: 20px;
     line-height: 10px;
 }
-.cart-item__inner {
+.package-item__inner {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
-.cart-item__controls-wrap {
+.package-item__controls-wrap {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 20px;
 }
-.cart-item__controls-left {
+.package-item__controls-left {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
 }
-.cart-item__img img {
+.package-item__img img {
     max-height: 85px;
 }
 
@@ -897,7 +897,7 @@ body {
 
 @media screen and (max-width: 768px) {
 
-    .cart-item__del {
+    .package-item__del {
 
         margin-bottom: 0;
     }

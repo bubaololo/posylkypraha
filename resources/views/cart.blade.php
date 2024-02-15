@@ -43,38 +43,38 @@
 
                             <div class="card mb-3">
                                 <div class="card-body">
-                                    <div class="cart-item__inner">
-                                        <div class="cart-item__description">
+                                    <div class="package-item__inner">
+                                        <div class="package-item__description">
                                             {{--<label for="enclosureDescription" class="form-label">Disabled input</label>--}}
                                             <input type="text" id="enclosureDescription" class="form-control" placeholder="Описание вложения">
                                         </div>
-                                        <div class="cart-item__controls-wrap">
-                                            <div class="cart-item__controls-left">
-                                                <div class="cart-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
+                                        <div class="package-item__controls-wrap">
+                                            <div class="package-item__controls-left">
+                                                <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
                                                     <span class="input-group-text">Вес</span>
-                                                    <input type="number" min="0" id="weight_kg" class="cart-item__weight form-control" placeholder="кг">
-                                                    <input type="number" min="0" id="weight_g" class="cart-item__weight form-control" placeholder="г">
+                                                    <input type="number" min="0" id="weight_kg" class="package-item__weight form-control" placeholder="кг">
+                                                    <input type="number" min="0" id="weight_g" class="package-item__weight form-control" placeholder="г">
                                                 </div>
 
-                                                <div class="cart-item__quantity">
+                                                <div class="package-item__quantity">
 
-                                                    <div class="btn btn-light px-3 cart-item__quantity-btn">
+                                                    <div class="btn btn-light px-3 package-item__quantity-btn">
                                                         -
                                                     </div>
 
-                                                    <div class="cart-item__quantity-text">
-                                                        <strong class="cart-item__quantity-digit">1</strong>
-                                                        <div class="cart-item__quantity-measure">шт.</div>
+                                                    <div class="package-item__quantity-text">
+                                                        <strong class="package-item__quantity-digit">1</strong>
+                                                        <div class="package-item__quantity-measure">шт.</div>
                                                     </div>
 
-                                                    <div class="btn btn-light px-3 me-2 cart-item__quantity-btn">
+                                                    <div class="btn btn-light px-3 me-2 package-item__quantity-btn">
                                                         +
                                                     </div>
 
                                                 </div>
                                             </div>
 
-                                            <div class="cart-item__del">
+                                            <div class="package-item__del">
 
                                             </div>
                                         </div>

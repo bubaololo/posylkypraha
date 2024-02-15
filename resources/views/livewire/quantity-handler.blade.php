@@ -12,7 +12,7 @@
 {{--        </button>--}}
 {{--    </form>--}}
 <!-- Quantity -->
-    <div class="d-flex cart-item__quantity"  type="text">
+    <div class="d-flex package-item__quantity"  type="text">
         <form wire:submit.prevent="decrement()" class="qty-btn">
             @csrf
             <button class="btn btn-light px-3 ">
