@@ -797,6 +797,7 @@ body {
     font-size: 12px;
     line-height: 12px;
     gap: 8px;
+    width: min-content;
 }
 .package-item__quantity-text {
     display: flex;
@@ -837,16 +838,16 @@ body {
 }
 
 .package-item__inner {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+display: grid;
+    grid-template-rows: min-content min-content;
+
+    gap: 20px 0;
 }
 .package-item__controls-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    align-items: center;
+    gap: 16px;
 }
 .package-item__del {
     background-image: url('/images/icons/red-delete-10437.svg');
@@ -854,6 +855,7 @@ body {
     width: 20px;
     height: 20px;
     margin-bottom: 0;
+    margin-left: auto;
     cursor: pointer;
 }
 .package-item__controls-left {

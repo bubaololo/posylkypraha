@@ -48,7 +48,7 @@
                                             <input type="text" id="enclosureDescription" class="form-control" placeholder="Описание вложения">
                                         </div>
                                         <div class="package-item__controls-wrap">
-                                            <div class="package-item__controls-left">
+
                                                 <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
                                                     <span class="input-group-text">Вес</span>
                                                     <input type="number" min="0" id="weight_kg" class="package-item__weight form-control" placeholder="кг">
@@ -71,7 +71,7 @@
                                                     </div>
 
                                                 </div>
-                                            </div>
+
 
                                             <div class="package-item__del">
 
@@ -82,7 +82,7 @@
                                 </div>
                             </template>
 
-                            <div class="btn btn-outline-secondary btn-sm" id="add-package-item">добавить вложение</div>
+                            <div class="btn btn-outline-secondary btn-sm " id="add-package-item">+ добавить вложение</div>
                             <hr class="my-4">
 
                             {{--@livewire('cart-total')--}}
