@@ -34,103 +34,66 @@
                                             class="fas fa-long-arrow-alt-left me-2"></i>Содержимое посылки</a></h5>
                             <hr>
 
-                            <div class="d-flex flex-column gap-2 mb-4" id="packageItemsContainer">
-                                <div>
-                                    {{--@livewire('cart-counter')--}}
-                                </div>
 
-                            </div>
-                            <template  id="package-item-template">
-                                <div class="package-item">
-                                    <div class="package-item__inner">
-                                        <div class="package-item__description">
-                                            {{--<label for="enclosureDescription" class="form-label">Disabled input</label>--}}
-                                            <input type="text" id="enclosureDescription" class="form-control" placeholder="Описание вложения">
-                                        </div>
-                                        <div class="package-item__controls-wrap">
-
-                                                <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
-                                                    <span class="input-group-text">Вес</span>
-                                                    <input type="number" min="0" id="weight_kg" class="package-item__weight form-control" placeholder="кг">
-                                                    <input type="number" min="0" id="weight_g" class="package-item__weight form-control" placeholder="г">
+                                <div class="d-flex flex-column gap-2 mb-4" x-data="packageItemsComponent()">
+                                    <template x-for="(item, index) in items" :key="index">
+                                        <div class="package-item">
+                                            <div class="package-item__inner">
+                                                <div class="package-item__description">
+                                                    <input type="text" x-model="item.description" class="form-control" placeholder="Описание вложения">
                                                 </div>
-
-                                                <div class="package-item__quantity">
-
-                                                    <div class="btn btn-light px-3 package-item__quantity-btn">
-                                                        -
+                                                <div class="package-item__controls-wrap">
+                                                    <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
+                                                        <span class="input-group-text">Вес</span>
+                                                        <input type="number" min="0" x-model="item.weight_kg" class="package-item__weight form-control" placeholder="кг">
+                                                        <input type="number" min="0" x-model="item.weight_g" class="package-item__weight form-control" placeholder="г">
                                                     </div>
-
-                                                    <div class="package-item__quantity-text">
-                                                        <strong class="package-item__quantity-digit">1</strong>
-                                                        <div class="package-item__quantity-measure">шт.</div>
+                                                    <div class="package-item__quantity">
+                                                        <button type="button" class="btn btn-light px-3 package-item__quantity-btn" x-on:click="updateQuantity(item, -1)" x-bind:disabled="item.quantity <= 1">-</button>
+                                                        <div class="package-item__quantity-text">
+                                                            <strong x-text="item.quantity"></strong> шт.
+                                                        </div>
+                                                        <button type="button" class="btn btn-light px-3 me-2 package-item__quantity-btn" x-on:click="updateQuantity(item, 1)">+</button>
                                                     </div>
-
-                                                    <div class="btn btn-light px-3 me-2 package-item__quantity-btn">
-                                                        +
-                                                    </div>
-
+                                                    <div class="package-item__del" x-on:click="removeItem(index)" x-show="items.length > 1"></div>
                                                 </div>
-
-
-                                            <div class="package-item__del">
-
                                             </div>
                                         </div>
+                                    </template>
 
-                                    </div>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" x-on:click="addItem()">+ добавить вложение</button>
                                 </div>
-                            </template>
 
-                            <div class="btn btn-outline-secondary btn-sm " id="add-package-item">+ добавить вложение</div>
+                                <script>
+                                  function packageItemsComponent() {
+                                    return {
+                                      items: [{ description: '', weight_kg: null, weight_g: null, quantity: 1 }],
+
+                                      addItem() {
+                                        this.items.push({ description: '', weight_kg: null, weight_g: null, quantity: 1 });
+                                      },
+
+                                      removeItem(index) {
+                                        this.items.splice(index, 1);
+                                      },
+
+                                      updateQuantity(item, amount) {
+                                        const newQuantity = item.quantity + amount;
+                                        item.quantity = newQuantity >= 1 ? newQuantity : 1;
+                                      },
+                                    };
+                                  }
+                                </script>
+
+
+
+
+
+                            <div class="btn btn-outline-secondary btn-sm" id="add-package-item">добавить вложение</div>
                             <hr class="my-4">
 
                             {{--@livewire('cart-total')--}}
-                            <script>
-                              document.addEventListener('DOMContentLoaded', function() {
-                                const container = document.getElementById('packageItemsContainer');
-                                const addBtn = document.getElementById('add-package-item');
 
-                                // Функция для добавления нового элемента вложения
-                                function addPackageItem() {
-                                  const content = document.getElementById('package-item-template').content;
-                                  const clone = document.importNode(content, true);
-                                  container.appendChild(clone);
-                                  updateRemoveButtons();
-                                }
-
-                                // Функция для обновления состояния кнопок удаления
-                                function updateRemoveButtons() {
-                                  const removeButtons = container.querySelectorAll('.package-item__del');
-                                  removeButtons.forEach(button => {
-                                    button.removeEventListener('click', removePackageItem);
-                                    button.addEventListener('click', removePackageItem);
-                                  });
-
-                                  // Если есть только одна карточка, отключить кнопку удаления
-                                  if(removeButtons.length === 1) {
-                                    removeButtons[0].disabled = true;
-                                  } else {
-                                    removeButtons.forEach(button => button.disabled = false);
-                                  }
-                                }
-
-                                // Функция для удаления элемента вложения
-                                function removePackageItem(event) {
-                                  if(container.querySelectorAll('.package-item__inner').length > 1) {
-                                    event.target.closest('.package-item').remove();
-                                    updateRemoveButtons();
-                                  }
-                                }
-
-                                // Обработчик события для кнопки добавления
-                                addBtn.addEventListener('click', addPackageItem);
-
-                                // Добавляем первую карточку при загрузке страницы и обновляем кнопки удаления
-                                addPackageItem();
-                                updateRemoveButtons();
-                              });
-                            </script>
 
                         </div>
 
