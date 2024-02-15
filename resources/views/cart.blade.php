@@ -118,7 +118,7 @@
                                 // Функция для удаления элемента вложения
                                 function removePackageItem(event) {
                                   if(container.querySelectorAll('.package-item__inner').length > 1) {
-                                    event.target.closest('.package-item__inner').remove();
+                                    event.target.closest('.package-item').remove();
                                     updateRemoveButtons();
                                   }
                                 }
