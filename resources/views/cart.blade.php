@@ -34,15 +34,14 @@
                                             class="fas fa-long-arrow-alt-left me-2"></i>Содержимое посылки</a></h5>
                             <hr>
 
-                            <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="d-flex flex-column gap-2 mb-4" id="packageItemsContainer">
                                 <div>
                                     {{--@livewire('cart-counter')--}}
                                 </div>
 
                             </div>
-
-                            <div class="card mb-3">
-                                <div class="card-body">
+                            <template  id="package-item-template">
+                                <div class="package-item">
                                     <div class="package-item__inner">
                                         <div class="package-item__description">
                                             {{--<label for="enclosureDescription" class="form-label">Disabled input</label>--}}
@@ -81,12 +80,58 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            </template>
 
-                            <div class="btn btn-outline-secondary btn-sm">добавить вложение</div>
+                            <div class="btn btn-outline-secondary btn-sm" id="add-package-item">добавить вложение</div>
                             <hr class="my-4">
 
                             {{--@livewire('cart-total')--}}
+                            <script>
+                              document.addEventListener('DOMContentLoaded', function() {
+                                const container = document.getElementById('packageItemsContainer');
+                                const addBtn = document.getElementById('add-package-item');
+
+                                // Функция для добавления нового элемента вложения
+                                function addPackageItem() {
+                                  const content = document.getElementById('package-item-template').content;
+                                  const clone = document.importNode(content, true);
+                                  container.appendChild(clone);
+                                  updateRemoveButtons();
+                                }
+
+                                // Функция для обновления состояния кнопок удаления
+                                function updateRemoveButtons() {
+                                  const removeButtons = container.querySelectorAll('.package-item__del');
+                                  removeButtons.forEach(button => {
+                                    button.removeEventListener('click', removePackageItem);
+                                    button.addEventListener('click', removePackageItem);
+                                  });
+
+                                  // Если есть только одна карточка, отключить кнопку удаления
+                                  if(removeButtons.length === 1) {
+                                    removeButtons[0].disabled = true;
+                                  } else {
+                                    removeButtons.forEach(button => button.disabled = false);
+                                  }
+                                }
+
+                                // Функция для удаления элемента вложения
+                                function removePackageItem(event) {
+                                  if(container.querySelectorAll('.package-item__inner').length > 1) {
+                                    event.target.closest('.package-item__inner').remove();
+                                    updateRemoveButtons();
+                                  }
+                                }
+
+                                // Обработчик события для кнопки добавления
+                                addBtn.addEventListener('click', addPackageItem);
+
+                                // Добавляем первую карточку при загрузке страницы и обновляем кнопки удаления
+                                addPackageItem();
+                                updateRemoveButtons();
+                              });
+                            </script>
+
                         </div>
 
                         <div class="col-lg-5">
