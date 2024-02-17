@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BuyNowController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\ParcelController;
 use App\Http\Controllers\CredentialController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MockCartController;
@@ -26,13 +26,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('products', [ProductController::class, 'productList'])->name('products.list');
 Route::get('product/{slug}', [ProductController::class, 'singleProduct'])->name('single.product');
-Route::get('cart', [CartController::class, 'cartList'])->name('cart.list');
+Route::get('cart', [ParcelController::class, 'cartList'])->name('cart.list');
 Route::get('cart/{id}', [BuyNowController::class, 'buySpecificProduct'])->name('cart.now');
-Route::post('cart', [CartController::class, 'addToCart'])->name('cart.store');
-Route::post('update-cart', [CartController::class, 'updateCart'])->name('cart.update');
-Route::post('remove', [CartController::class, 'removeCart'])->name('cart.remove');
-Route::post('checkout', [CartController::class, 'store'])->name('cart.checkout');
-Route::post('clear', [CartController::class, 'clearAllCart'])->name('cart.clear');
+Route::post('cart', [ParcelController::class, 'addToCart'])->name('cart.store');
+Route::post('update-cart', [ParcelController::class, 'updateCart'])->name('cart.update');
+Route::post('remove', [ParcelController::class, 'removeCart'])->name('cart.remove');
+Route::post('checkout', [ParcelController::class, 'store'])->name('cart.checkout');
+Route::post('clear', [ParcelController::class, 'clearAllCart'])->name('cart.clear');
 Route::post('delivery', [DeliveryCostController::class, 'getDeliveryCost'])->name('cdek');
 
 

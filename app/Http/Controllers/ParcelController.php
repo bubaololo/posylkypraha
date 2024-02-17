@@ -10,15 +10,17 @@ use App\Models\ParcelEnclosure;
 use App\Models\Enclosure;
 use JsValidator;
 
-class CartController extends Controller
+class ParcelController extends Controller
 {
     protected $validationRules = ['user_id' => 'nullable|exists:users,user_id',
-        'name' => 'bail|alpha|required|max:50|string',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
-        'surname' => 'alpha_dash|required|max:50|string',
+        'sender_name' => 'bail|alpha|required|max:50|string',
+        'sender_surname' => 'alpha_dash|required|max:50|string',
+        'recipient_name' => 'bail|alpha|required|max:50|string',
+        'recipient_surname' => 'alpha_dash|required|max:50|string',
+//        'email' => 'required|string|email|max:255|unique:users',
+//        'password' => 'required|string|min:8|confirmed',
         'middle_name' => 'alpha|required|max:50|string',
-        'address' => 'required',
+//        'address' => 'required',
         'telephone' => 'integer'
     ];
     
