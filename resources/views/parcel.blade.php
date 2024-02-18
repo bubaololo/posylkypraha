@@ -596,7 +596,7 @@
         <!-- Laravel Javascript Validation -->
         <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
         {{--        {!! $validator->selector('#quest_form') !!}--}}
-        {!! JsValidator::formRequest('App\Http\Requests\StoreCheckout', '#quest_form'); !!}
+        {!! JsValidator::formRequest('App\Http\Requests\ParcelCheckout', '#quest_form'); !!}
         <script>
           //intermediate validation
           const form = $("#quest_form");
@@ -610,19 +610,19 @@
               swiper.allowSlideNext = false
             }
           }
+
+
           document.getElementById('address-button').addEventListener('click', () => {
               @if( empty($credentials['address']) )
             let address = form.validate().element('#suggest');
-
-            let addressCondition = address && addressIsValid;
+            let apartment = form.validate().element('#apartment');
+            let addressCondition = address && addressIsValid && apartment;
             if (address && !addressIsValid) {
               $('#notice').text('некорректный или неполный адрес');
               $('#suggest').addClass('input_error');
               $('#notice').css('display', 'block');
             }
             checkIfAllFieldsValidated(addressCondition);
-              @else
-            checkIfAllFieldsValidated(delivery);
               @endif
           });
           //tooltip
