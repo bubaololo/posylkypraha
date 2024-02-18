@@ -12,7 +12,7 @@
 {{--Телефон--}}
 {{--Вес кг--}}
 {{--Вес грамма (по умолчанию ноль)--}}
-Номер вложения (думаю там просто должны выпадать поля. Условно, если я отправляю книгу, то поле одно, если книгу, плюс шоколадку, то нажимаю плюс, заполняю еще одно поле) в каждом вложении проставляю кол-во одного наименования, общий вес  данного вложения в килограммах и граммах, а так же стоимость, а система потом формирует из этого список: 1,2,3,4,5 итд
+{{--Номер вложения (думаю там просто должны выпадать поля. Условно, если я отправляю книгу, то поле одно, если книгу, плюс шоколадку, то нажимаю плюс, заполняю еще одно поле) в каждом вложении проставляю кол-во одного наименования, общий вес  данного вложения в килограммах и граммах, а так же стоимость, а система потом формирует из этого список: 1,2,3,4,5 итд--}}
 @extends('layouts.app')
 @section('title', 'Корзина')
 @section('meta_description', 'Оформить посылку')
@@ -49,66 +49,60 @@
                                             class="fas fa-long-arrow-alt-left me-2"></i>Содержимое посылки</a></h5>
                             <hr>
 
-
-                                <div class="d-flex flex-column gap-2 mb-4" x-data="packageItemsComponent()">
-                                    <template x-for="(item, index) in items" :key="index">
-                                        <div class="package-item">
-                                            <div class="package-item__inner">
-                                                <div class="package-item__description">
-                                                    <input type="text" x-model="item.description" class="form-control" placeholder="Описание вложения">
+                            <div class="d-flex flex-column gap-2 mb-4" x-data="packageItemsComponent()">
+                                <template x-for="(item, index) in items" :key="index">
+                                    <div class="package-item">
+                                        <div class="package-item__inner">
+                                            <div class="package-item__description">
+                                                <input type="text" x-model="item.description" class="form-control" placeholder="Описание вложения">
+                                            </div>
+                                            <div class="package-item__controls-wrap">
+                                                <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
+                                                    <span class="input-group-text">Вес</span>
+                                                    <input type="number" min="0" x-model="item.weight_kg" class="package-item__weight form-control" placeholder="кг">
+                                                    <input type="number" min="0" x-model="item.weight_g" class="package-item__weight form-control" placeholder="г">
                                                 </div>
-                                                <div class="package-item__controls-wrap">
-                                                    <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
-                                                        <span class="input-group-text">Вес</span>
-                                                        <input type="number" min="0" x-model="item.weight_kg" class="package-item__weight form-control" placeholder="кг">
-                                                        <input type="number" min="0" x-model="item.weight_g" class="package-item__weight form-control" placeholder="г">
+                                                <div class="package-item__quantity">
+                                                    <button type="button" class="btn btn-light px-3 package-item__quantity-btn" x-on:click="updateQuantity(item, -1)" x-bind:disabled="item.quantity <= 1">-</button>
+                                                    <div class="package-item__quantity-text">
+                                                        <strong x-text="item.quantity"></strong> шт.
                                                     </div>
-                                                    <div class="package-item__quantity">
-                                                        <button type="button" class="btn btn-light px-3 package-item__quantity-btn" x-on:click="updateQuantity(item, -1)" x-bind:disabled="item.quantity <= 1">-</button>
-                                                        <div class="package-item__quantity-text">
-                                                            <strong x-text="item.quantity"></strong> шт.
-                                                        </div>
-                                                        <button type="button" class="btn btn-light px-3 me-2 package-item__quantity-btn" x-on:click="updateQuantity(item, 1)">+</button>
-                                                    </div>
-                                                    <div class="package-item__del" x-on:click="removeItem(index)" x-show="items.length > 1"></div>
+                                                    <button type="button" class="btn btn-light px-3 me-2 package-item__quantity-btn" x-on:click="updateQuantity(item, 1)">+</button>
                                                 </div>
+                                                <div class="package-item__del" x-on:click="removeItem(index)" x-show="items.length > 1"></div>
                                             </div>
                                         </div>
-                                    </template>
+                                    </div>
+                                </template>
 
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" x-on:click="addItem()">+ добавить вложение</button>
-                                </div>
+                                <button type="button" class="btn btn-outline-secondary btn-sm" x-on:click="addItem()">+ добавить вложение</button>
+                            </div>
 
-                                <script>
-                                  function packageItemsComponent() {
-                                    return {
-                                      items: [{ description: '', weight_kg: null, weight_g: null, quantity: 1 }],
+                            <script>
+                              function packageItemsComponent() {
+                                return {
+                                  items: [{description: '', weight_kg: null, weight_g: null, quantity: 1}],
 
-                                      addItem() {
-                                        this.items.push({ description: '', weight_kg: null, weight_g: null, quantity: 1 });
-                                      },
+                                  addItem() {
+                                    this.items.push({description: '', weight_kg: null, weight_g: null, quantity: 1});
+                                  },
 
-                                      removeItem(index) {
-                                        this.items.splice(index, 1);
-                                      },
+                                  removeItem(index) {
+                                    this.items.splice(index, 1);
+                                  },
 
-                                      updateQuantity(item, amount) {
-                                        const newQuantity = item.quantity + amount;
-                                        item.quantity = newQuantity >= 1 ? newQuantity : 1;
-                                      },
-                                    };
+                                  updateQuantity(item, amount) {
+                                    const newQuantity = item.quantity + amount;
+                                    item.quantity = newQuantity >= 1 ? newQuantity : 1;
                                   }
-                                </script>
-
-
-
-
+                                };
+                              }
+                            </script>
 
                             <div class="btn btn-outline-secondary btn-sm" id="add-package-item">добавить вложение</div>
                             <hr class="my-4">
 
                             {{--@livewire('cart-total')--}}
-
 
                         </div>
 
@@ -465,11 +459,28 @@
 
               addressRetryCount = 0;
               const coord = obj.properties.get('boundedBy')[0];
+              // регион
+              const region = obj._getParsedXal().administrativeAreas[0];
+              console.log('регион: ' + region)
+              //район
+              const administrativeArea = obj._getParsedXal().administrativeAreas[1];
+              console.log('район: ' + administrativeArea)
+              // город
               const city = obj._getParsedXal().localities[0];
+              console.log('город: ' + city)
+              //улица
               const street = obj._getParsedXal().thoroughfare;
-              const house = obj._getParsedXal().premiseNumber;
-              console.log(house)
+              console.log('улица: ' + street)
+              //дом
+              const premiseNumber = obj._getParsedXal().premiseNumber;
+              console.log('улица: ' + premiseNumber)
+              // корпус
+              const premise = obj._getParsedXal().premise;
+              console.log('корпус: ' + premise)
+
               const post_index = obj.properties.get('metaDataProperty').GeocoderMetaData.Address.postal_code;
+              console.log('индекс: ' + post_index);
+
               addressIsValid = true;
 
               // Удаляем сообщение об ошибке, если найденный адрес совпадает с поисковым запросом.
@@ -552,12 +563,19 @@
               $('#message').text(message);
             }
           }
-
+          // setTimeout(function() { // задержка для дополнительной проверки
+          //   document.querySelectorAll('textarea').forEach(function(textarea) {
+          //     if (textarea.value || textarea.textContent) {
+          //       geocode()
+          //     }
+          //   });
+          // }, 100); // Задержка в 100 мс
         </script>
 
         <script src="{{ asset('js/checkout.js') }}"></script>
         @if( empty($credentials) )
             <script>
+              //fill inputs with values from localstorage
               let inputs = document.querySelectorAll('input[type=text]');
               inputs.forEach((input) => {
 
@@ -566,13 +584,14 @@
                     input.value = localStorage.getItem(input.name);
                   }
                 }
-
+                //save entered values to localstorage, to prevent loss
                 input.addEventListener('blur', (input) => {
 
                   localStorage.setItem(input.target.name, input.target.value);
                 })
               })
             </script>
+
         @endif
         <!-- Laravel Javascript Validation -->
         <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
@@ -591,8 +610,6 @@
               swiper.allowSlideNext = false
             }
           }
-
-
           document.getElementById('address-button').addEventListener('click', () => {
               @if( empty($credentials['address']) )
             let address = form.validate().element('#suggest');
@@ -605,7 +622,6 @@
             }
             checkIfAllFieldsValidated(addressCondition);
               @else
-            let delivery = form.validate().element('#sdek');
             checkIfAllFieldsValidated(delivery);
               @endif
           });
@@ -637,10 +653,7 @@
               @endguest
           }, 10);
         </script>
-        <script>
-          // Initialize tippy on all elements with the data-tippy attribute
 
-        </script>
     @endpush
 @endsection
 

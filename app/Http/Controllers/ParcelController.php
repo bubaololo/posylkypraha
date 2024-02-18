@@ -18,32 +18,16 @@ class ParcelController extends Controller
         'recipient_name' => 'bail|alpha|required|max:50|string',
         'recipient_surname' => 'alpha_dash|required|max:50|string',
 //        'email' => 'required|string|email|max:255|unique:users',
-//        'password' => 'required|string|min:8|confirmed',
+        'password' => 'required|string|min:8|confirmed',
         'middle_name' => 'alpha|required|max:50|string',
-//        'address' => 'required',
+        'address' => 'required',
         'telephone' => 'integer'
     ];
     
-    public function cartList()
+    public function index()
     {
-        $cartItems = \Cart::getContent();
-        
-        $user = Auth::user();
-        
-        if ($user) {
-            $credentialsCheck = $user->credential()->first();
-            
-            if ($credentialsCheck) {
-                $credentials = $credentialsCheck;
-                return view('cart', compact('cartItems', 'credentials'));
-            }
-        }
-//        $validator = JsValidator::make($this->validationRules);
-        foreach ($cartItems as $item) {
-            $productSlug = Enclosure::find($item->id)->slug;
-            $item->slug = $productSlug;
-        }
-        return view('cart', compact('cartItems',));
+      
+        return view('parcel');
     }
     
     public function addToCart(Request $request)

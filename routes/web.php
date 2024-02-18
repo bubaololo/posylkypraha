@@ -26,11 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('products', [ProductController::class, 'productList'])->name('products.list');
 Route::get('product/{slug}', [ProductController::class, 'singleProduct'])->name('single.product');
-Route::get('cart', [ParcelController::class, 'cartList'])->name('cart.list');
-Route::get('cart/{id}', [BuyNowController::class, 'buySpecificProduct'])->name('cart.now');
-Route::post('cart', [ParcelController::class, 'addToCart'])->name('cart.store');
-Route::post('update-cart', [ParcelController::class, 'updateCart'])->name('cart.update');
-Route::post('remove', [ParcelController::class, 'removeCart'])->name('cart.remove');
+Route::get('parcel', [ParcelController::class, 'index'])->name('parcel');
 Route::post('checkout', [ParcelController::class, 'store'])->name('cart.checkout');
 Route::post('clear', [ParcelController::class, 'clearAllCart'])->name('cart.clear');
 Route::post('delivery', [DeliveryCostController::class, 'getDeliveryCost'])->name('cdek');
@@ -43,7 +39,7 @@ Route::get('test', [MockCartController::class, 'store'])->name('cart.mock');
 //Route::get('/', [MainPageController::class, 'index'])->name('index'); // TODO найти где ещё есть обращение к имени роута и изменить его
 
 Route::get('/', function() {
-    return redirect('/cart');
+    return redirect('/parcel');
 })->name('index');
 
 Route::get('/switchLang/{lang}', [LanguageController::class, 'switchLang']);
