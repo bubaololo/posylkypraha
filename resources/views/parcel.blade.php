@@ -94,7 +94,8 @@
                                   updateQuantity(item, amount) {
                                     const newQuantity = item.quantity + amount;
                                     item.quantity = newQuantity >= 1 ? newQuantity : 1;
-                                  }
+                                  },
+
                                 };
                               }
                             </script>
@@ -134,10 +135,42 @@
 
                                         <div class="quest__slider_wrapper mySwiper">
                                             <form enctype="multipart/form-data" method="post" id="quest_form"
-                                                    class="quest__slides swiper-wrapper" action="/checkout">
+                                                    class="quest__slides swiper-wrapper"  action="/checkout">
                                             @csrf
 
                                             <!-- ________SLIDE -->
+                                                <div class="swiper-slide">
+                                                    <div class="quest__slide credentials-slide">
+                                                        <div class="quest__slide_title_wrapper">
+                                                            <div class="quest__slide_title">
+                                                                Отправитель
+                                                            </div>
+                                                            <div class="quest__slide_subtitle">
+                                                                имя и фамилия отправителя
+                                                            </div>
+                                                            <div class="redline"></div>
+                                                        </div>
+                                                        <div class="quest__slide_forms_wrapper">
+                                                            <div class="quest__input-group">
+                                                                <label for="sender_name">Имя отправителя</label>
+                                                                <input type="text" id="sender_name" name="sender_name" class="quest__input"
+                                                                        value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="John">
+                                                            </div>
+                                                            <div class="quest__input-group">
+                                                                <label for="sender_surname">Фамилия отправителя</label>
+                                                                <input type="text" id="sender_surname" name="sender_surname" class="quest__input"
+                                                                        value="@isset($credentials['sender_surname']) {{ $credentials['sender_surname'] }} @endisset" placeholder="Smith">
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="quest__slider_buttons_wrapper">
+                                                        <div id="sender-credentials-button" class="quest__next quest__button">Далее</div>
+                                                    </div>
+                                                </div>
+                                                <!-- ________SLIDE -->
+                                                <!-- ________SLIDE -->
                                                 <div id="adress-slide" class="swiper-slide address-slide">
                                                     <div class="quest__input-group">
                                                         <div class="quest__slide_title_wrapper">
@@ -218,30 +251,24 @@
                                                     <div class="quest__slide credentials-slide">
                                                         <div class="quest__slide_title_wrapper">
                                                             <div class="quest__slide_title">
-                                                                Персональные данные
+                                                                Получатель
                                                             </div>
                                                             <div class="quest__slide_subtitle">
-                                                                Данные необходимые для доставки
+                                                                Данные получателя посылки
                                                             </div>
                                                             <div class="redline"></div>
                                                         </div>
                                                         <div class="quest__slide_forms_wrapper">
                                                             <div class="quest__input-group">
                                                                 <label for="name">Имя</label>
-                                                                <input type="text" id="name" name="name" class="quest__input"
-                                                                        value="@isset($credentials['name']) {{ $credentials['name'] }} @endisset" placeholder="Иван">
+                                                                <input type="text" id="recipient_name" name="recipient_name" class="quest__input"
+                                                                        value="@isset($credentials['recipient_name']) {{ $credentials['recipient_name'] }} @endisset" placeholder="Иван">
                                                             </div>
                                                             <div class="quest__input-group">
                                                                 <label for="surname">Фамилия</label>
-                                                                <input type="text" id="surname" name="surname" class="quest__input"
-                                                                        value="@isset($credentials['surname']) {{ $credentials['surname'] }} @endisset" placeholder="Иванов">
+                                                                <input type="text" id="recipient_surname" name="recipient_surname" class="quest__input"
+                                                                        value="@isset($credentials['recipient_surname']) {{ $credentials['recipient_surname'] }} @endisset" placeholder="Иванов">
 
-                                                            </div>
-                                                            <div class="quest__input-group">
-                                                                <label for="middle_name">Отчество</label>
-                                                                <input type="text" id="middle_name" name="middle_name"
-                                                                        class="quest__input"
-                                                                        value="@isset($credentials['middle_name']) {{ $credentials['middle_name'] }} @endisset" placeholder="Иванович">
                                                             </div>
                                                             <div class="quest__input-group">
                                                                 <label for="tel">Телефон</label>
@@ -253,64 +280,65 @@
                                                         </div>
                                                     </div>
                                                     <div class="quest__slider_buttons_wrapper">
-                                                        <div id="credentials-button" class="quest__next quest__button">Далее</div>
+                                                        {{--<div id="credentials-button" class="quest__next quest__button">Далее</div>--}}
+                                                        <input id="receiver-credentials-button" class="quest__button quest__submit_button" value="Оформить заказ" type="submit">
                                                         <div class="quest__prev quest__button">Назад</div>
                                                     </div>
                                                 </div>
                                                 <!-- ________SLIDE -->
-                                                <div class="swiper-slide">
-                                                    <div class="quest__slide">
-                                                        <div class="quest__slide_title_wrapper">
-                                                            <div class="quest__slide_title">
-                                                                Регистрация и контакты
-                                                            </div>
-                                                            <div class="quest__slide_subtitle">
-                                                                Предпочтительный способ связи
-                                                            </div>
-                                                            <div class="redline"></div>
-                                                        </div>
-                                                        <div class="quest__slide_forms_wrapper">
-                                                            @guest
-                                                                <div data-tippy="This is a simple tooltip" class="form-check">
-                                                                    <input class="form-check-input" type="checkbox" value="1" name="registerCheck" id="registerCheck">
-                                                                    <label class="form-check-label" for="registerCheck">
-                                                                        Зарегистрироваться
-                                                                    </label>
-                                                                </div>
-                                                            @endguest
-                                                            <div class="quest__input-group">
-                                                                <label for="email">Email</label>
-                                                                <input type="text" id="email" name="email" class="quest__input"
-                                                                        value="@isset($credentials['email']){{ $credentials['email'] }}@endisset" placeholder="mail@mail.com">
-                                                            </div>
-                                                            <div class="quest__input-group quest__input-group_hidden" id="password-group">
-                                                                <label for="password">пароль</label>
-                                                                <input type="password" id="password" name="password" required class="quest__input">
-                                                                <label for="password_confirmation">подтверждение пароля</label>
-                                                                <input type="password" id="password_confirmation" name="password_confirmation" required class="quest__input">
-                                                            </div>
-                                                            <div class="quest__input-group">
-                                                                <label for="telegram">Telegram</label>
-                                                                <input type="text" id="telegram" name="telegram"
-                                                                        class="quest__input"
-                                                                        value="@isset($credentials['telegram']) {{ $credentials['telegram'] }} @endisset" placeholder="@username">
-                                                            </div>
-                                                            <div class="quest__input-group">
-                                                                <label for="whatsapp">Whatsapp</label>
-                                                                <input type="text" id="whatsapp" name="whatsapp"
-                                                                        class="quest__input"
-                                                                        value="@isset($credentials['whatsapp']) {{ $credentials['whatsapp'] }} @endisset" placeholder="89000000000">
+                                                {{--<div class="swiper-slide">--}}
+                                                {{--    <div class="quest__slide">--}}
+                                                {{--        <div class="quest__slide_title_wrapper">--}}
+                                                {{--            <div class="quest__slide_title">--}}
+                                                {{--                Регистрация и контакты--}}
+                                                {{--            </div>--}}
+                                                {{--            <div class="quest__slide_subtitle">--}}
+                                                {{--                Предпочтительный способ связи--}}
+                                                {{--            </div>--}}
+                                                {{--            <div class="redline"></div>--}}
+                                                {{--        </div>--}}
+                                                {{--        <div class="quest__slide_forms_wrapper">--}}
+                                                {{--            @guest--}}
+                                                {{--                <div data-tippy="This is a simple tooltip" class="form-check">--}}
+                                                {{--                    <input class="form-check-input" type="checkbox" value="1" name="registerCheck" id="registerCheck">--}}
+                                                {{--                    <label class="form-check-label" for="registerCheck">--}}
+                                                {{--                        Зарегистрироваться--}}
+                                                {{--                    </label>--}}
+                                                {{--                </div>--}}
+                                                {{--            @endguest--}}
+                                                {{--            <div class="quest__input-group">--}}
+                                                {{--                <label for="email">Email</label>--}}
+                                                {{--                <input type="text" id="email" name="email" class="quest__input"--}}
+                                                {{--                        value="@isset($credentials['email']){{ $credentials['email'] }}@endisset" placeholder="mail@mail.com">--}}
+                                                {{--            </div>--}}
+                                                {{--            <div class="quest__input-group quest__input-group_hidden" id="password-group">--}}
+                                                {{--                <label for="password">пароль</label>--}}
+                                                {{--                <input type="password" id="password" name="password" required class="quest__input">--}}
+                                                {{--                <label for="password_confirmation">подтверждение пароля</label>--}}
+                                                {{--                <input type="password" id="password_confirmation" name="password_confirmation" required class="quest__input">--}}
+                                                {{--            </div>--}}
+                                                {{--            <div class="quest__input-group">--}}
+                                                {{--                <label for="telegram">Telegram</label>--}}
+                                                {{--                <input type="text" id="telegram" name="telegram"--}}
+                                                {{--                        class="quest__input"--}}
+                                                {{--                        value="@isset($credentials['telegram']) {{ $credentials['telegram'] }} @endisset" placeholder="@username">--}}
+                                                {{--            </div>--}}
+                                                {{--            <div class="quest__input-group">--}}
+                                                {{--                <label for="whatsapp">Whatsapp</label>--}}
+                                                {{--                <input type="text" id="whatsapp" name="whatsapp"--}}
+                                                {{--                        class="quest__input"--}}
+                                                {{--                        value="@isset($credentials['whatsapp']) {{ $credentials['whatsapp'] }} @endisset" placeholder="89000000000">--}}
 
-                                                            </div>
+                                                {{--            </div>--}}
 
-                                                        </div>
-                                                    </div>
-                                                    <div class="quest__slider_buttons_wrapper">
-                                                        <input class="quest__button quest__submit_button" value="Оформить заказ" type="submit">
-                                                        <div class="quest__prev quest__button">Назад</div>
-                                                    </div>
-                                                </div>
-                                                <!-- ________SLIDE -->
+                                                {{--        </div>--}}
+                                                {{--    </div>--}}
+                                                {{--    <div class="quest__slider_buttons_wrapper">--}}
+                                                {{--        <input class="quest__button quest__submit_button" value="Оформить заказ" type="submit">--}}
+                                                {{--        <div class="quest__prev quest__button">Назад</div>--}}
+                                                {{--    </div>--}}
+                                                {{--</div>--}}
+                                                {{--<!-- ________SLIDE -->--}}
                                                 {{--<div class="swiper-slide">--}}
                                                 {{--    <div class="quest__slide">--}}
                                                 {{--        <div class="quest__slide_title_wrapper">--}}
@@ -563,6 +591,7 @@
               $('#message').text(message);
             }
           }
+
           // setTimeout(function() { // задержка для дополнительной проверки
           //   document.querySelectorAll('textarea').forEach(function(textarea) {
           //     if (textarea.value || textarea.textContent) {
@@ -597,6 +626,7 @@
         <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
         {{--        {!! $validator->selector('#quest_form') !!}--}}
         {!! JsValidator::formRequest('App\Http\Requests\ParcelCheckout', '#quest_form'); !!}
+
         <script>
           //intermediate validation
           const form = $("#quest_form");
@@ -611,7 +641,18 @@
             }
           }
 
+          // sender name slide ----------------------------------------------------------------------
+          document.getElementById('sender-credentials-button').addEventListener('click', () => {
 
+            let sender_name = form.validate().element('#sender_name');
+            let sender_surname = form.validate().element('#sender_surname');
+            let credentialsCondition = sender_name && sender_surname;
+            checkIfAllFieldsValidated(credentialsCondition);
+          }, 10);
+          // ----------------------------------------------------------------------------------------
+
+
+          // receiver adress slide ----------------------------------------------------------------------
           document.getElementById('address-button').addEventListener('click', () => {
               @if( empty($credentials['address']) )
             let address = form.validate().element('#suggest');
@@ -625,23 +666,15 @@
             checkIfAllFieldsValidated(addressCondition);
               @endif
           });
-          //tooltip
-          @guest
-          const registerCheck = document.querySelector('.form-check');
-          const tooltipContent = 'Рекомендуем зарегистрировать аккаунт, так вы сможете отслеживать заказ в личном кабинете'
-          tippy(registerCheck, {
-            content: tooltipContent
-          });
-          const tooltipInstance = tippy(registerCheck);
-          tooltipInstance.setContent(tooltipContent);
-          @endguest
-          document.getElementById('credentials-button').addEventListener('click', () => {
+          // ----------------------------------------------------------------------------------------
 
-            let name = form.validate().element('#name');
-            let surname = form.validate().element('#surname');
-            let middle_name = form.validate().element('#middle_name');
+          // receiver credentials ----------------------------------------------------------------------
+          document.getElementById('receiver-credentials-button').addEventListener('click', () => {
+
+            let receiver_name = form.validate().element('#receiver_name');
+            let receiver_surname = form.validate().element('#receiver_surname');
             let tel = form.validate().element('#tel');
-            let credentialsCondition = name && surname && middle_name && tel;
+            let credentialsCondition = receiver_name && receiver_surname && tel;
             checkIfAllFieldsValidated(credentialsCondition);
               @guest
               tooltipInstance.show();
@@ -652,6 +685,19 @@
             }, 5000);
               @endguest
           }, 10);
+          // ----------------------------------------------------------------------------------------
+
+
+          //tooltip
+          @guest
+          const registerCheck = document.querySelector('.form-check');
+          const tooltipContent = 'Рекомендуем зарегистрировать аккаунт, так вы сможете отслеживать заказ в личном кабинете'
+          tippy(registerCheck, {
+            content: tooltipContent
+          });
+          const tooltipInstance = tippy(registerCheck);
+          tooltipInstance.setContent(tooltipContent);
+            @endguest
         </script>
 
     @endpush
