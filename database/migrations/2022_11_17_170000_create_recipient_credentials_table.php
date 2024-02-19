@@ -20,7 +20,6 @@ return new class extends Migration {
                 ->constrained()
                 ->onUpdate('cascade');
             $table->tinyText('name');
-            $table->tinyText('surname')->nullable();
             $table->tinyText('middle_name')->nullable();
             $table->text('region')->nullable();
             $table->text('district')->nullable();

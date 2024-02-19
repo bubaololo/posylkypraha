@@ -28,9 +28,10 @@ class ParcelCheckout extends FormRequest
             'user_id' => 'nullable|exists:users,user_id',
             'address' => 'required',
             'apartment' => 'integer',
-            'name' => 'required|max:50|string',
-            'surname' => 'required|max:50|string',
-            'middle_name' => 'required|max:50|string',
+            'sender_name' => 'required|max:50|string',
+            'sender_surname' => 'required|max:50|string',
+            'recipient_name' => 'required|max:50|string',
+            'recipient_surname' => 'required|max:50|string',
             'telephone' => 'required|min:7|regex:/^[\d\+\(\)\-]+$/',
             'email' => 'email',
             'password' => 'min:8|confirmed'
@@ -46,7 +47,8 @@ class ParcelCheckout extends FormRequest
     public function messages()
     {
         return [
-            'deliveryType.required' => 'Выберите тип доставки',
+            'sender_name.required' => 'Укажите имя отправителя',
+            'sender_surname.required' => 'Укажите фамилию отправителя',
             'address.required' => 'Заполните адрес доставки',
             'telephone.required' => 'Укажите номер телефона',
             'telephone.min' => 'Телефон должен быть минимум 7 цифр',
