@@ -42,7 +42,9 @@
 
             <section class="h-100 h-custom">
                 <div class="container py-5 h-100">
-                    <div class="row d-flex justify-content-center h-100">
+                    <form enctype="multipart/form-data" method="post" id="quest_form"
+                             action="/checkout">
+                        @csrf
 
                         <div class="col-lg-7">
                             <h5 class="mb-3"><a href="#!" class="text-body"><i
@@ -54,21 +56,24 @@
                                     <div class="package-item">
                                         <div class="package-item__inner">
                                             <div class="package-item__description">
-                                                <input type="text" x-model="item.description" class="form-control" placeholder="Описание вложения">
+                                                <input type="text" x-model="item.description" :name="'items[' + index + '][description]'" class="form-control" placeholder="Описание вложения">
                                             </div>
                                             <div class="package-item__controls-wrap">
                                                 <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
                                                     <span class="input-group-text">Вес</span>
-                                                    <input type="number" min="0" x-model="item.weight_kg" class="package-item__weight form-control" placeholder="кг">
-                                                    <input type="number" min="0" x-model="item.weight_g" class="package-item__weight form-control" placeholder="г">
+                                                    <input type="number" min="0" x-model="item.weight_kg" :name="'items[' + index + '][weight_kg]'" class="form-control" placeholder="кг">
+                                                    <input type="number" min="0" x-model="item.weight_g" :name="'items[' + index + '][weight_g]'" class="form-control" placeholder="г">
                                                 </div>
                                                 <div class="package-item__quantity">
                                                     <button type="button" class="btn btn-light px-3 package-item__quantity-btn" x-on:click="updateQuantity(item, -1)" x-bind:disabled="item.quantity <= 1">-</button>
                                                     <div class="package-item__quantity-text">
                                                         <strong x-text="item.quantity"></strong> шт.
+                                                        <!-- Скрытое поле для отправки количества -->
+                                                        <input type="hidden" x-model="item.quantity" :name="'items[' + index + '][quantity]'" class="form-control">
                                                     </div>
                                                     <button type="button" class="btn btn-light px-3 me-2 package-item__quantity-btn" x-on:click="updateQuantity(item, 1)">+</button>
                                                 </div>
+
                                                 <div class="package-item__del" x-on:click="removeItem(index)" x-show="items.length > 1"></div>
                                             </div>
                                         </div>
@@ -95,6 +100,7 @@
                                     const newQuantity = item.quantity + amount;
                                     item.quantity = newQuantity >= 1 ? newQuantity : 1;
                                   }
+
                                 };
                               }
                             </script>
@@ -133,11 +139,9 @@
                                         </div>
 
                                         <div class="quest__slider_wrapper mySwiper">
-                                            <form enctype="multipart/form-data" method="post" id="quest_form"
-                                                    class="quest__slides swiper-wrapper" action="/checkout">
-                                            @csrf
 
-                                            <!-- ________SLIDE -->
+                                            <div class="quest__slides swiper-wrapper">
+                                                <!-- ________SLIDE -->
                                                 <div class="swiper-slide">
                                                     <div class="quest__slide credentials-slide">
                                                         <div class="quest__slide_title_wrapper">
@@ -280,7 +284,7 @@
                                                     </div>
                                                     <div class="quest__slider_buttons_wrapper">
                                                         {{--<div id="credentials-button" class="quest__next quest__button">Далее</div>--}}
-                                                        <input class="quest__button quest__submit_button" value="Оформить заказ" type="submit">
+                                                        <input id="receiver-credentials-button" class="quest__button quest__submit_button" value="Оформить заказ" type="submit">
                                                         <div class="quest__prev quest__button">Назад</div>
                                                     </div>
                                                 </div>
@@ -378,7 +382,8 @@
                                                 {{--        <div class="quest__prev quest__button">Назад</div>--}}
                                                 {{--    </div>--}}
                                                 {{--</div>--}}
-                                            </form>
+
+                                            </div>
                                         </div>
 
                                     </section>
@@ -386,7 +391,7 @@
                             </section>
                         </div>
 
-                    </div>
+                    </form>
                 </div>
             </section>
 
@@ -668,13 +673,12 @@
           // ----------------------------------------------------------------------------------------
 
           // receiver credentials ----------------------------------------------------------------------
-          document.getElementById('credentials-button').addEventListener('click', () => {
+          document.getElementById('receiver-credentials-button').addEventListener('click', () => {
 
-            let name = form.validate().element('#name');
-            let surname = form.validate().element('#surname');
-            let middle_name = form.validate().element('#middle_name');
+            let receiver_name = form.validate().element('#receiver_name');
+            let receiver_surname = form.validate().element('#receiver_surname');
             let tel = form.validate().element('#tel');
-            let credentialsCondition = name && surname && middle_name && tel;
+            let credentialsCondition = receiver_name && receiver_surname && tel;
             checkIfAllFieldsValidated(credentialsCondition);
               @guest
               tooltipInstance.show();

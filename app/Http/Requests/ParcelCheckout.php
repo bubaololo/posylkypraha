@@ -30,8 +30,8 @@ class ParcelCheckout extends FormRequest
             'apartment' => 'integer',
             'sender_name' => 'required|max:50|string',
             'sender_surname' => 'required|max:50|string',
-            'recipient_name' => 'required|max:50|string',
-            'recipient_surname' => 'required|max:50|string',
+            'receiver_name' => 'required|max:50|string',
+            'receiver_surname' => 'required|max:50|string',
             'telephone' => 'required|min:7|regex:/^[\d\+\(\)\-]+$/',
             'email' => 'email',
             'password' => 'min:8|confirmed'

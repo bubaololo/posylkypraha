@@ -37,19 +37,10 @@ class ParcelController extends Controller
         }
         
         $orderNum = rand(10000, 99999);
-        $total = \Cart::getTotal();
-        $subtotal = \Cart::getSubTotal();
-        $rawDelivery = (string)\Cart::getConditionsByType('shipping');
-        preg_match('/\d+/', $rawDelivery, $deliveryPrice);
-        $deliveryPrice = $deliveryPrice[0];
-        preg_match('/(?<={")[^"]*/', $rawDelivery, $deliveryType);
-        $deliveryType = $deliveryType[0];
 
-//        return redirect(route('cart.list'))->with(['success' => 'заказ успешно оформлен, номер вашего заказа: ']);
-        $cartItems = \Cart::getContent();
         $deliveryInfo = $request->all();
 //        preparing data to send via bot
-        
+        dd($deliveryInfo);
         $cartItemsString = '';
         $itemCounter = 0;
         foreach ($cartItems as $item) {
