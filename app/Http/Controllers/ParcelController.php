@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Parcel;
 use App\Models\RecipientCredential;
 use App\Models\ParcelEnclosure;
-use App\Models\Enclosure;
-use JsValidator;
+
 
 class ParcelController extends Controller
 {
@@ -41,7 +40,7 @@ class ParcelController extends Controller
         $deliveryInfo = $request->all();
 //        preparing data to send via bot
         dd($deliveryInfo);
-        $cartItemsString = '';
+        
         $itemCounter = 0;
         foreach ($cartItems as $item) {
             $itemCounter++;
