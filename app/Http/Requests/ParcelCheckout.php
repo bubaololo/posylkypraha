@@ -13,7 +13,7 @@ class ParcelCheckout extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
     
     /**
@@ -28,10 +28,15 @@ class ParcelCheckout extends FormRequest
             'user_id' => 'nullable|exists:users,user_id',
             'address' => 'required',
             'apartment' => 'integer',
+            'region' => 'required',
+            'city' => 'required',
+            'street' => 'required',
+            'house' => 'required',
+            'postal_code' => 'required|integer',
             'sender_name' => 'required|max:50|string',
             'sender_surname' => 'required|max:50|string',
-            'receiver_name' => 'required|max:50|string',
-            'receiver_surname' => 'required|max:50|string',
+            'recipient_name' => 'required|max:50|string',
+            'recipient_surname' => 'required|max:50|string',
             'telephone' => 'required|min:7|regex:/^[\d\+\(\)\-]+$/',
             'email' => 'email',
             'password' => 'min:8|confirmed'

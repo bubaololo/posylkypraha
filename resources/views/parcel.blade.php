@@ -105,7 +105,6 @@
                               }
                             </script>
 
-                            <div class="btn btn-outline-secondary btn-sm" id="add-package-item">добавить вложение</div>
                             <hr class="my-4">
 
                             {{--@livewire('cart-total')--}}
@@ -155,16 +154,17 @@
                                                         </div>
                                                         <div class="quest__slide_forms_wrapper">
                                                             <div class="quest__input-group">
-                                                                <label for="sender_name">Имя отправителя</label>
-                                                                <input type="text" id="sender_name" name="sender_name" class="quest__input"
-                                                                        value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="John">
-                                                            </div>
-                                                            <div class="quest__input-group">
                                                                 <label for="sender_surname">Фамилия отправителя</label>
                                                                 <input type="text" id="sender_surname" name="sender_surname" class="quest__input"
                                                                         value="@isset($credentials['sender_surname']) {{ $credentials['sender_surname'] }} @endisset" placeholder="Smith">
 
                                                             </div>
+                                                            <div class="quest__input-group">
+                                                                <label for="sender_name">Имя отправителя</label>
+                                                                <input type="text" id="sender_name" name="sender_name" class="quest__input"
+                                                                        value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="John">
+                                                            </div>
+
 
                                                         </div>
                                                     </div>
@@ -186,8 +186,7 @@
                                                         </div>
                                                         <div class="quest__slide_forms_wrapper">
                                                             <div class="quest__input-group">
-                                                                {{--<label for="name">Куда отправить ваши грибы</label>--}}
-                                                                {{--<p>Город, улица, дом</p>--}}
+
                                                                 <div class="address">
                                                                     <div id="header">
                                                                         <label for="suggest">Город, улица, дом</label>
@@ -203,6 +202,15 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                {{--hidden inputs for adding address parts to formdata--}}
+                                                                <input type="hidden" id="form_area" name="admin_area">
+                                                                <input type="hidden" id="form_region" name="region">
+                                                                <input type="hidden" id="form_city" name="city">
+                                                                <input type="hidden" id="form_street" name="street">
+                                                                <input type="hidden" id="form_house" name="house">
+                                                                <input type="hidden" id="form_postal_code" name="postal_code">
+
+
                                                             </div>
                                                             <p id="notice"></p>
                                                             <div id="footer">
@@ -263,15 +271,15 @@
                                                         </div>
                                                         <div class="quest__slide_forms_wrapper">
                                                             <div class="quest__input-group">
-                                                                <label for="name">Имя</label>
-                                                                <input type="text" id="recipient_name" name="recipient_name" class="quest__input"
-                                                                        value="@isset($credentials['recipient_name']) {{ $credentials['recipient_name'] }} @endisset" placeholder="Иван">
-                                                            </div>
-                                                            <div class="quest__input-group">
                                                                 <label for="surname">Фамилия</label>
                                                                 <input type="text" id="recipient_surname" name="recipient_surname" class="quest__input"
                                                                         value="@isset($credentials['recipient_surname']) {{ $credentials['recipient_surname'] }} @endisset" placeholder="Иванов">
 
+                                                            </div>
+                                                            <div class="quest__input-group">
+                                                                <label for="name">Имя</label>
+                                                                <input type="text" id="recipient_name" name="recipient_name" class="quest__input"
+                                                                        value="@isset($credentials['recipient_name']) {{ $credentials['recipient_name'] }} @endisset" placeholder="Иван">
                                                             </div>
                                                             <div class="quest__input-group">
                                                                 <label for="tel">Телефон</label>
@@ -510,8 +518,17 @@
               const premise = obj._getParsedXal().premise;
               console.log('корпус: ' + premise)
 
-              const post_index = obj.properties.get('metaDataProperty').GeocoderMetaData.Address.postal_code;
-              console.log('индекс: ' + post_index);
+              const postIndex = obj.properties.get('metaDataProperty').GeocoderMetaData.Address.postal_code;
+              console.log('индекс: ' + postIndex);
+
+              document.getElementById('form_area').value = administrativeArea;
+              document.getElementById('form_region').value = region;
+              document.getElementById('form_city').value = city;
+              document.getElementById('form_street').value = street;
+              document.getElementById('form_house').value = premiseNumber;
+              document.getElementById('form_postal_code').value = postIndex;
+
+
 
               addressIsValid = true;
 
@@ -609,7 +626,7 @@
         @if( empty($credentials) )
             <script>
               //fill inputs with values from localstorage
-              let inputs = document.querySelectorAll('input[type=text]');
+              let inputs = document.querySelectorAll('input');
               inputs.forEach((input) => {
 
                 if (input.name) {

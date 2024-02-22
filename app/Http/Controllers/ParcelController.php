@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ParcelCheckout;
+use App\Models\SenderCredential;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Parcel;
@@ -28,7 +30,7 @@ class ParcelController extends Controller
         return view('parcel');
     }
     
-    public function store(Request $request)
+    public function store(ParcelCheckout $request)
     {
         if ($request->has('registerCheck') && $request->input('registerCheck') == '1') {
             // Call the register method on your authentication controller
@@ -37,49 +39,33 @@ class ParcelController extends Controller
         
         $orderNum = rand(10000, 99999);
 
-        $deliveryInfo = $request->all();
-//        preparing data to send via bot
-        dd($deliveryInfo);
+        $formData = $request->all();
         
-        $itemCounter = 0;
-        foreach ($cartItems as $item) {
-            $itemCounter++;
-            $cartItemsString = $cartItemsString . $itemCounter . "\r\n";
-            $cartItemsString = $cartItemsString . $item['name'] . "\r\n" .
-                'Кол-во: ' . $item['quantity'] . "\r\n" .
-                'Вес: ' . $item['attributes']['weight'] . "\r\n";
-        }
-        $deliveryDataString = 'Адрес: ' . $deliveryInfo['address'] . "\r\n" .
-            'квартира: ' . $deliveryInfo['apartment'] . "\r\n" .
-            'коммент: ' . $deliveryInfo['comment'] . "\r\n" .
-            'ФИО: ' . $deliveryInfo['name'] . ' ' . $deliveryInfo['surname'] . ' ' . $deliveryInfo['middle_name'] . "\r\n" .
-            'телефон: ' . $deliveryInfo['telephone'] . "\r\n";
-        //TELEGRAM NOTIFY!
-//        $tg = app()->make('App\Services\TelegramService');
-//        $tg->sendMessage('новый заказ!, номер заказа: ' . $orderNum . "\r\n" . "\r\n" .
-//            'Товары:' . "\r\n" .
-//            $cartItemsString . "\r\n" . "\r\n" .
-//            'Инфа для доставки: ' . "\r\n" .
-//            $deliveryDataString
-//        );
+        $this->trimValuesRecursively($formData);
+        
+        
+//        preparing data to send via bot
+        info(print_r($formData,true));
 
 //        store data
         
-        foreach ($deliveryInfo as $key => $value) {
-            $deliveryInfo[$key] = trim($value);
-        }
+        $senderCredentials = SenderCredential::create([
+            'name' => $formData['sender_name'],
+            'surname' => $formData['sender_surname'],
+        ]);
         
-        $credential = RecipientCredential::create([
-            'name' => $deliveryInfo['name'],
-            'surname' => $deliveryInfo['surname'],
-            'middle_name' => $deliveryInfo['middle_name'],
-            'address' => $deliveryInfo['address'],
-            'apartment' => $deliveryInfo['apartment'],
-            'comment' => $deliveryInfo['comment'],
-            'tel' => $deliveryInfo['telephone'],
-            'whatsapp' => $deliveryInfo['whatsapp'],
-            'telegram' => $deliveryInfo['telegram'],
-            'email' => $deliveryInfo['email'],
+        
+        
+        $recipientCredentials = RecipientCredential::create([
+            'name' => $formData['recipient_name'],
+            'surname' => $formData['recipient_surname'],
+            
+            'apartment' => $formData['apartment'],
+            'comment' => $formData['comment'],
+            'tel' => $formData['telephone'],
+            'whatsapp' => $formData['whatsapp'],
+            'telegram' => $formData['telegram'],
+            'email' => $formData['email'],
         ]);
         
         $order = Parcel::create([
@@ -89,7 +75,7 @@ class ParcelController extends Controller
             'subtotal' => $subtotal,
             'delivery' => $deliveryType,
             'delivery_cost' => $deliveryPrice,
-            'comment' => $deliveryInfo['comment'],
+            'comment' => $formData['comment'],
         ]);
         
         if (Auth::check()) {
@@ -112,8 +98,41 @@ class ParcelController extends Controller
             $products->save();
         }
         
-        \Cart::clear();
-        return view('order', compact('cartItems', 'deliveryInfo', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
+        
+        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
+    }
+    
+    private function trimValuesRecursively(&$array) {
+        foreach ($array as $key => &$value) {
+            if (is_array($value)) {
+                $this->trimValuesRecursively($value);
+            } else if (is_string($value)) {
+                $value = trim($value);
+            }
+        }
+        unset($value);
     }
 }
+
+//        $itemCounter = 0;
+//        foreach ($cartItems as $item) {
+//            $itemCounter++;
+//            $cartItemsString = $cartItemsString . $itemCounter . "\r\n";
+//            $cartItemsString = $cartItemsString . $item['name'] . "\r\n" .
+//                'Кол-во: ' . $item['quantity'] . "\r\n" .
+//                'Вес: ' . $item['attributes']['weight'] . "\r\n";
+//        }
+//        $deliveryDataString = 'Адрес: ' . $formData['address'] . "\r\n" .
+//            'квартира: ' . $formData['apartment'] . "\r\n" .
+//            'коммент: ' . $formData['comment'] . "\r\n" .
+//            'ФИО: ' . $formData['name'] . ' ' . $formData['surname'] . ' ' . $formData['middle_name'] . "\r\n" .
+//            'телефон: ' . $formData['telephone'] . "\r\n";
+//TELEGRAM NOTIFY!
+//        $tg = app()->make('App\Services\TelegramService');
+//        $tg->sendMessage('новый заказ!, номер заказа: ' . $orderNum . "\r\n" . "\r\n" .
+//            'Товары:' . "\r\n" .
+//            $cartItemsString . "\r\n" . "\r\n" .
+//            'Инфа для доставки: ' . "\r\n" .
+//            $deliveryDataString
+//        );
 
