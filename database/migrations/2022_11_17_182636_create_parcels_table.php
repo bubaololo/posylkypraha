@@ -26,6 +26,10 @@ return new class extends Migration {
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('address_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->boolean('paid')->default(0);
             $table->text('comment')->nullable();
             $table->text('track')->nullable();

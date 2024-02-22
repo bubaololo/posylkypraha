@@ -11,16 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sender_credentials', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
                 ->nullable()
                 ->unique()
                 ->constrained()
                 ->onUpdate('cascade');
-            $table->tinyText('name');
-            $table->tinyText('surname');
-            $table->tinyText('title')->nullable();
+            $table->text('full_address');
+            $table->tinyText('postal_code');
+            $table->text('admin_area');
+            $table->text('region');
+            $table->text('city');
+            $table->text('street');
+            $table->text('house');
+            $table->text('building')->nullable();
+            $table->text('apartment')->nullable();
+            $table->text('title')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sender_credentials');
+        Schema::dropIfExists('addresses');
     }
 };

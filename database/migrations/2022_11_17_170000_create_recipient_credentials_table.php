@@ -21,20 +21,12 @@ return new class extends Migration {
                 ->onUpdate('cascade');
             $table->tinyText('name');
             $table->tinyText('surname');
-            $table->text('admin_area');
-            $table->text('region');
-            $table->text('city');
-            $table->text('street');
-            $table->text('house');
-            $table->text('building')->nullable();
-            $table->text('apartment')->nullable();
-            $table->tinyText('postal_code');
+            $table->tinyText('title')->nullable();
             $table->text('email')->nullable();
             $table->text('comment')->nullable();
             $table->tinyText('tel')->nullable();
             $table->tinyText('whatsapp')->nullable();
             $table->tinyText('telegram')->nullable();
-            $table->text('last_ip')->nullable();
             $table->timestamps();
         });
     }
