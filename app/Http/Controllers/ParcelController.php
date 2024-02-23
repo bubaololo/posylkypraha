@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ParcelCheckout;
+use App\Models\Address;
+use App\Models\Enclosure;
 use App\Models\SenderCredential;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,10 +22,10 @@ class ParcelController extends Controller
         
         if ($user) {
             $credentialsCheck = $user->credential()->first();
-        
+            
             if ($credentialsCheck) {
                 $credentials = $credentialsCheck;
-                return view('parcel', compact( 'credentials'));
+                return view('parcel', compact('credentials'));
             }
         }
         
@@ -38,71 +40,84 @@ class ParcelController extends Controller
         }
         
         $orderNum = rand(10000, 99999);
-
+        
         $formData = $request->all();
         
         $this->trimValuesRecursively($formData);
-        
-        
+
+
 //        preparing data to send via bot
-        info(print_r($formData,true));
+        info(print_r($formData, true));
 
 //        store data
         
         $senderCredentials = SenderCredential::create([
+            'user_id' => Auth::id() ?? null,
             'name' => $formData['sender_name'],
             'surname' => $formData['sender_surname'],
         ]);
-        
-        
-        
         $recipientCredentials = RecipientCredential::create([
+            'user_id' => Auth::id() ?? null,
             'name' => $formData['recipient_name'],
             'surname' => $formData['recipient_surname'],
-            
-            'apartment' => $formData['apartment'],
-            'comment' => $formData['comment'],
             'tel' => $formData['telephone'],
-            'whatsapp' => $formData['whatsapp'],
-            'telegram' => $formData['telegram'],
-            'email' => $formData['email'],
+//            'whatsapp' => $formData['whatsapp'],
+//            'telegram' => $formData['telegram'],
+//            'email' => $formData['email'],
+        ]);
+        $address = Address::create([
+            'user_id' => Auth::id() ?? null,
+            'full_address' => $formData['address'],
+            'comment' => $formData['comment'],
+            'postal_code' => $formData['postal_code'],
+            'admin_area' => $formData['admin_area'],
+            'region' => $formData['region'],
+            'city' => $formData['city'],
+            'street' => $formData['street'],
+            'house' => $formData['house'],
+            'building' => $formData['premise'],
+            'apartment' => $formData['apartment']
         ]);
         
-        $order = Parcel::create([
+        
+        $parcel = Parcel::create([
+            'user_id' => Auth::id() ?? null,
             'order_num' => $orderNum,
-            'credential_id' => $credential->id,
-            'total' => $total,
-            'subtotal' => $subtotal,
-            'delivery' => $deliveryType,
-            'delivery_cost' => $deliveryPrice,
+            'sender_credential_id' => $senderCredentials->id,
+            'recipient_credential_id' => $recipientCredentials->id,
+            'address_id' => $address->id,
             'comment' => $formData['comment'],
         ]);
         
-        if (Auth::check()) {
-            $user_id = Auth::user()->id;
-            $order->user_id = $user_id;
-            $order->save();
-            
-            $currentUserCredentials = RecipientCredential::where('user_id', $user_id)->first();
-            if (!$currentUserCredentials) {
-                $credential->user_id = $user_id;
-                $credential->save();
-            }
+//        if (Auth::check()) {
+//            $currentUserCredentials = RecipientCredential::where('user_id', $user_id)->first();
+//            if (!$currentUserCredentials) {
+//                $credential->user_id = $user_id;
+//                $credential->save();
+//            }
+//        }
+//
+        foreach ($formData['items'] as $item) {
+            $enclosure = Enclosure::create([
+                'description' => $item['description'],
+                'weight_g' => $item['weight_g'] ?? 0,
+                'weight_kg' => $item['weight_kg'],
+                'quantity' => $item['quantity'],
+            ]);
+            ParcelEnclosure::create([
+                'parcel_id' => $parcel->id,
+                'enclosure_id' => $enclosure->id,
+            ]);
+
         }
         
-        foreach ($cartItems as $item) {
-            $products = new ParcelEnclosure;
-            $products->order_id = $order->id;
-            $products->product_id = $item['id'];
-            $products->quantity = $item['quantity'];
-            $products->save();
-        }
         
-        
-        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
+//        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
+        return view('order');
     }
     
-    private function trimValuesRecursively(&$array) {
+    private function trimValuesRecursively(&$array)
+    {
         foreach ($array as $key => &$value) {
             if (is_array($value)) {
                 $this->trimValuesRecursively($value);

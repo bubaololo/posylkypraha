@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::create('enclosures', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-            $table->double('price');
-            $table->integer('weight_kg');
+            $table->integer('weight_kg')->nullable();
             $table->integer('weight_g')->default(0);
             $table->integer('quantity')->default(1);
             $table->timestamps();

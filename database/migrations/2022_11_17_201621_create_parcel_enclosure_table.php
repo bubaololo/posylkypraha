@@ -22,7 +22,6 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->tinyInteger('quantity')->default(1);
             $table->unique(['parcel_id', 'enclosure_id']);
         });
     }

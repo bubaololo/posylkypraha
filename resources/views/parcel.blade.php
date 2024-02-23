@@ -208,6 +208,7 @@
                                                                 <input type="hidden" id="form_city" name="city">
                                                                 <input type="hidden" id="form_street" name="street">
                                                                 <input type="hidden" id="form_house" name="house">
+                                                                <input type="hidden" id="form_premise" name="premise">
                                                                 <input type="hidden" id="form_postal_code" name="postal_code">
 
 
@@ -526,6 +527,7 @@
               document.getElementById('form_city').value = city;
               document.getElementById('form_street').value = street;
               document.getElementById('form_house').value = premiseNumber;
+              document.getElementById('form_premise').value = premise;
               document.getElementById('form_postal_code').value = postIndex;
 
 

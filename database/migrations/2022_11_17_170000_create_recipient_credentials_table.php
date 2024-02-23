@@ -19,11 +19,10 @@ return new class extends Migration {
                 ->unique()
                 ->constrained()
                 ->onUpdate('cascade');
+            $table->tinyText('title')->nullable();
             $table->tinyText('name');
             $table->tinyText('surname');
-            $table->tinyText('title')->nullable();
             $table->text('email')->nullable();
-            $table->text('comment')->nullable();
             $table->tinyText('tel')->nullable();
             $table->tinyText('whatsapp')->nullable();
             $table->tinyText('telegram')->nullable();

@@ -18,9 +18,9 @@ return new class extends Migration
                 ->unique()
                 ->constrained()
                 ->onUpdate('cascade');
+            $table->tinyText('title')->nullable();
             $table->tinyText('name');
             $table->tinyText('surname');
-            $table->tinyText('title')->nullable();
             $table->timestamps();
         });
     }

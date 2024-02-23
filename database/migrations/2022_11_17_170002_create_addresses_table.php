@@ -18,6 +18,7 @@ return new class extends Migration
                 ->unique()
                 ->constrained()
                 ->onUpdate('cascade');
+            $table->text('title')->nullable();
             $table->text('full_address');
             $table->tinyText('postal_code');
             $table->text('admin_area');
@@ -27,7 +28,7 @@ return new class extends Migration
             $table->text('house');
             $table->text('building')->nullable();
             $table->text('apartment')->nullable();
-            $table->text('title')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
