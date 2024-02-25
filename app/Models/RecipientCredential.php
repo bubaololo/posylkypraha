@@ -19,4 +19,9 @@ class RecipientCredential extends Model
     {
         return $this->hasOne(User::class);
     }
+    
+    public function getFullNameAttribute() :string
+    {
+        return "{$this->name} {$this->surname}";
+    }
 }

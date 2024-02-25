@@ -24,7 +24,9 @@ class ParcelCheckout extends FormRequest
     public function rules()
     {
         return [
-            
+            'items.*.description' => 'required|max:300|string',
+            'items.*.weight_kg' => 'required_without:items.*.weight_g',
+            'items.*.weight_g' => 'required_without:items.*.weight_kg',
             'user_id' => 'nullable|exists:users,user_id',
             'address' => 'required',
             'apartment' => 'integer',
@@ -53,6 +55,7 @@ class ParcelCheckout extends FormRequest
     public function messages()
     {
         return [
+            
             'sender_name.required' => 'Укажите имя отправителя',
             'sender_surname.required' => 'Укажите фамилию отправителя',
             'address.required' => 'Заполните адрес доставки',
@@ -67,8 +70,10 @@ class ParcelCheckout extends FormRequest
             'middle_name.required' => 'Отчество обязательно для доставки',
             'email.email' => 'укажите корректный email адрес',
             'password.min' => 'пароль должен содержать не менее 8 символов',
-            'password.confirmed' => 'подтверждение пароля должно совпадать'
-        
+            'password.confirmed' => 'подтверждение пароля должно совпадать',
+        'items.*.description' => 'добавьте описание вложения',
+            'items.*.weight_kg' => 'укажите вес вложения',
+            'items.*.weight_g' => 'укажите вес вложения'
         
         ];
     }

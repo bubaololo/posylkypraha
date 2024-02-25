@@ -52,12 +52,12 @@ class ParcelController extends Controller
 //        store data
         
         $senderCredentials = SenderCredential::create([
-            'user_id' => Auth::id() ?? null,
+//            'user_id' => Auth::id() ?? null,
             'name' => $formData['sender_name'],
             'surname' => $formData['sender_surname'],
         ]);
         $recipientCredentials = RecipientCredential::create([
-            'user_id' => Auth::id() ?? null,
+//            'user_id' => Auth::id() ?? null,
             'name' => $formData['recipient_name'],
             'surname' => $formData['recipient_surname'],
             'tel' => $formData['telephone'],
@@ -66,7 +66,7 @@ class ParcelController extends Controller
 //            'email' => $formData['email'],
         ]);
         $address = Address::create([
-            'user_id' => Auth::id() ?? null,
+//            'user_id' => Auth::id() ?? null,
             'full_address' => $formData['address'],
             'comment' => $formData['comment'],
             'postal_code' => $formData['postal_code'],
@@ -113,7 +113,7 @@ class ParcelController extends Controller
         
         
 //        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
-        return view('order');
+        return view('order',compact('orderNum'));
     }
     
     private function trimValuesRecursively(&$array)

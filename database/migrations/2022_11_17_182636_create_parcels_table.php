@@ -33,7 +33,7 @@ return new class extends Migration {
             $table->boolean('paid')->default(0);
             $table->text('comment')->nullable();
             $table->text('track')->nullable();
-            $table->enum('status', ['в обработке', 'отправлена'])->default('в обработке');
+            $table->boolean('sent')->default(0);
             $table->timestamps();
         });
     }

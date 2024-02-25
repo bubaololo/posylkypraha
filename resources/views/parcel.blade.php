@@ -51,12 +51,12 @@
                                             class="fas fa-long-arrow-alt-left me-2"></i>Содержимое посылки</a></h5>
                             <hr>
 
-                            <div class="d-flex flex-column gap-2 mb-4" x-data="packageItemsComponent()">
+                            <div class="d-flex flex-column gap-2 mb-4" x-data="packageItemsComponent()" id="packageItemsWrapper">
                                 <template x-for="(item, index) in items" :key="index">
                                     <div class="package-item">
                                         <div class="package-item__inner">
                                             <div class="package-item__description">
-                                                <input type="text" x-model="item.description" :name="'items[' + index + '][description]'" class="form-control" placeholder="Описание вложения">
+                                                <input type="text" required x-model="item.description" :name="'items[' + index + '][description]'" class="form-control" placeholder="Описание вложения">
                                             </div>
                                             <div class="package-item__controls-wrap">
                                                 <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">

@@ -42,7 +42,6 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
-                RunSitemapCommandWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
