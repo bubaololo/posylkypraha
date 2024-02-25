@@ -15,7 +15,7 @@ class Parcel extends Model
     
     public function enclosure()
     {
-        return $this->belongsToMany(Enclosure::class)->withPivot(['quantity']);
+        return $this->hasMany(Enclosure::class);
     }
     
     public function recipient_credential()
