@@ -13,7 +13,7 @@ class RecipientCredential extends Model
     
     public function parcels()
     {
-        return $this->hasMany(Parcel::class);
+        return $this->belongsToMany(Parcel::class);
     }
     public function user()
     {

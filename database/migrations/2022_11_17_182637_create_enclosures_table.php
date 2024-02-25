@@ -14,7 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('enclosures', function (Blueprint $table) {
-            $table->id();
+            $table->foreignId('parcel_id')
+                ->constrained()
+                ->onUpdate('cascade');
             $table->text('description');
             $table->integer('weight_kg')->nullable();
             $table->integer('weight_g')->default(0);

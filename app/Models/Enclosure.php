@@ -13,6 +13,7 @@ class Enclosure extends Model
     use HasFactory;
     
     protected $fillable = [
+        'parcel_id',
         'price',
         'weight_kg',
         'weight_g',
@@ -22,7 +23,7 @@ class Enclosure extends Model
     
     public function parcels()
     {
-        return $this->belongsToMany(Parcel::class);
+        return $this->belongsTo(Parcel::class);
     }
     
     

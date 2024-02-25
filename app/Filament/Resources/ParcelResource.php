@@ -7,6 +7,7 @@ use App\Filament\Resources\ParcelResource\RelationManagers;
 use App\Models\Parcel;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Fieldset;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
@@ -88,39 +89,34 @@ class ParcelResource extends Resource
     {
         return $infolist
             ->schema([
-//                Components\Section::make()
-//                    ->schema([
-//                        Components\Split::make([
-//                            Components\Grid::make(2)
-//                                ->schema([
-//                                    Components\Group::make([
-//                                        Components\TextEntry::make('title'),
-//                                        Components\TextEntry::make('slug'),
-//                                        Components\TextEntry::make('published_at')
-//                                            ->badge()
-//                                            ->date()
-//                                            ->color('success'),
-//                                    ]),
-//                                    Components\Group::make([
-//                                        Components\TextEntry::make('author.name'),
-//                                        Components\TextEntry::make('category.name'),
-//                                        Components\SpatieTagsEntry::make('tags'),
-//                                    ]),
-//                                ]),
-//                            Components\ImageEntry::make('image')
-//                                ->hiddenLabel()
-//                                ->grow(false),
-//                        ])->from('lg'),
-//                    ]),
-                Components\RepeatableEntry::make('Вложения')
+                Components\Section::make()
                     ->schema([
-                        Components\TextEntry::make('enclosure.description'),
-                        Components\TextEntry::make('enclosure.weight_kg'),
-                        Components\TextEntry::make('enclosure.weight_g'),
-                        Components\TextEntry::make('quantity')
-                            ->columnSpan(4),
-                    ])
-                    ->columns(3)
+                        Components\Split::make([
+                            Components\Grid::make(2)
+                                ->schema([
+                                    Fieldset::make('sender')
+                                        ->schema([
+                                            Components\TextEntry::make('name'),
+                                            Components\TextEntry::make('surname'),
+                                        ]),
+
+                                ]),
+
+                        ])->from('lg'),
+                    ]),
+
+                Components\Section::make()
+                    ->schema([
+                        Components\RepeatableEntry::make('enclosures')
+                            ->schema([
+                                Components\TextEntry::make('description'),
+                                Components\TextEntry::make('weight_kg'),
+                                Components\TextEntry::make('weight_g'),
+                                Components\TextEntry::make('quantity')
+                                
+                            ])
+                            
+                    ]),
             ]);
     }
 }

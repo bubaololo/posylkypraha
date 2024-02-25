@@ -13,18 +13,18 @@ class Parcel extends Model
     
 
     
-    public function enclosure()
+    public function enclosures()
     {
         return $this->hasMany(Enclosure::class);
     }
     
-    public function recipient_credential()
+    public function recipient()
     {
-        return $this->belongsTo(RecipientCredential::class);
+        return $this->hasOne(RecipientCredential::class);
     }
-    public function sender_credential()
+    public function sender()
     {
-        return $this->belongsTo(SenderCredential::class);
+        return $this->hasOne(SenderCredential::class);
     }
 
     public function user()

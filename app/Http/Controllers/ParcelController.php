@@ -81,7 +81,7 @@ class ParcelController extends Controller
         
         
         $parcel = Parcel::create([
-            'user_id' => Auth::id() ?? null,
+//            'user_id' => Auth::id() ?? null,
             'order_num' => $orderNum,
             'sender_credential_id' => $senderCredentials->id,
             'recipient_credential_id' => $recipientCredentials->id,
@@ -96,19 +96,15 @@ class ParcelController extends Controller
 //                $credential->save();
 //            }
 //        }
-//
+$parcelId = $parcel->id;
         foreach ($formData['items'] as $item) {
-            $enclosure = Enclosure::create([
+             Enclosure::create([
+                'parcel_id' => $parcelId,
                 'description' => $item['description'],
                 'weight_g' => $item['weight_g'] ?? 0,
                 'weight_kg' => $item['weight_kg'],
                 'quantity' => $item['quantity'],
             ]);
-            ParcelEnclosure::create([
-                'parcel_id' => $parcel->id,
-                'enclosure_id' => $enclosure->id,
-            ]);
-
         }
         
         

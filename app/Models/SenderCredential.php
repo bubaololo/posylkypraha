@@ -9,5 +9,9 @@ class SenderCredential extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['name', 'surname'];
+    protected $guarded = [];
+    public function parcels()
+    {
+        return $this->belongsToMany(Parcel::class);
+    }
 }
