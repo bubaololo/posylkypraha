@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ParcelResource\Pages;
 use App\Filament\Resources\ParcelResource\RelationManagers;
 use App\Models\Parcel;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\Fieldset;
 use Filament\Resources\Resource;
@@ -14,9 +13,6 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components;
 
@@ -49,8 +45,13 @@ class ParcelResource extends Resource
                     ->formatStateUsing(function ($state, Parcel $parcel) {
                         return $parcel->recipient->name . ' ' . $parcel->recipient->surname;
                     }),
+
                 IconColumn::make('paid')
                     ->boolean()->label('оплачена'),
+                TextColumn::make('enclosures')->label('Вложения')
+                    ->formatStateUsing(function ($state, Parcel $parcel) {
+                        return $parcel->enclosures()->count();
+                    }),
                 ToggleColumn::make('sent')->label('Отправлена'),
                 TextColumn::make('created_at')
                     ->date()->label('создан')
@@ -96,10 +97,19 @@ class ParcelResource extends Resource
                                 ->schema([
                                     Fieldset::make('sender')
                                         ->schema([
-                                            Components\TextEntry::make('name'),
-                                            Components\TextEntry::make('surname'),
-                                        ]),
+                                            Components\TextEntry::make('sender.name')->label('Имя')->weight('bold'),
+                                            Components\TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
+                                        ])->label('Отправитель'),
 
+                                ]),
+                            Components\Grid::make(2)
+                                ->schema([
+                                    Fieldset::make('sender')
+                                        ->schema([
+                                            Components\TextEntry::make('sender.name')->label('Имя')->weight('bold'),
+                                            Components\TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
+                                        ])->label('Получатель'),
+        
                                 ]),
 
                         ])->from('lg'),
