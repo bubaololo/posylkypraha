@@ -6,7 +6,6 @@ use App\Http\Requests\ParcelCheckout;
 use App\Models\Address;
 use App\Models\Enclosure;
 use App\Models\SenderCredential;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Parcel;
 use App\Models\RecipientCredential;
@@ -83,8 +82,8 @@ class ParcelController extends Controller
         $parcel = Parcel::create([
 //            'user_id' => Auth::id() ?? null,
             'order_num' => $orderNum,
-            'sender_credential_id' => $senderCredentials->id,
-            'recipient_credential_id' => $recipientCredentials->id,
+            'sender_credentials_id' => $senderCredentials->id,
+            'recipient_credentials_id' => $recipientCredentials->id,
             'address_id' => $address->id,
             'comment' => $formData['comment'],
         ]);

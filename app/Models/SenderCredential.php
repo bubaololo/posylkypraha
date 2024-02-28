@@ -12,6 +12,6 @@ class SenderCredential extends Model
     protected $guarded = [];
     public function parcels()
     {
-        return $this->belongsToMany(Parcel::class);
+        return $this->hasMany(Parcel::class, 'sender_credentials_id');
     }
 }

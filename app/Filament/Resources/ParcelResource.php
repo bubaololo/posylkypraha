@@ -39,16 +39,16 @@ class ParcelResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('order_num'),
-                TextColumn::make('sender_credential.name')
+                TextColumn::make('sender.name')
+                    ->label('Отправитель')
                     ->formatStateUsing(function ($state, Parcel $parcel) {
-                        return $parcel->sender_credential->name . ' ' . $parcel->sender_credential->surname;
-                    })
-                    ->label('Отправитель'),
-                TextColumn::make('recipient_credential.name')
+                        return $parcel->sender->name . ' ' . $parcel->sender->surname;
+                    }),
+                TextColumn::make('recipient.name')
+                    ->label('Получатель')
                     ->formatStateUsing(function ($state, Parcel $parcel) {
-                        return $parcel->recipient_credential->name . ' ' . $parcel->recipient_credential->surname;
-                    })
-                    ->label('Получатель'),
+                        return $parcel->recipient->name . ' ' . $parcel->recipient->surname;
+                    }),
                 IconColumn::make('paid')
                     ->boolean()->label('оплачена'),
                 ToggleColumn::make('sent')->label('Отправлена'),

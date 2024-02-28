@@ -13,7 +13,7 @@ class RecipientCredential extends Model
     
     public function parcels()
     {
-        return $this->belongsToMany(Parcel::class);
+        return $this->hasMany(Parcel::class, 'sender_credentials_id');
     }
     public function user()
     {

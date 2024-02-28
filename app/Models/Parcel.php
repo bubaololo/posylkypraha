@@ -20,11 +20,11 @@ class Parcel extends Model
     
     public function recipient()
     {
-        return $this->hasOne(RecipientCredential::class);
+        return $this->belongsTo(RecipientCredential::class, 'recipient_credentials_id');
     }
     public function sender()
     {
-        return $this->hasOne(SenderCredential::class);
+        return $this->belongsTo(SenderCredential::class, 'sender_credentials_id');
     }
 
     public function user()
