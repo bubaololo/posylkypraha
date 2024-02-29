@@ -59,10 +59,14 @@
                                                 <input type="text" required x-model="item.description" :name="'items[' + index + '][description]'" class="form-control" placeholder="Описание вложения">
                                             </div>
                                             <div class="package-item__controls-wrap">
-                                                <div class="package-item__weight-wrap input-group input-group-sm" style="width: 24ch;">
+                                                <div class="package-item__weight-wrap input-group input-group-sm" style="width: 30ch;">
                                                     <span class="input-group-text">Вес</span>
-                                                    <input type="number" min="0" x-model="item.weight_kg" :name="'items[' + index + '][weight_kg]'" class="form-control" placeholder="кг">
-                                                    <input type="number" min="0" x-model="item.weight_g" :name="'items[' + index + '][weight_g]'" class="form-control" placeholder="г">
+                                                    <div class="package-item__input-wrap">
+                                                    <input type="number" min="0" x-model="item.weight_kg" :name="'items[' + index + '][weight_kg]'" class="form-control package-item__weight" placeholder="кг">
+                                                    </div>
+                                                    <div class="package-item__input-wrap">
+                                                    <input type="number" min="0" x-model="item.weight_g" :name="'items[' + index + '][weight_g]'" class="form-control package-item__weight" placeholder="г">
+                                                    </div>
                                                 </div>
                                                 <div class="package-item__quantity">
                                                     <button type="button" class="btn btn-light px-3 package-item__quantity-btn" x-on:click="updateQuantity(item, -1)" x-bind:disabled="item.quantity <= 1">-</button>
