@@ -59,7 +59,7 @@
                                                 <input type="text" required x-model="item.description" :name="'items[' + index + '][description]'" class="form-control" placeholder="Описание вложения">
                                             </div>
                                             <div class="package-item__controls-wrap">
-                                                <div class="package-item__weight-wrap input-group input-group-sm" style="width: 30ch;">
+                                                <div class="package-item__weight-wrap input-group input-group-sm" >
                                                     <span class="input-group-text">Вес</span>
                                                     <div class="package-item__input-wrap">
                                                     <input type="number" min="0" x-model="item.weight_kg" :name="'items[' + index + '][weight_kg]'" class="form-control package-item__weight" placeholder="кг">
