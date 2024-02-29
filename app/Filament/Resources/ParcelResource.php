@@ -19,9 +19,9 @@ use Filament\Infolists\Components;
 class ParcelResource extends Resource
 {
     protected static ?string $model = Parcel::class;
-
+    
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
+    
     public static function form(Form $form): Form
     {
         return $form
@@ -29,7 +29,7 @@ class ParcelResource extends Resource
                 //
             ]);
     }
-
+    
     public static function table(Table $table): Table
     {
         return $table
@@ -45,7 +45,7 @@ class ParcelResource extends Resource
                     ->formatStateUsing(function ($state, Parcel $parcel) {
                         return $parcel->recipient->name . ' ' . $parcel->recipient->surname;
                     }),
-
+                
                 IconColumn::make('paid')
                     ->boolean()->label('оплачена'),
                 TextColumn::make('enclosures')->label('Вложения')
@@ -69,23 +69,24 @@ class ParcelResource extends Resource
                 ]),
             ]);
     }
-
+    
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\EnclosuresRelationManager::class,
         ];
     }
-
+    
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListParcels::route('/'),
-            'create' => Pages\CreateParcel::route('/create'),
+//            'create' => Pages\CreateParcel::route('/create'),
             'view' => Pages\ViewParcel::route('/{record}'),
-            'edit' => Pages\EditParcel::route('/{record}/edit'),
+//            'edit' => Pages\EditParcel::route('/{record}/edit'),
         ];
     }
+    
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
@@ -100,7 +101,7 @@ class ParcelResource extends Resource
                                             Components\TextEntry::make('sender.name')->label('Имя')->weight('bold'),
                                             Components\TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
                                         ])->label('Отправитель'),
-
+                                
                                 ]),
                             Components\Grid::make(2)
                                 ->schema([
@@ -109,24 +110,12 @@ class ParcelResource extends Resource
                                             Components\TextEntry::make('sender.name')->label('Имя')->weight('bold'),
                                             Components\TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
                                         ])->label('Получатель'),
-        
+                                
                                 ]),
-
+                        
                         ])->from('lg'),
                     ]),
 
-                Components\Section::make()
-                    ->schema([
-                        Components\RepeatableEntry::make('enclosures')
-                            ->schema([
-                                Components\TextEntry::make('description'),
-                                Components\TextEntry::make('weight_kg'),
-                                Components\TextEntry::make('weight_g'),
-                                Components\TextEntry::make('quantity')
-                                
-                            ])
-                            
-                    ]),
             ]);
     }
 }

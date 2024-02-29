@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('enclosures', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('parcel_id')
                 ->constrained()
                 ->onUpdate('cascade');
