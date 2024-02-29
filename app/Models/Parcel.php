@@ -26,7 +26,12 @@ class Parcel extends Model
     {
         return $this->belongsTo(SenderCredential::class, 'sender_credentials_id');
     }
-
+    
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);

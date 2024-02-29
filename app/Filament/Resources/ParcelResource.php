@@ -7,6 +7,7 @@ use App\Filament\Resources\ParcelResource\RelationManagers;
 use App\Models\Parcel;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\Fieldset;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
@@ -98,8 +99,8 @@ class ParcelResource extends Resource
                                 ->schema([
                                     Fieldset::make('sender')
                                         ->schema([
-                                            Components\TextEntry::make('sender.name')->label('Имя')->weight('bold'),
-                                            Components\TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
+                                            TextEntry::make('sender.name')->label('Имя')->weight('bold'),
+                                            TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
                                         ])->label('Отправитель'),
                                 
                                 ]),
@@ -107,15 +108,31 @@ class ParcelResource extends Resource
                                 ->schema([
                                     Fieldset::make('sender')
                                         ->schema([
-                                            Components\TextEntry::make('sender.name')->label('Имя')->weight('bold'),
-                                            Components\TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
+                                            TextEntry::make('sender.name')->label('Имя')->weight('bold'),
+                                            TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
                                         ])->label('Получатель'),
                                 
                                 ]),
                         
                         ])->from('lg'),
                     ]),
+                Components\Section::make()
+                    ->columns([
+                        'sm' => 3,
 
+                    ])
+                    ->schema([
+                        TextEntry::make('address.full_address')->label('Полный адрес'),
+                        TextEntry::make('address.postal_code')->label('Почтовый индекс'),
+                        TextEntry::make('address.admin_area')->label('Административный окуг'),
+                        TextEntry::make('address.region')->label('Регион'),
+                        TextEntry::make('address.city')->label('Город'),
+                        TextEntry::make('address.street')->label('Улица'),
+                        TextEntry::make('address.house')->label('Дом'),
+                        TextEntry::make('address.building')->label('Строение'),
+                        TextEntry::make('address.apartment')->label('Квартира'),
+                        TextEntry::make('address.comment')->label('Комментарий'),
+                    ]),
             ]);
     }
 }
