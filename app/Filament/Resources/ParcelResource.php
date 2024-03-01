@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Actions\GenerateCsv;
 use App\Filament\Resources\ParcelResource\Pages;
 use App\Filament\Resources\ParcelResource\RelationManagers;
 use App\Models\Parcel;
@@ -69,8 +70,9 @@ class ParcelResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('export_csv')
-                    ->action(function(Collection $records) {
-                        dd($records);
+                    ->action(function(Collection $parcels, GenerateCsv $generateCsv) {
+//                        dd($parcels);
+                        return $generateCsv($parcels);
                     }),
                 ]),
             ]);
