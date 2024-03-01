@@ -47,9 +47,9 @@
                     {{--                                    <li class="menu-item active"><a href="{{ route('index') }}"--}}
                     {{--                                                                    data-effect="Home">Главная</a>--}}
                     {{--                                    </li>--}}
-                    <li class="menu-item"><a href="{{ route('products.list') }}" class="nav-link"
-                                data-effect="About">Фасовки</a>
-                    </li>
+                    {{--<li class="menu-item"><a href="{{ route('products.list') }}" class="nav-link"--}}
+                    {{--            data-effect="About">Фасовки</a>--}}
+                    {{--</li>--}}
 
                     {{--                                    <li class="menu-item has-sub">--}}
                     {{--                                        <a href="#pages" class="nav-link" data-effect="Pages">Pages</a>--}}
@@ -72,12 +72,12 @@
                     {{--                                    <li class="menu-item"><a href="#latest-blog" class="nav-link"--}}
                     {{--                                                             data-effect="Articles">Articles</a>--}}
                     {{--                                    </li>--}}
-                    <li class="menu-item"><a href="{{ route('posts.list') }}" class="nav-link"
-                                data-effect="Contact">Статьи</a></li>
-                    @auth
-                        <li class="menu-item"><a href="{{ route('profile') }}" class="user-account for-buy"><i
-                                        class="icon icon-user"></i><span>Профиль</span></a></li>
-                    @endauth
+                    {{--<li class="menu-item"><a href="{{ route('posts.list') }}" class="nav-link"--}}
+                    {{--            data-effect="Contact">Статьи</a></li>--}}
+                    {{--@auth--}}
+                    {{--    <li class="menu-item"><a href="{{ route('profile') }}" class="user-account for-buy"><i--}}
+                    {{--                    class="icon icon-user"></i><span>Профиль</span></a></li>--}}
+                    {{--@endauth--}}
                     {{--<li class="menu-item">--}}
                     {{--    <a href="{{ route('cart.list') }}" class="cart">--}}
                     {{--        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">--}}
@@ -85,57 +85,57 @@
                     {{--        </svg>--}}
                     {{--        <span>Корзина: @livewire('cart-counter')</span></a>--}}
                     {{--</li>--}}
-                    @guest
-                        <li class="menu-item has-sub">
-                            <a href="#pages" class="nav-link" data-effect="Pages">Аккаунт</a>
+{{--                    @guest--}}
+{{--                        <li class="menu-item has-sub">--}}
+{{--                            <a href="#pages" class="nav-link" data-effect="Pages">Аккаунт</a>--}}
 
-                            <ul>
-                                @if (Route::has('register'))
+{{--                            <ul>--}}
+{{--                                @if (Route::has('register'))--}}
 
-                                    <li><a class="nav-link"
-                                                href="{{ route('register') }}">{{ __('Зарегистрироваться') }}</a></li>
+{{--                                    <li><a class="nav-link"--}}
+{{--                                                href="{{ route('register') }}">{{ __('Зарегистрироваться') }}</a></li>--}}
 
-                                @endif
-                                @if (Route::has('login'))
+{{--                                @endif--}}
+{{--                                @if (Route::has('login'))--}}
 
-                                    <li><a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a></li>
+{{--                                    <li><a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a></li>--}}
 
-                                @endif
-                            </ul>
-                        </li>
+{{--                                @endif--}}
+{{--                            </ul>--}}
+{{--                        </li>--}}
 
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
-                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
-                            </a>
+{{--                    @else--}}
+{{--                        <li class="nav-item dropdown">--}}
+{{--                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"--}}
+{{--                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"--}}
+{{--                                    aria-expanded="false" v-pre>--}}
+{{--                                {{ Auth::user()->name }}--}}
+{{--                            </a>--}}
 
-                            <div class="dropdown-menu dropdown-menu-end"
-                                    aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
+{{--                            <div class="dropdown-menu dropdown-menu-end"--}}
+{{--                                    aria-labelledby="navbarDropdown">--}}
+{{--                                <a class="dropdown-item" href="{{ route('logout') }}"--}}
+{{--                                        onclick="event.preventDefault();--}}
+{{--                                                     document.getElementById('logout-form').submit();">--}}
+{{--                                    {{ __('Logout') }}--}}
+{{--                                </a>--}}
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
-                </ul>
+{{--                                <form id="logout-form" action="{{ route('logout') }}" method="POST"--}}
+{{--                                        class="d-none">--}}
+{{--                                    @csrf--}}
+{{--                                </form>--}}
+{{--                            </div>--}}
+{{--                        </li>--}}
+{{--                    @endguest--}}
+{{--                </ul>--}}
 
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
+{{--                <div class="hamburger">--}}
+{{--                    <span class="bar"></span>--}}
+{{--                    <span class="bar"></span>--}}
+{{--                    <span class="bar"></span>--}}
+{{--                </div>--}}
 
-            </div>
+{{--            </div>--}}
 
         </div>
     </div>
@@ -152,8 +152,8 @@
 
                 <div class="footer-item">
                     <div class="company-brand">
-                        <img src="{{ asset('images/tmpimg/logo_text.svg') }}" alt="logo" class="footer-logo">
-                        <p>Сами любим это дело) </p>
+                        <img src="{{ asset('images/tmpimg/logo.svg') }}" alt="logo" class="footer-logo">
+                        <p>Доставка посылок из Чехии </p>
                     </div>
                 </div>
 
@@ -181,7 +181,7 @@
                                         fill="#fff"/>
                             </svg>
 
-                            <a class="footer-menu__item_telegram" href="https://telegram.me/FirstPerson2u">Telegram</a>
+                            <a class="footer-menu__item_telegram" href="https://t.me/sergeybogodelov">Telegram</a>
                         </li>
                         <li class="footer-menu__item menu-item">
 
@@ -225,7 +225,7 @@
                                 </g>
                             </svg>
 
-                            <a class="footer-menu__item_whatsapp" href="whatsapp://send?phone=+79028223572">Whatsapp </a>
+                            {{--<a class="footer-menu__item_whatsapp" href="whatsapp://send?phone=+79028223572">Whatsapp </a>--}}
                         </li>
                         <li class="footer-menu__item menu-item">
 
@@ -239,7 +239,7 @@
 </g>
 </svg>
 
-                            <a class="footer-menu__item_email" href="mailto:yo@muho.store">yo@muho.store</a>
+                            <a class="footer-menu__item_email" href="mailto:bogodelovs@gmail.com">bogodelovs@gmail.com</a>
                         </li>
                         {{--                        <li class="menu-item">--}}
                         {{--                            <a href="#">donate</a>--}}
@@ -330,7 +330,7 @@
                     <div class="row">
 
                         <div class="col-md-6">
-                            <p>© {{ date("Y") }} All rights reserved. Muho.store</p>
+                            <p>© {{ date("Y") }} All rights reserved. {{ env('APP_NAME')  }}</p>
                         </div>
 
                         {{--<div class="col-md-6">--}}

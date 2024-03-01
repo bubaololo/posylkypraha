@@ -866,7 +866,7 @@ body {
 @media (min-width: 400px) {
     .package-item__weight-wrap {
         flex-wrap: nowrap !important;
-        width: 30ch !important;
+        width: 34ch !important;
 
     }
 }
