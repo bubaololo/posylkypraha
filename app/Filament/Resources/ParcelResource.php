@@ -16,6 +16,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components;
+use Illuminate\Database\Eloquent\Collection;
 
 class ParcelResource extends Resource
 {
@@ -62,11 +63,15 @@ class ParcelResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+//                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\BulkAction::make('export_csv')
+                    ->action(function(Collection $records) {
+                        dd($records);
+                    }),
                 ]),
             ]);
     }
@@ -134,5 +139,9 @@ class ParcelResource extends Resource
                         TextEntry::make('address.comment')->label('Комментарий'),
                     ]),
             ]);
+    }
+    public static function canCreate(): bool
+    {
+        return false;
     }
 }
