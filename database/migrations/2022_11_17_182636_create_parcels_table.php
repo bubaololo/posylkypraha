@@ -30,6 +30,7 @@ return new class extends Migration {
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->enum('delivery_type',['ems','post']);
             $table->boolean('paid')->default(0);
             $table->text('comment')->nullable();
             $table->text('track')->nullable();

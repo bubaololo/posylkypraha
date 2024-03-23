@@ -43,7 +43,7 @@ class ParcelController extends Controller
         $formData = $request->all();
         
         $this->trimValuesRecursively($formData);
-
+dd($formData);
 
 //        preparing data to send via bot
         info(print_r($formData, true));

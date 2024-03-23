@@ -22,8 +22,6 @@
         <link href="{{ asset('css/checkout.css') }}" rel="stylesheet">
         <link href="{{ asset('css/checkout-media.css') }}" rel="stylesheet">
     @endpush
-    <main class="my-8">
-        <div class="container">
 
             @if ($message = Session::get('success'))
                 <div class="p-4 mb-3 bg-green-400 rounded">
@@ -40,10 +38,8 @@
                 </div>
             @endif
 
-            <section class="h-100 h-custom">
-                <div class="container py-5 h-100">
-                    <form enctype="multipart/form-data" method="post" id="quest_form"
-                             action="/checkout">
+                    <form class="parcel-form container" enctype="multipart/form-data" method="post" id="quest_form"
+                            action="/checkout">
                         @csrf
 
                         <div class="col-lg-7">
@@ -59,13 +55,13 @@
                                                 <input type="text" required x-model="item.description" :name="'items[' + index + '][description]'" class="form-control" placeholder="Описание вложения">
                                             </div>
                                             <div class="package-item__controls-wrap">
-                                                <div class="package-item__weight-wrap input-group input-group-sm" >
+                                                <div class="package-item__weight-wrap input-group input-group-sm">
                                                     <span class="input-group-text">Вес</span>
                                                     <div class="package-item__input-wrap">
-                                                    <input type="number" min="0" x-model="item.weight_kg" :name="'items[' + index + '][weight_kg]'" class="form-control package-item__weight" placeholder="кг">
+                                                        <input type="number" min="0" x-model="item.weight_kg" :name="'items[' + index + '][weight_kg]'" class="form-control package-item__weight" placeholder="кг">
                                                     </div>
                                                     <div class="package-item__input-wrap">
-                                                    <input type="number" min="0" x-model="item.weight_g" :name="'items[' + index + '][weight_g]'" class="form-control package-item__weight" placeholder="г">
+                                                        <input type="number" min="0" x-model="item.weight_g" :name="'items[' + index + '][weight_g]'" class="form-control package-item__weight" placeholder="г">
                                                     </div>
                                                 </div>
                                                 <div class="package-item__quantity">
@@ -76,6 +72,13 @@
                                                         <input type="hidden" x-model="item.quantity" :name="'items[' + index + '][quantity]'" class="form-control">
                                                     </div>
                                                     <button type="button" class="btn btn-light px-3 me-2 package-item__quantity-btn" x-on:click="updateQuantity(item, 1)">+</button>
+                                                </div>
+                                                <div class="package-item__value-wrap" >
+                                                    <span class="input-group-text">Стоимость</span>
+                                                    <div class="package-item__input-wrap">
+                                                        <input type="number" min="0" x-model="item.value" :name="'items[' + index + '][value]'" class="form-control package-item__value" placeholder="€">
+                                                    </div>
+
                                                 </div>
 
                                                 <div class="package-item__del" x-on:click="removeItem(index)" x-show="items.length > 1"></div>
@@ -169,7 +172,6 @@
                                                                         value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="John">
                                                             </div>
 
-
                                                         </div>
                                                     </div>
                                                     <div class="quest__slider_buttons_wrapper">
@@ -214,7 +216,6 @@
                                                                 <input type="hidden" id="form_house" name="house">
                                                                 <input type="hidden" id="form_premise" name="premise">
                                                                 <input type="hidden" id="form_postal_code" name="postal_code">
-
 
                                                             </div>
                                                             <p id="notice"></p>
@@ -405,12 +406,8 @@
                         </div>
 
                     </form>
-                </div>
-            </section>
 
-        </div>
 
-    </main>
 
     @push('scripts')
         <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
@@ -533,7 +530,6 @@
               document.getElementById('form_house').value = premiseNumber;
               document.getElementById('form_premise').value = premise;
               document.getElementById('form_postal_code').value = postIndex;
-
 
 
               addressIsValid = true;

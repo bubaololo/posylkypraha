@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('weight_kg')->nullable();
             $table->integer('weight_g')->default(0);
             $table->integer('quantity')->default(1);
+            $table->integer('value');
             $table->timestamps();
         });
     }
