@@ -24,23 +24,25 @@
   const hamburger = document.querySelector(".hamburger");
   const navMenu = document.querySelector(".menu-list");
 
-  hamburger.addEventListener("click", mobileMenu);
+  if(hamburger && navMenu) {
 
-  function mobileMenu() {
+    hamburger.addEventListener("click", mobileMenu);
+
+    function mobileMenu() {
       hamburger.classList.toggle("active");
       navMenu.classList.toggle("responsive");
-  }
+    }
 
-  const navLink = document.querySelectorAll(".nav-link");
+    const navLink = document.querySelectorAll(".nav-link");
 
-  navLink.forEach(n => n.addEventListener("click", closeMenu));
+    navLink.forEach(n => n.addEventListener("click", closeMenu));
 
-  function closeMenu() {
+    function closeMenu() {
       hamburger.classList.remove("active");
       navMenu.classList.remove("responsive");
+    }
+
   }
-
-
   // close when click off of container
   // $(document).on('click touchstart', function (e){
   //

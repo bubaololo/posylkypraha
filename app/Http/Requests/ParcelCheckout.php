@@ -28,6 +28,7 @@ class ParcelCheckout extends FormRequest
             'items.*.weight_kg' => 'required_without:items.*.weight_g',
             'items.*.weight_g' => 'required_without:items.*.weight_kg',
             'items.*.value' => 'required|integer',
+            'deliveryType' => 'required',
             'user_id' => 'nullable|exists:users,user_id',
             'address' => 'required',
             'apartment' => 'integer',
@@ -72,7 +73,8 @@ class ParcelCheckout extends FormRequest
             'password.confirmed' => 'подтверждение пароля должно совпадать',
             'items.*.description' => 'добавьте описание вложения',
             'items.*.weight_kg' => 'укажите вес вложения',
-            'items.*.weight_g' => 'укажите вес вложения'
+            'items.*.weight_g' => 'укажите вес вложения',
+            'deliveryType.required' => 'выберите тип доставки'
         ];
     }
 }
