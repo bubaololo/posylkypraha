@@ -44,8 +44,8 @@
         @csrf
 
         <div class="col-lg-7">
-            <h5 class="mb-3"><a href="#!" class="text-body"><i
-                            class="fas fa-long-arrow-alt-left me-2"></i>Содержимое посылки</a></h5>
+            <h5 class="mb-3"><a href="#!" class="text-body">
+                    <i class="fas fa-long-arrow-alt-left me-2"></i>Содержимое посылки</a></h5>
             <hr>
 
             <div class="d-flex flex-column gap-2 mb-4" x-data="packageItemsComponent()" id="packageItemsWrapper">
@@ -89,27 +89,28 @@
                 </template>
 
                 <button type="button" class="btn btn-outline-secondary btn-sm" x-on:click="addItem()" >+ добавить вложение</button>
-            </div>
-            <div class="delivery">
-                <label for="name">Способ доставки</label>
-                <fieldset>
+                <div class="delivery">
+                    <label for="name">Способ доставки</label>
+                    <fieldset>
 
-                    <div class="delivery__type">
-                        <div class="delivery-selector">
-                            <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="ems" value="ems">
-                            <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
-                            <small class="text-muted delivery-selector__notify" x-show="deliveryType" x-text="emsPrice"></small>
+                        <div class="delivery__type">
+                            <div class="delivery-selector">
+                                <input type="radio" class="btn-check" name="deliveryType"  id="ems" value="ems">
+                                <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
+                                <small class="text-muted delivery-selector__notify"  x-text="emsPrice"></small>
+                            </div>
+
+                            <div class="delivery-selector">
+                                <input type="radio" class="btn-check" name="deliveryType" x-model="emsPrice" id="post" value="post">
+                                <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
+                                <small class="text-muted delivery-selector__notify"  x-text="postPrice"></small>
+                            </div>
+
                         </div>
-
-                        <div class="delivery-selector">
-                            <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="post" value="post">
-                            <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
-                            <small class="text-muted delivery-selector__notify" x-show="deliveryType" x-text="postPrice"></small>
-                        </div>
-
-                    </div>
-                </fieldset>
+                    </fieldset>
+                </div>
             </div>
+
 
             <script>
               function packageItemsComponent() {
@@ -149,6 +150,7 @@
                     this.emsPrice = (totalWeight * 2).toFixed(2);
                     this.postPrice = (totalWeight * 1.5).toFixed(2);
                     console.log(this.emsPrice, this.postPrice);
+                    console.log(totalWeight);
 
                   },
 
