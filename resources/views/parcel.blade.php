@@ -117,44 +117,62 @@
                 return {
                   items: [{ description: '', weight_kg: null, weight_g: null, quantity: 1 }],
                   deliveryType: '',
-                  emsPrice: 0, // Добавляем переменную для стоимости EMS доставки
-                  postPrice: 0, // Добавляем переменную для стоимости Почтовой доставки
+                  emsPrice: 0,
+                  postPrice: 0,
+                  emsRates: [
+                    { weight: 2000, price: 950 },
+                    { weight: 5000, price: 1250 },
+                    { weight: 10000, price: 1850 },
+                    { weight: 15000, price: 2350 },
+                    { weight: 20000, price: 2850 },
+                    { weight: 25000, price: 3350 },
+                    { weight: 30000, price: 3850 },
+                    { weight: Infinity, price: 0 }
+                  ],
+                  postRates: [
+                    { weight: 2000, price: 800 },
+                    { weight: 5000, price: 1100 },
+                    { weight: 10000, price: 1250 },
+                    { weight: 15000, price: 1500 },
+                    { weight: 20000, price: 1600 },
+                    { weight: Infinity, price: 0 }
+                  ],
 
-                  // Добавление нового вложения
                   addItem() {
                     this.items.push({ description: '', weight_kg: null, weight_g: null, quantity: 1 });
                     this.calculateDeliveryCost();
                   },
 
-                  // Удаление вложения
                   removeItem(index) {
                     this.items.splice(index, 1);
                     this.calculateDeliveryCost();
                   },
 
-                  // Обновление количества
                   updateQuantity(item, amount) {
                     const newQuantity = item.quantity + amount;
                     item.quantity = newQuantity >= 1 ? newQuantity : 1;
                     this.calculateDeliveryCost();
                   },
 
-                  // Расчёт общего веса и стоимости доставки
                   calculateDeliveryCost() {
                     let totalWeightKg = this.items.reduce((sum, item) => sum + (parseFloat(item.weight_kg) || 0), 0);
                     let totalWeightG = this.items.reduce((sum, item) => sum + (parseFloat(item.weight_g) || 0), 0);
-                    let totalWeight = totalWeightKg * 1000 + totalWeightG; // Общий вес в граммах
+                    let totalWeight = totalWeightKg * 1000 + totalWeightG;
 
-                    // Здесь должна быть ваша логика расчета стоимости доставки на основе totalWeight
-                    // Например, пусть стоимость EMS будет totalWeight * 2, а Почтовой доставки totalWeight * 1.5
-                    this.emsPrice = (totalWeight * 2).toFixed(2);
-                    this.postPrice = (totalWeight * 1.5).toFixed(2);
+                    this.emsPrice = this.getPriceByWeight(this.emsRates, totalWeight).toFixed(2);
+                    this.postPrice = this.getPriceByWeight(this.postRates, totalWeight).toFixed(2);
                     console.log(this.emsPrice, this.postPrice);
-                    console.log(totalWeight);
-
                   },
 
-                  // Инициализация компонента
+                  getPriceByWeight(rates, weight) {
+                    for (let rate of rates) {
+                      if (weight <= rate.weight) {
+                        return rate.price;
+                      }
+                    }
+                    return 0; // Если не подходит ни одна категория
+                  },
+
                   init() {
                     this.$watch('deliveryType', () => this.calculateDeliveryCost());
                     this.$watch('items', () => this.calculateDeliveryCost(), { deep: true });
@@ -748,10 +766,10 @@
           // receiver credentials ----------------------------------------------------------------------
           document.getElementById('receiver-credentials-button').addEventListener('click', () => {
 
-            let receiver_name = form.validate().element('#receiver_name');
-            let receiver_surname = form.validate().element('#receiver_surname');
+            let recipient_name = form.validate().element('#recipient_name');
+            let recipient_surname = form.validate().element('#recipient_surname');
             let tel = form.validate().element('#tel');
-            let credentialsCondition = receiver_name && receiver_surname && tel;
+            let credentialsCondition = recipient_name && recipient_surname && tel;
             checkIfAllFieldsValidated(credentialsCondition);
               @guest
               tooltipInstance.show();
