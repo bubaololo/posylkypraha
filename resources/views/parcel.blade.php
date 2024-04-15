@@ -95,17 +95,15 @@
 
                         <div class="delivery__type">
                             <div class="delivery-selector">
-                                <input type="radio" class="btn-check" name="deliveryType"  id="ems" value="ems">
+                                <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="ems" value="ems">
                                 <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
-                                <small class="text-muted delivery-selector__notify"  x-text="emsPrice"></small>
+                                <small x-text="emsPrice"></small>
                             </div>
-
                             <div class="delivery-selector">
-                                <input type="radio" class="btn-check" name="deliveryType" x-model="emsPrice" id="post" value="post">
+                                <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="post" value="post">
                                 <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
-                                <small class="text-muted delivery-selector__notify"  x-text="postPrice"></small>
+                                <small x-text="postPrice"></small>
                             </div>
-
                         </div>
                     </fieldset>
                 </div>
