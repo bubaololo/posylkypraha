@@ -77,7 +77,7 @@
                                 <div class="package-item__value-wrap">
                                     <span class="input-group-text">Стоимость</span>
                                     <div class="package-item__input-wrap">
-                                        <input type="number" min="0"  :name="'items[' + index + '][value]'" class="form-control package-item__value" placeholder="€">
+                                        <input type="number" min="0" :name="'items[' + index + '][value]'" class="form-control package-item__value" placeholder="€">
                                     </div>
 
                                 </div>
@@ -87,57 +87,101 @@
                         </div>
                     </div>
                 </template>
-
-                <button type="button" class="btn btn-outline-secondary btn-sm" x-on:click="addItem()" >+ добавить вложение</button>
+                <input type="hidden" name="calculatedDeliveryCost" x-bind:value="selectedDeliveryCost">
+                <button type="button" class="btn btn-outline-secondary btn-sm" x-on:click="addItem()">+ добавить вложение</button>
                 <div class="delivery">
                     <label for="name">Способ доставки</label>
-                    <fieldset>
+                    {{--<fieldset>--}}
 
-                        <div class="delivery__type">
-                            <div class="delivery-selector">
-                                <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="ems" value="ems">
-                                <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
-                                <small x-text="emsPrice"></small>
-                            </div>
-                            <div class="delivery-selector">
-                                <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="post" value="post">
-                                <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
-                                <small x-text="postPrice"></small>
-                            </div>
+                    {{--    <div class="delivery__type">--}}
+                    {{--        <div class="delivery-selector">--}}
+                    {{--            <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="ems" value="ems">--}}
+                    {{--            <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>--}}
+                    {{--            <small x-text="emsPrice"></small>--}}
+                    {{--        </div>--}}
+                    {{--        <div class="delivery-selector">--}}
+                    {{--            <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="post" value="post">--}}
+                    {{--            <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>--}}
+                    {{--            <small x-text="postPrice"></small>--}}
+                    {{--        </div>--}}
+                    {{--    </div>--}}
+                    {{--</fieldset>--}}
+
+                    {{--<div class="delivery__type" x-data="{types: [ {id: 'post', name: 'Почта'}, {id: 'sdek', name: 'Sdek'}], selectedTypeID: ''}">--}}
+                    {{--    <template x-for="type in types" :key="type.id">--}}
+                    {{--        <div class="delivery-selector">--}}
+                    {{--            <input x-model="selectedTypeID" class="btn-check" type="radio" :value="type.id" :id="type.name">--}}
+                    {{--            <label class="btn btn-outline-success" :for="type.name" x-text="type.name"></label>--}}
+                    {{--        </div>--}}
+                    {{--    </template>--}}
+                    {{--    <p>Selected value: <code x-text="selectedTypeID"></code>--}}
+                    {{--    </p>--}}
+                    {{--</div>--}}
+
+                    <div class="delivery__type" >
+                        <div class="delivery-selector">
+                        <input type="radio" id="ems" class="btn-check" x-model="deliveryType" value="ems">
+                            <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
+                            <small x-text="emsPrice"></small>
                         </div>
-                    </fieldset>
+                        <div class="delivery-selector">
+                        <input type="radio" id="post" class="btn-check" x-model="deliveryType" value="post">
+                            <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
+                            <small x-text="postPrice"></small>
+                        </div>
+                        <div x-text="`You chose ${deliveryType}`"></div>
+                    </div>
+
+
+
+                    {{--<div class="delivery__type" >--}}
+                    {{--    <div class="delivery-selector">--}}
+                    {{--        <input name="deliveryType"  type="radio" :value="post" :id="post" value="post" id="post" >--}}
+                    {{--        <label   for="post">Почта</label>--}}
+                    {{--        <small x-text="postPrice"></small>--}}
+                    {{--    </div>--}}
+                    {{--<div class="delivery-selector">--}}
+                    {{--        <input name="deliveryType"  type="radio" :value="sdek" :id="sdek" value="sdek" id="sdek" >--}}
+                    {{--        <label for="sdek">Sdek</label>--}}
+                    {{--    <small x-text="emsPrice"></small>--}}
+                    {{--    </div>--}}
+                    {{--    <p>Selected value: <code x-text="selectedTypeID"></code>--}}
+                    {{--    </p>--}}
+                    {{--</div>--}}
+
+
                 </div>
             </div>
-
 
             <script>
               function packageItemsComponent() {
                 return {
-                  items: [{ description: '', weight_kg: null, weight_g: null, quantity: 1 }],
+                  items: [{description: '', weight_kg: null, weight_g: null, quantity: 1}],
                   deliveryType: '',
                   emsPrice: 0,
                   postPrice: 0,
+                  selectedDeliveryCost: 0,
                   emsRates: [
-                    { weight: 2000, price: 950 },
-                    { weight: 5000, price: 1250 },
-                    { weight: 10000, price: 1850 },
-                    { weight: 15000, price: 2350 },
-                    { weight: 20000, price: 2850 },
-                    { weight: 25000, price: 3350 },
-                    { weight: 30000, price: 3850 },
-                    { weight: Infinity, price: 0 }
+                    {weight: 2000, price: 950},
+                    {weight: 5000, price: 1250},
+                    {weight: 10000, price: 1850},
+                    {weight: 15000, price: 2350},
+                    {weight: 20000, price: 2850},
+                    {weight: 25000, price: 3350},
+                    {weight: 30000, price: 3850},
+                    {weight: Infinity, price: 0}
                   ],
                   postRates: [
-                    { weight: 2000, price: 800 },
-                    { weight: 5000, price: 1100 },
-                    { weight: 10000, price: 1250 },
-                    { weight: 15000, price: 1500 },
-                    { weight: 20000, price: 1600 },
-                    { weight: Infinity, price: 0 }
+                    {weight: 2000, price: 800},
+                    {weight: 5000, price: 1100},
+                    {weight: 10000, price: 1250},
+                    {weight: 15000, price: 1500},
+                    {weight: 20000, price: 1600},
+                    {weight: Infinity, price: 0}
                   ],
 
                   addItem() {
-                    this.items.push({ description: '', weight_kg: null, weight_g: null, quantity: 1 });
+                    this.items.push({description: '', weight_kg: null, weight_g: null, quantity: 1});
                     this.calculateDeliveryCost();
                   },
 
@@ -159,7 +203,20 @@
 
                     this.emsPrice = this.getPriceByWeight(this.emsRates, totalWeight).toFixed(2);
                     this.postPrice = this.getPriceByWeight(this.postRates, totalWeight).toFixed(2);
-                    console.log(this.emsPrice, this.postPrice);
+
+                    this.updateSelectedDeliveryCost();
+                  },
+
+                  updateSelectedDeliveryCost() {
+                    if (this.deliveryType === 'ems') {
+                      this.selectedDeliveryCost = this.emsPrice;
+                    } else if (this.deliveryType === 'post') {
+                      this.selectedDeliveryCost = this.postPrice;
+                    } else {
+                      this.selectedDeliveryCost = 0; // Сброс, если тип доставки не выбран
+                    }
+                    console.log('Delivery Type:', this.deliveryType);
+                    console.log('Selected Delivery Cost Updated:', this.selectedDeliveryCost);
                   },
 
                   getPriceByWeight(rates, weight) {
@@ -172,14 +229,16 @@
                   },
 
                   init() {
-                    this.$watch('deliveryType', () => this.calculateDeliveryCost());
-                    this.$watch('items', () => this.calculateDeliveryCost(), { deep: true });
+                    this.$watch('deliveryType', (newValue, oldValue) => {
+                      console.log(`Delivery type changed from ${oldValue} to ${newValue}`);
+                      this.calculateDeliveryCost();
+                    });
+                    this.$watch('items', () => this.calculateDeliveryCost(), {deep: true});
                     this.calculateDeliveryCost(); // Вызываем изначально для начального расчета
                   }
                 };
               }
             </script>
-
 
             <hr class="my-4">
 
