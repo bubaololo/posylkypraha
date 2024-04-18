@@ -40,8 +40,8 @@ class ParcelResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('order_num')->label('номер заказа'),
-                TextColumn::make('track.number')->label('трек номер'),
+                TextColumn::make('order_num')->label('номер заказа')->searchable(),
+                TextColumn::make('track.number')->label('трек номер')->searchable(),
                 TextColumn::make('delivery_type')->label('тип доставки'),
 //                TextColumn::make('sender.name')
 //                    ->label('Отправитель')
