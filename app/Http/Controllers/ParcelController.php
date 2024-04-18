@@ -43,7 +43,7 @@ class ParcelController extends Controller
         $formData = $request->all();
         
         $this->trimValuesRecursively($formData);
-dd($formData);
+//dd($formData);
 
 //        preparing data to send via bot
         info(print_r($formData, true));
@@ -86,8 +86,9 @@ dd($formData);
             'recipient_credentials_id' => $recipientCredentials->id,
             'address_id' => $address->id,
             'comment' => $formData['comment'],
+            'delivery_cost' => $formData['calculatedDeliveryCost'],
         ]);
-        
+
 //        if (Auth::check()) {
 //            $currentUserCredentials = RecipientCredential::where('user_id', $user_id)->first();
 //            if (!$currentUserCredentials) {
@@ -95,20 +96,21 @@ dd($formData);
 //                $credential->save();
 //            }
 //        }
-$parcelId = $parcel->id;
+        $parcelId = $parcel->id;
         foreach ($formData['items'] as $item) {
-             Enclosure::create([
+            Enclosure::create([
                 'parcel_id' => $parcelId,
                 'description' => $item['description'],
                 'weight_g' => $item['weight_g'] ?? 0,
                 'weight_kg' => $item['weight_kg'],
                 'quantity' => $item['quantity'],
+                'value' => $item['value'],
             ]);
         }
-        
-        
+
+
 //        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
-        return view('order',compact('orderNum'));
+        return view('order', compact('orderNum'));
     }
     
     private function trimValuesRecursively(&$array)

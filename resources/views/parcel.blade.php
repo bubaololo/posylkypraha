@@ -122,14 +122,14 @@
                         <div class="delivery-selector">
                         <input type="radio" id="ems" class="btn-check" x-model="deliveryType" value="ems">
                             <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
-                            <small x-text="emsPrice"></small>
+                            <small x-text="emsPrice"></small> PLN
                         </div>
                         <div class="delivery-selector">
                         <input type="radio" id="post" class="btn-check" x-model="deliveryType" value="post">
                             <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
-                            <small x-text="postPrice"></small>
+                            <small x-text="postPrice"></small> PLN
                         </div>
-                        <div x-text="`You chose ${deliveryType}`"></div>
+                        {{--<div x-text="`You chose ${deliveryType}`"></div>--}}
                     </div>
 
 
@@ -201,8 +201,8 @@
                     let totalWeightG = this.items.reduce((sum, item) => sum + (parseFloat(item.weight_g) || 0), 0);
                     let totalWeight = totalWeightKg * 1000 + totalWeightG;
 
-                    this.emsPrice = this.getPriceByWeight(this.emsRates, totalWeight).toFixed(2);
-                    this.postPrice = this.getPriceByWeight(this.postRates, totalWeight).toFixed(2);
+                    this.emsPrice = this.getPriceByWeight(this.emsRates, totalWeight);
+                    this.postPrice = this.getPriceByWeight(this.postRates, totalWeight);
 
                     this.updateSelectedDeliveryCost();
                   },

@@ -19,6 +19,7 @@ class Enclosure extends Model
         'weight_g',
         'quantity',
         'description',
+        'value'
     ];
     
     public function parcels()

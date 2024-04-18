@@ -39,10 +39,11 @@ class EnclosuresRelationManager extends RelationManager
                         );
                     }
                 ),
-                Tables\Columns\TextColumn::make('description'),
-                Tables\Columns\TextColumn::make('quantity'),
-                Tables\Columns\TextColumn::make('weight_kg'),
-                Tables\Columns\TextColumn::make('weight_g'),
+                Tables\Columns\TextColumn::make('description')->label('описание'),
+                Tables\Columns\TextColumn::make('quantity')->label('кол-во'),
+                Tables\Columns\TextColumn::make('weight_kg')->label('вес кг'),
+                Tables\Columns\TextColumn::make('weight_g')->label('вес г'),
+                Tables\Columns\TextColumn::make('value')->label('ценность'),
             ])
             ->filters([
                 //

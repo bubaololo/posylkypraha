@@ -25,6 +25,9 @@ class ParcelResource extends Resource
     
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     
+    protected static ?string $label = 'Посылки';
+    protected static ?string $pluralLabel = 'Посылки';
+    
     public static function form(Form $form): Form
     {
         return $form
@@ -37,17 +40,19 @@ class ParcelResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('order_num'),
-                TextColumn::make('sender.name')
-                    ->label('Отправитель')
-                    ->formatStateUsing(function ($state, Parcel $parcel) {
-                        return $parcel->sender->name . ' ' . $parcel->sender->surname;
-                    }),
-                TextColumn::make('recipient.name')
-                    ->label('Получатель')
-                    ->formatStateUsing(function ($state, Parcel $parcel) {
-                        return $parcel->recipient->name . ' ' . $parcel->recipient->surname;
-                    }),
+                TextColumn::make('order_num')->label('номер заказа'),
+                TextColumn::make('track')->label('трек номер'),
+                TextColumn::make('delivery_type')->label('тип доставки'),
+//                TextColumn::make('sender.name')
+//                    ->label('Отправитель')
+//                    ->formatStateUsing(function ($state, Parcel $parcel) {
+//                        return $parcel->sender->name . ' ' . $parcel->sender->surname;
+//                    }),
+//                TextColumn::make('recipient.name')
+//                    ->label('Получатель')
+//                    ->formatStateUsing(function ($state, Parcel $parcel) {
+//                        return $parcel->recipient->name . ' ' . $parcel->recipient->surname;
+//                    }),
                 
                 IconColumn::make('paid')
                     ->boolean()->label('оплачена'),
@@ -123,6 +128,28 @@ class ParcelResource extends Resource
                         
                         ])->from('lg'),
                     ]),
+                Components\Section::make()
+                    ->schema([
+                        Components\Split::make([
+                            Components\Grid::make(2)
+                                ->schema([
+
+                                            TextEntry::make('delivery_type')->label('Тип доставки'),
+                                        
+                    
+                                ]),
+                            Components\Grid::make(2)
+                                ->schema([
+
+                                            TextEntry::make('delivery_cost')->label('Стоимость доставки'),
+
+                                        
+                    
+                                ]),
+            
+                        ])->from('lg'),
+                    ]),
+
                 Components\Section::make()
                     ->columns([
                         'sm' => 3,
