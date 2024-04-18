@@ -27,6 +27,7 @@
             <!-- Title -->
             <div class="d-flex justify-content-between align-items-center py-3">
                 <h2 class="h5 mb-0" style="color:black; margin-top: 100px;"><a href="#" ></a> Заказ №{{ $orderNum  }}</h2>
+                <h2 class="h5 mb-0" style="color:black; margin-top: 100px;"><a href="#" ></a> Трек №{{ $track  }}</h2>
             </div>
 
             <!-- Main content -->

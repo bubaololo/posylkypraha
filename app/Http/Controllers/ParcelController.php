@@ -6,10 +6,12 @@ use App\Http\Requests\ParcelCheckout;
 use App\Models\Address;
 use App\Models\Enclosure;
 use App\Models\SenderCredential;
+use App\Models\Track;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Parcel;
 use App\Models\RecipientCredential;
 use App\Models\ParcelEnclosure;
+use phpDocumentor\Reflection\Types\Integer;
 
 
 class ParcelController extends Controller
@@ -87,6 +89,7 @@ class ParcelController extends Controller
             'address_id' => $address->id,
             'comment' => $formData['comment'],
             'delivery_cost' => $formData['calculatedDeliveryCost'],
+            'track_id' => $this->getUnusedTrackNumber()
         ]);
 
 //        if (Auth::check()) {
@@ -107,10 +110,10 @@ class ParcelController extends Controller
                 'value' => $item['value'],
             ]);
         }
-
+        $track = Track::find($parcel->track_id)->number;
 
 //        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
-        return view('order', compact('orderNum'));
+        return view('order', compact('orderNum','track' ));
     }
     
     private function trimValuesRecursively(&$array)
@@ -124,6 +127,18 @@ class ParcelController extends Controller
         }
         unset($value);
     }
+    
+    private function getUnusedTrackNumber():int|null
+    {
+        // Используем левое соединение для поиска треков, которые не привязаны к посылкам
+        $track = Track::leftJoin('parcels', 'tracks.id', '=', 'parcels.track_id')
+            ->whereNull('parcels.track_id')
+            ->select('tracks.id')
+            ->first();
+        // Возвращаем ID трека или null, если таких треков нет
+        return $track?->id;
+    }
+    
 }
 
 //        $itemCounter = 0;

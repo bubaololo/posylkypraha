@@ -20,6 +20,11 @@ return new class extends Migration {
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->foreignId('track_id')
+                ->nullable()
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('recipient_credentials_id')
                 ->constrained();
             $table->foreignId('sender_credentials_id')

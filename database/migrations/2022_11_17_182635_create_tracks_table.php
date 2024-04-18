@@ -13,11 +13,6 @@ return new class extends Migration
     {
         Schema::create('tracks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parcel_id')
-                ->nullable()
-                ->unique()
-                ->constrained()
-                ->onUpdate('cascade');
             $table->text('number');
             
             $table->timestamps();

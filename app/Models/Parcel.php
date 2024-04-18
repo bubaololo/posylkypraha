@@ -36,4 +36,8 @@ class Parcel extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function track() {
+        return $this->belongsTo(Track::class);
+    }
 }
