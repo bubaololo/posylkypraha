@@ -23,7 +23,7 @@ class GenerateCsv
             // Заголовки столбцов
             fputcsv($file, ['Sender', 'Addressee',
                 'Postcode', 'Region','Rayon','City, town','улица','дом','корпус','квартира', 'телефон',
-                'Номер вложения','Описание вложения','weight kg', 'weight g','количество']);
+                'Номер вложения','Описание вложения','weight kg', 'weight g','количество','объявленная ценность']);
             // Заполнение данных
             foreach ($parcels as $parcel) {
 //                dd($parcel->enclosures);
@@ -47,6 +47,7 @@ class GenerateCsv
                         $enclosure->weight_kg,
                         $enclosure->weight_g,
                         $enclosure->quantity,
+                        $enclosure->value,
                         ]);
                     $enclosureIndex++;
                 }

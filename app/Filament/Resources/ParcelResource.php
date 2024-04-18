@@ -120,8 +120,8 @@ class ParcelResource extends Resource
                                 ->schema([
                                     Fieldset::make('sender')
                                         ->schema([
-                                            TextEntry::make('sender.name')->label('Имя')->weight('bold'),
-                                            TextEntry::make('sender.surname')->label('Фамилия')->weight('bold'),
+                                            TextEntry::make('recipient.name')->label('Имя')->weight('bold'),
+                                            TextEntry::make('recipient.surname')->label('Фамилия')->weight('bold'),
                                         ])->label('Получатель'),
                                 
                                 ]),
