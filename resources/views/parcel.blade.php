@@ -122,12 +122,12 @@
                         <div class="delivery-selector">
                         <input type="radio" id="ems" class="btn-check" x-model="deliveryType" value="ems">
                             <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
-                            <small x-text="emsPrice"></small> PLN
+                            <small x-text="emsPrice"></small> CZK
                         </div>
                         <div class="delivery-selector">
                         <input type="radio" id="post" class="btn-check" x-model="deliveryType" value="post">
                             <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
-                            <small x-text="postPrice"></small> PLN
+                            <small x-text="postPrice"></small> CZK
                         </div>
                         {{--<div x-text="`You chose ${deliveryType}`"></div>--}}
                     </div>
