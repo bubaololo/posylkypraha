@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "268e54f3f54c6b57a86c9c8d80ae6410",
+    "content-hash": "051fe52c2fa4b57628b9319c621353d6",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -9749,6 +9749,58 @@
                 }
             ],
             "time": "2022-03-08T17:03:00+00:00"
+        },
+        {
+            "name": "vyfakturuj/vyfakturuj-api-php",
+            "version": "v2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/redbitcz/vyfakturuj-api-php.git",
+                "reference": "add636244dbb9d7b02f0af07f4cf4d44a1cfb149"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/redbitcz/vyfakturuj-api-php/zipball/add636244dbb9d7b02f0af07f4cf4d44a1cfb149",
+                "reference": "add636244dbb9d7b02f0af07f4cf4d44a1cfb149",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6.0"
+            },
+            "suggest": {
+                "composer/ca-bundle": "Umožňuje ověřit SSL certifikáty serveru"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "libs/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Redbit s.r.o.",
+                    "homepage": "https://www.redbit.cz/"
+                }
+            ],
+            "description": "Vyfakturuj API",
+            "homepage": "https://www.vyfakturuj.cz/api/",
+            "keywords": [
+                "api",
+                "faktura",
+                "vyfakturuj"
+            ],
+            "support": {
+                "email": "info@vyfakturuj.cz",
+                "issues": "https://github.com/redbitcz/vyfakturuj-api-php/issues",
+                "source": "https://github.com/redbitcz/vyfakturuj-api-php/tree/v2.5.1"
+            },
+            "time": "2021-02-08T09:14:24+00:00"
         },
         {
             "name": "webmozart/assert",

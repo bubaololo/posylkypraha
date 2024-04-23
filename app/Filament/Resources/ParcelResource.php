@@ -3,10 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Actions\GenerateCsv;
+use App\Actions\GenerateInvoice;
 use App\Filament\Resources\ParcelResource\Pages;
 use App\Filament\Resources\ParcelResource\RelationManagers;
 use App\Models\Parcel;
 use Filament\Forms\Form;
+use Filament\Tables\Actions\Action;
 use Filament\Infolists\Components\Fieldset;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
@@ -70,6 +72,11 @@ class ParcelResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
 //                Tables\Actions\EditAction::make(),
+                Action::make('generate_invoice')
+                    ->action(function(Parcel $parcel, GenerateInvoice $generateInvoice) {
+//                        dd($parcels);
+                        return $generateInvoice($parcel);
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

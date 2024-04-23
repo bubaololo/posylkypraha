@@ -19,7 +19,8 @@
         "livewire/livewire": "^3",
         "mohamedsabil83/filament-forms-tinyeditor": "^2.2",
         "proengsoft/laravel-jsvalidation": "^4.7",
-        "spatie/laravel-sitemap": "^6.2"
+        "spatie/laravel-sitemap": "^6.2",
+        "vyfakturuj/vyfakturuj-api-php": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
