@@ -117,6 +117,7 @@
                     {{--    <p>Selected value: <code x-text="selectedTypeID"></code>--}}
                     {{--    </p>--}}
                     {{--</div>--}}
+                    <input type="hidden" name="deliveryType" x-bind:value="deliveryType">
 
                     <div class="delivery__type" >
                         <div class="delivery-selector">

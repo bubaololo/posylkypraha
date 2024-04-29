@@ -10,7 +10,6 @@ use App\Models\Track;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Parcel;
 use App\Models\RecipientCredential;
-use App\Models\ParcelEnclosure;
 use phpDocumentor\Reflection\Types\Integer;
 
 
@@ -89,6 +88,7 @@ class ParcelController extends Controller
             'address_id' => $address->id,
             'comment' => $formData['comment'],
             'delivery_cost' => $formData['calculatedDeliveryCost'],
+            'delivery_type' => $formData['deliveryType'],
             'track_id' => $this->getUnusedTrackNumber()
         ]);
 
@@ -110,7 +110,7 @@ class ParcelController extends Controller
                 'value' => $item['value'],
             ]);
         }
-        $track = Track::find($parcel->track_id)->number;
+        $track = $parcel->track_id;
 
 //        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
         return view('order', compact('orderNum','track' ));

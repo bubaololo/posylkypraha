@@ -66,6 +66,7 @@ class ParcelResource extends Resource
                 TextColumn::make('created_at')
                     ->date()->label('создан')
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
