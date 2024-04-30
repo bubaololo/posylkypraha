@@ -1004,8 +1004,15 @@ body {
     z-index: -1;
     margin: 0;
 }
+.delivery__title {
+    font-weight: 700;
+    margin-bottom: 2ch;
+}
 
 .delivery-selector {
+display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 25ch;
     text-align: center;
     line-height: 1em;

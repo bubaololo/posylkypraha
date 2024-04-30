@@ -90,67 +90,37 @@
                 <input type="hidden" name="calculatedDeliveryCost" x-bind:value="selectedDeliveryCost">
                 <button type="button" class="btn btn-outline-secondary btn-sm" x-on:click="addItem()">+ добавить вложение</button>
                 <div class="delivery">
-                    <label for="name">Способ доставки</label>
-                    {{--<fieldset>--}}
+                    <div class="delivery__title" >Способ доставки:</div>
 
-                    {{--    <div class="delivery__type">--}}
-                    {{--        <div class="delivery-selector">--}}
-                    {{--            <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="ems" value="ems">--}}
-                    {{--            <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>--}}
-                    {{--            <small x-text="emsPrice"></small>--}}
-                    {{--        </div>--}}
-                    {{--        <div class="delivery-selector">--}}
-                    {{--            <input type="radio" class="btn-check" name="deliveryType" x-model="deliveryType" id="post" value="post">--}}
-                    {{--            <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>--}}
-                    {{--            <small x-text="postPrice"></small>--}}
-                    {{--        </div>--}}
-                    {{--    </div>--}}
-                    {{--</fieldset>--}}
-
-                    {{--<div class="delivery__type" x-data="{types: [ {id: 'post', name: 'Почта'}, {id: 'sdek', name: 'Sdek'}], selectedTypeID: ''}">--}}
-                    {{--    <template x-for="type in types" :key="type.id">--}}
-                    {{--        <div class="delivery-selector">--}}
-                    {{--            <input x-model="selectedTypeID" class="btn-check" type="radio" :value="type.id" :id="type.name">--}}
-                    {{--            <label class="btn btn-outline-success" :for="type.name" x-text="type.name"></label>--}}
-                    {{--        </div>--}}
-                    {{--    </template>--}}
-                    {{--    <p>Selected value: <code x-text="selectedTypeID"></code>--}}
-                    {{--    </p>--}}
-                    {{--</div>--}}
                     <input type="hidden" name="deliveryType" x-bind:value="deliveryType">
 
-                    <div class="delivery__type" >
+                    <div class="delivery__type">
                         <div class="delivery-selector">
-                        <input type="radio" id="ems" class="btn-check" x-model="deliveryType" value="ems">
+                            <input type="radio" id="ems" class="btn-check" x-model="deliveryType" value="ems">
                             <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
-                            <small x-text="emsPrice"></small> CZK
+                            <div class="delivery-selector__price-wrap">
+                                <small x-text="emsPrice"></small> <span>CZK</span>
+                            </div>
+
                         </div>
                         <div class="delivery-selector">
-                        <input type="radio" id="post" class="btn-check" x-model="deliveryType" value="post">
+                            <input type="radio" id="post" class="btn-check" x-model="deliveryType" value="post">
                             <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
-                            <small x-text="postPrice"></small> CZK
+                            <div class="delivery-selector__price-wrap">
+                            <small x-text="postPrice"></small> <span>CZK</span>
+                            </div>
                         </div>
                         {{--<div x-text="`You chose ${deliveryType}`"></div>--}}
                     </div>
-
-
-
-                    {{--<div class="delivery__type" >--}}
-                    {{--    <div class="delivery-selector">--}}
-                    {{--        <input name="deliveryType"  type="radio" :value="post" :id="post" value="post" id="post" >--}}
-                    {{--        <label   for="post">Почта</label>--}}
-                    {{--        <small x-text="postPrice"></small>--}}
-                    {{--    </div>--}}
-                    {{--<div class="delivery-selector">--}}
-                    {{--        <input name="deliveryType"  type="radio" :value="sdek" :id="sdek" value="sdek" id="sdek" >--}}
-                    {{--        <label for="sdek">Sdek</label>--}}
-                    {{--    <small x-text="emsPrice"></small>--}}
-                    {{--    </div>--}}
-                    {{--    <p>Selected value: <code x-text="selectedTypeID"></code>--}}
-                    {{--    </p>--}}
-                    {{--</div>--}}
-
-
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="customDelivery">
+                        <label class="form-check-label" for="customDelivery">Какая то доп услуга</label>
+                    </div>
+                    <div class="delivery-stats">
+                    <div class="delivery-stats__item"> Стоимость доставки: <span x-text="selectedDeliveryCost"></span></div>
+                    <div class="delivery-stats__item"> Стоимость услуги: <span></span></div>
+                    <div class="delivery-stats__item"> Общая сумма: <span></span></div>
+                    </div>
                 </div>
             </div>
 
@@ -315,7 +285,8 @@
                                             <div class="quest__slide_title">
                                                 Адрес получателя
                                                 @isset($credentials)
-                                                    <span class="badge badge-info cart-badge">данные взяты из <a href="{{ route('profile') }}">профиля</a> </span>@endisset
+                                                    <span class="badge badge-info cart-badge">данные взяты из <a href="{{ route('profile') }}">профиля</a> </span>
+                                                @endisset
                                             </div>
 
                                         </div>
@@ -330,7 +301,9 @@
                                                                                     name="address"
                                                                                     class="w-100"
                                                                                     value="@isset($credentials['address']){{ $credentials['address'] }}@endisset"
-                                                                                    placeholder="Введите адрес">@isset($credentials['address']){{ $credentials['address'] }}@endisset</textarea>
+                                                                                    placeholder="Введите адрес">@isset($credentials['address'])
+                                                                                    {{ $credentials['address'] }}
+                                                                                @endisset</textarea>
                                                             <div class="btn" id="button">
                                                                 <img src="{{ asset('/images/icons/refresh.svg')  }}" alt="" class="refresh-icon">
                                                             </div>
@@ -375,25 +348,25 @@
                                     <div class="map-mask"></div>
                                 </div>
                                 <!-- ________SLIDE -->
-                            {{--<div class="swiper-slide">--}}
-                            {{--    <div class="quest__slide">--}}
-                            {{--        <div class="quest__slide_title_wrapper">--}}
-                            {{--            <div class="quest__slide_title">--}}
-                            {{--                Оформить заказ--}}
-                            {{--            </div>--}}
-                            {{--        </div>--}}
+                                {{--<div class="swiper-slide">--}}
+                                {{--    <div class="quest__slide">--}}
+                                {{--        <div class="quest__slide_title_wrapper">--}}
+                                {{--            <div class="quest__slide_title">--}}
+                                {{--                Оформить заказ--}}
+                                {{--            </div>--}}
+                                {{--        </div>--}}
 
-                            {{--        @livewire('delivery-selector')--}}
+                                {{--        @livewire('delivery-selector')--}}
 
 
 
-                            {{--    </div>--}}
-                            {{--    <div class="quest__slider_buttons_wrapper">--}}
-                            {{--        <div class="quest__next quest__button">Вперёд</div>--}}
-                            {{--        <div class="quest__prev quest__button">Назад</div>--}}
-                            {{--    </div>--}}
-                            {{--</div>--}}
-                            <!-- ________SLIDE -->
+                                {{--    </div>--}}
+                                {{--    <div class="quest__slider_buttons_wrapper">--}}
+                                {{--        <div class="quest__next quest__button">Вперёд</div>--}}
+                                {{--        <div class="quest__prev quest__button">Назад</div>--}}
+                                {{--    </div>--}}
+                                {{--</div>--}}
+                                <!-- ________SLIDE -->
                                 <div class="swiper-slide">
                                     <div class="quest__slide credentials-slide">
                                         <div class="quest__slide_title_wrapper">
