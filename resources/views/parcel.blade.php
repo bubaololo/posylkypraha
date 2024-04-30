@@ -113,13 +113,15 @@
                         {{--<div x-text="`You chose ${deliveryType}`"></div>--}}
                     </div>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="customDelivery">
-                        <label class="form-check-label" for="customDelivery">Какая то доп услуга</label>
+                        <input class="form-check-input" type="checkbox" id="customDelivery" x-model="customDelivery">
+                        <label class="form-check-label" for="customDelivery">Доп услуга (+200)</label>
                     </div>
+
                     <div class="delivery-stats">
-                    <div class="delivery-stats__item"> Стоимость доставки: <span x-text="selectedDeliveryCost"></span></div>
-                    <div class="delivery-stats__item"> Стоимость услуги: <span></span></div>
-                    <div class="delivery-stats__item"> Общая сумма: <span></span></div>
+                        <div class="delivery-stats__item" x-show="deliveryType">Стоимость доставки: <span x-text="selectedDeliveryCost - (customDelivery ? 400 : 200)"></span> CZK</div>
+                        <div class="delivery-stats__item" x-show="deliveryType">Стоимость услуги: <span x-text="customDelivery ? 400 : 200"></span> CZK</div>
+                        <div class="delivery-stats__item" x-show="deliveryType">Общая сумма: <span x-text="totalPrice"></span> CZK</div>
+                        <div x-show="!deliveryType">Выберите способ доставки для отображения цен</div>
                     </div>
                 </div>
             </div>
@@ -132,42 +134,44 @@
                   emsPrice: 0,
                   postPrice: 0,
                   selectedDeliveryCost: 0,
+                  customDelivery: false,
+                  totalPrice: 0,
                   emsRates: [
-                    {weight: 2000, price: 950},
-                    {weight: 5000, price: 1250},
-                    {weight: 10000, price: 1850},
-                    {weight: 15000, price: 2350},
-                    {weight: 20000, price: 2850},
-                    {weight: 25000, price: 3350},
-                    {weight: 30000, price: 3850},
+                    {weight: 2000, price: 750},
+                    {weight: 5000, price: 1050},
+                    {weight: 10000, price: 1650},
+                    {weight: 15000, price: 2150},
+                    {weight: 20000, price: 2650},
+                    {weight: 25000, price: 3150},
+                    {weight: 30000, price: 3650},
                     {weight: Infinity, price: 0}
                   ],
                   postRates: [
-                    {weight: 2000, price: 800},
-                    {weight: 5000, price: 1100},
-                    {weight: 10000, price: 1250},
-                    {weight: 15000, price: 1500},
-                    {weight: 20000, price: 1600},
+                    {weight: 2000, price: 600},
+                    {weight: 5000, price: 900},
+                    {weight: 10000, price: 1050},
+                    {weight: 15000, price: 1300},
+                    {weight: 20000, price: 1400},
                     {weight: Infinity, price: 0}
                   ],
 
-                  addItem() {
+                  addItem: function () {
                     this.items.push({description: '', weight_kg: null, weight_g: null, quantity: 1});
                     this.calculateDeliveryCost();
                   },
 
-                  removeItem(index) {
+                  removeItem: function (index) {
                     this.items.splice(index, 1);
                     this.calculateDeliveryCost();
                   },
 
-                  updateQuantity(item, amount) {
+                  updateQuantity: function (item, amount) {
                     const newQuantity = item.quantity + amount;
                     item.quantity = newQuantity >= 1 ? newQuantity : 1;
                     this.calculateDeliveryCost();
                   },
 
-                  calculateDeliveryCost() {
+                  calculateDeliveryCost: function () {
                     let totalWeightKg = this.items.reduce((sum, item) => sum + (parseFloat(item.weight_kg) || 0), 0);
                     let totalWeightG = this.items.reduce((sum, item) => sum + (parseFloat(item.weight_g) || 0), 0);
                     let totalWeight = totalWeightKg * 1000 + totalWeightG;
@@ -178,19 +182,20 @@
                     this.updateSelectedDeliveryCost();
                   },
 
-                  updateSelectedDeliveryCost() {
+                  updateSelectedDeliveryCost: function () {
+                    let additionalServiceCharge = this.customDelivery ? 400 : 200;
                     if (this.deliveryType === 'ems') {
-                      this.selectedDeliveryCost = this.emsPrice;
+                      this.selectedDeliveryCost = this.emsPrice + additionalServiceCharge;
                     } else if (this.deliveryType === 'post') {
-                      this.selectedDeliveryCost = this.postPrice;
+                      this.selectedDeliveryCost = this.postPrice + additionalServiceCharge;
                     } else {
                       this.selectedDeliveryCost = 0; // Сброс, если тип доставки не выбран
                     }
-                    console.log('Delivery Type:', this.deliveryType);
-                    console.log('Selected Delivery Cost Updated:', this.selectedDeliveryCost);
+                    this.totalPrice = this.selectedDeliveryCost;
+                    console.log('Total Price Updated:', this.totalPrice);
                   },
 
-                  getPriceByWeight(rates, weight) {
+                  getPriceByWeight: function (rates, weight) {
                     for (let rate of rates) {
                       if (weight <= rate.weight) {
                         return rate.price;
@@ -199,11 +204,9 @@
                     return 0; // Если не подходит ни одна категория
                   },
 
-                  init() {
-                    this.$watch('deliveryType', (newValue, oldValue) => {
-                      console.log(`Delivery type changed from ${oldValue} to ${newValue}`);
-                      this.calculateDeliveryCost();
-                    });
+                  init: function () {
+                    this.$watch('deliveryType', () => this.calculateDeliveryCost());
+                    this.$watch('customDelivery', () => this.updateSelectedDeliveryCost());
                     this.$watch('items', () => this.calculateDeliveryCost(), {deep: true});
                     this.calculateDeliveryCost(); // Вызываем изначально для начального расчета
                   }
