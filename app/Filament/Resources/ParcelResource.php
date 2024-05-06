@@ -8,17 +8,18 @@ use App\Filament\Resources\ParcelResource\Pages;
 use App\Filament\Resources\ParcelResource\RelationManagers;
 use App\Models\Parcel;
 use Filament\Forms\Form;
-use Filament\Tables\Actions\Action;
+use Filament\Infolists\Components;
 use Filament\Infolists\Components\Fieldset;
+use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
-use Filament\Infolists\Infolist;
-use Filament\Infolists\Components;
 use Illuminate\Database\Eloquent\Collection;
 
 class ParcelResource extends Resource
@@ -74,7 +75,7 @@ class ParcelResource extends Resource
                 Tables\Actions\ViewAction::make(),
 //                Tables\Actions\EditAction::make(),
                 Action::make('generate_invoice')
-                    ->action(function(Parcel $parcel, GenerateInvoice $generateInvoice) {
+                    ->action(function (Parcel $parcel, GenerateInvoice $generateInvoice) {
 //                        dd($parcels);
                         return $generateInvoice($parcel);
                     }),
@@ -83,10 +84,10 @@ class ParcelResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('export_csv')
-                    ->action(function(Collection $parcels, GenerateCsv $generateCsv) {
+                        ->action(function (Collection $parcels, GenerateCsv $generateCsv) {
 //                        dd($parcels);
-                        return $generateCsv($parcels);
-                    }),
+                            return $generateCsv($parcels);
+                        }),
                 ]),
             ]);
     }
@@ -141,27 +142,24 @@ class ParcelResource extends Resource
                         Components\Split::make([
                             Components\Grid::make(2)
                                 ->schema([
-
-                                            TextEntry::make('delivery_type')->label('Тип доставки'),
-                                        
-                    
+                                    TextEntry::make('delivery_type')->label('Тип доставки'),
                                 ]),
                             Components\Grid::make(2)
                                 ->schema([
-
-                                            TextEntry::make('delivery_cost')->label('Стоимость доставки'),
-
-                                        
-                    
+                                    TextEntry::make('delivery_cost')->label('Стоимость доставки'),
                                 ]),
-            
+                            Components\Grid::make(2)
+                                ->schema([
+                                    IconEntry::make('custom_delivery')->label('Забрать курьером')
+                                        ->boolean()
+                                ]),
+                        
                         ])->from('lg'),
                     ]),
-
+                
                 Components\Section::make()
                     ->columns([
                         'sm' => 3,
-
                     ])
                     ->schema([
                         TextEntry::make('address.full_address')->label('Полный адрес'),
@@ -177,6 +175,7 @@ class ParcelResource extends Resource
                     ]),
             ]);
     }
+    
     public static function canCreate(): bool
     {
         return false;

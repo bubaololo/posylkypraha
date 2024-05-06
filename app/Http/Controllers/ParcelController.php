@@ -89,6 +89,7 @@ class ParcelController extends Controller
             'comment' => $formData['comment'],
             'delivery_cost' => $formData['calculatedDeliveryCost'],
             'delivery_type' => $formData['deliveryType'],
+            'custom_delivery' => isset($formData['customDelivery']) ?? null,
             'track_id' => $this->getUnusedTrackNumber()
         ]);
 

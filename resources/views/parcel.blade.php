@@ -113,8 +113,8 @@
                         {{--<div x-text="`You chose ${deliveryType}`"></div>--}}
                     </div>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" id="customDelivery" x-model="customDelivery">
-                        <label class="form-check-label" for="customDelivery">Доп услуга (+200)</label>
+                        <input class="form-check-input" type="checkbox" name="customDelivery" value="true" id="customDelivery" x-model="customDelivery">
+                        <label class="form-check-label" for="customDelivery">Выезд курьера на адрес (+200)</label>
                     </div>
 
                     <div class="delivery-stats">
