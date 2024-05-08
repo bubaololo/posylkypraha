@@ -156,23 +156,37 @@ class ParcelResource extends Resource
                         
                         ])->from('lg'),
                     ]),
-                
                 Components\Section::make()
                     ->columns([
                         'sm' => 3,
                     ])
                     ->schema([
-                        TextEntry::make('address.full_address')->label('Полный адрес'),
-                        TextEntry::make('address.postal_code')->label('Почтовый индекс'),
-                        TextEntry::make('address.admin_area')->label('Административный окуг'),
-                        TextEntry::make('address.region')->label('Регион'),
-                        TextEntry::make('address.city')->label('Город'),
-                        TextEntry::make('address.street')->label('Улица'),
-                        TextEntry::make('address.house')->label('Дом'),
-                        TextEntry::make('address.building')->label('Строение'),
-                        TextEntry::make('address.apartment')->label('Квартира'),
-                        TextEntry::make('address.comment')->label('Комментарий'),
+                        Fieldset::make('sender')
+                            ->schema([
+                                TextEntry::make('sender.city')->label('Город'),
+                                TextEntry::make('sender.address')->label('Адрес'),
+                                TextEntry::make('sender.postal_code')->label('Почтовый индекс'),
+                            ])->label('Адрес отправителя'),
                     ]),
+                Components\Section::make()
+                    ->columns([
+                        'sm' => 3,
+                    ])
+                    ->schema([
+                        Fieldset::make('recipient')
+                            ->schema([
+                                TextEntry::make('address.full_address')->label('Полный адрес'),
+                                TextEntry::make('address.postal_code')->label('Почтовый индекс'),
+                                TextEntry::make('address.admin_area')->label('Административный окуг'),
+                                TextEntry::make('address.region')->label('Регион'),
+                                TextEntry::make('address.city')->label('Город'),
+                                TextEntry::make('address.street')->label('Улица'),
+                                TextEntry::make('address.house')->label('Дом'),
+                                TextEntry::make('address.building')->label('Строение'),
+                                TextEntry::make('address.apartment')->label('Квартира'),
+                                TextEntry::make('address.comment')->label('Комментарий'),
+                            ])->label('Адрес получателя'),
+                    ])
             ]);
     }
     

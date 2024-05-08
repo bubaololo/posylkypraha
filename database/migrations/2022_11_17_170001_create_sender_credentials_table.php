@@ -21,6 +21,9 @@ return new class extends Migration
             $table->tinyText('title')->nullable();
             $table->tinyText('name');
             $table->tinyText('surname');
+            $table->tinyText('city');
+            $table->tinyText('address');
+            $table->tinyText('postal_code');
             $table->timestamps();
         });
     }

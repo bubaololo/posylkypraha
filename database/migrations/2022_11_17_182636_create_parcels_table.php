@@ -39,7 +39,6 @@ return new class extends Migration {
             $table->boolean('custom_delivery')->nullable();
             $table->integer('delivery_cost');
             $table->boolean('paid')->default(0);
-            $table->text('comment')->nullable();
             $table->text('track')->nullable();
             $table->boolean('sent')->default(0);
             $table->timestamps();

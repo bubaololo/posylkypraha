@@ -273,6 +273,21 @@
                                                 <input type="text" id="sender_name" name="sender_name" class="quest__input"
                                                         value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="John">
                                             </div>
+                                            <div class="quest__input-group">
+                                                <label for="sender_city">Город</label>
+                                                <input type="text" id="sender_city" name="sender_city" class="quest__input"
+                                                        value="@isset($credentials['sender_city']) {{ $credentials['sender_city'] }} @endisset" placeholder="Praha">
+                                            </div>
+                                            <div class="quest__input-group">
+                                                <label for="sender_address">Адрес</label>
+                                                <input type="text" id="sender_address" name="sender_address" class="quest__input"
+                                                        value="@isset($credentials['sender_address']) {{ $credentials['sender_address'] }} @endisset" placeholder="Улица, дом">
+                                            </div>
+                                            <div class="quest__input-group">
+                                                <label for="sender_postal_code">Почтовый индекс</label>
+                                                <input type="text" id="sender_postal_code" name="sender_postal_code" class="quest__input"
+                                                        value="@isset($credentials['sender_postal_code']) {{ $credentials['sender_postal_code'] }} @endisset" placeholder="000000">
+                                            </div>
 
                                         </div>
                                     </div>
@@ -335,11 +350,7 @@
                                                         placeholder="56" inputmode="numeric">
                                             </div>
 
-                                            <div class="quest__input-group">
-                                                <label for="street">Комментарий</label>
-                                                <input type="text" id="comment" name="comment" class="quest__input"
-                                                        value="@isset($credentials['comment']) {{ $credentials['comment'] }} @endisset" placeholder="любые уточнения">
-                                            </div>
+
 
                                         </div>
                                     </div>
