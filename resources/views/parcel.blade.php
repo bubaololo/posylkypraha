@@ -96,7 +96,7 @@
 
                     <div class="delivery__type">
                         <div class="delivery-selector">
-                            <input type="radio" id="ems" class="btn-check" x-model="deliveryType" value="ems">
+                            <input type="radio" id="ems" class="btn-check" x-model="deliveryType" >
                             <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
                             <div class="delivery-selector__price-wrap">
                                 <small x-text="emsPrice"></small> <span>CZK</span>
@@ -104,7 +104,7 @@
 
                         </div>
                         <div class="delivery-selector">
-                            <input type="radio" id="post" class="btn-check" x-model="deliveryType" value="post">
+                            <input type="radio" id="post" class="btn-check" x-model="deliveryType" >
                             <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
                             <div class="delivery-selector__price-wrap">
                             <small x-text="postPrice"></small> <span>CZK</span>
@@ -786,7 +786,10 @@
 
             let sender_name = form.validate().element('#sender_name');
             let sender_surname = form.validate().element('#sender_surname');
-            let credentialsCondition = sender_name && sender_surname;
+            let sender_city = form.validate().element('#sender_city');
+            let sender_address = form.validate().element('#sender_address');
+            let sender_postal_code = form.validate().element('#sender_postal_code');
+            let credentialsCondition = sender_name && sender_surname && sender_city && sender_address && sender_postal_code;
             checkIfAllFieldsValidated(credentialsCondition);
           }, 10);
           // ----------------------------------------------------------------------------------------

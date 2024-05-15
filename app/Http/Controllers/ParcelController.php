@@ -44,7 +44,7 @@ class ParcelController extends Controller
         $formData = $request->all();
         
         $this->trimValuesRecursively($formData);
-//dd($formData);
+dd($formData);
 
 //        preparing data to send via bot
         info(print_r($formData, true));
@@ -71,7 +71,6 @@ class ParcelController extends Controller
         $address = Address::create([
 //            'user_id' => Auth::id() ?? null,
             'full_address' => $formData['address'],
-            'comment' => $formData['comment'],
             'postal_code' => $formData['postal_code'],
             'admin_area' => $formData['admin_area'],
             'region' => $formData['region'],
@@ -83,13 +82,13 @@ class ParcelController extends Controller
         ]);
         
         
+        
         $parcel = Parcel::create([
 //            'user_id' => Auth::id() ?? null,
             'order_num' => $orderNum,
             'sender_credentials_id' => $senderCredentials->id,
             'recipient_credentials_id' => $recipientCredentials->id,
             'address_id' => $address->id,
-            'comment' => $formData['comment'],
             'delivery_cost' => $formData['calculatedDeliveryCost'],
             'delivery_type' => $formData['deliveryType'],
             'custom_delivery' => isset($formData['customDelivery']) ?? null,
@@ -140,7 +139,12 @@ class ParcelController extends Controller
             ->select('tracks.id')
             ->first();
         // Возвращаем ID трека или null, если таких треков нет
-        return $track?->id;
+        if($track) {
+            $trackId = $track->id;
+        } else {
+            $trackId = null;
+        }
+        return $trackId;
     }
     
 }
