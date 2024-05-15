@@ -24,6 +24,7 @@ return new class extends Migration
             $table->tinyText('city');
             $table->tinyText('address');
             $table->tinyText('postal_code');
+            $table->tinyText('email');
             $table->timestamps();
         });
     }

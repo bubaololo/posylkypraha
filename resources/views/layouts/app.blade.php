@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title','Купить сибирские мухоморы')</title>
+    <title>@yield('title','Отправка посылок из чехии')</title>
     <meta name="description" content="@yield('meta_description','Мухомор купить | мухомор красный | микродозинг мухомора | сушёные мухоморы')">
     <meta name="keywords" content="@yield('meta_keywords','мухомор купить, красный мухомор, микродозинг мухомора, купить сушёные мухоморы')">
     <link rel="canonical" href="{{url()->current()}}"/>

@@ -166,6 +166,7 @@ class ParcelResource extends Resource
                                 TextEntry::make('sender.city')->label('Город'),
                                 TextEntry::make('sender.address')->label('Адрес'),
                                 TextEntry::make('sender.postal_code')->label('Почтовый индекс'),
+                                TextEntry::make('sender.email')->label('E-mail'),
                             ])->label('Адрес отправителя'),
                     ]),
                 Components\Section::make()

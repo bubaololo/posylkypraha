@@ -58,6 +58,7 @@ class ParcelController extends Controller
             'city' => $formData['sender_city'],
             'address' => $formData['sender_address'],
             'postal_code' => $formData['sender_postal_code'],
+            'email' => $formData['email'],
         ]);
         $recipientCredentials = RecipientCredential::create([
 //            'user_id' => Auth::id() ?? null,
