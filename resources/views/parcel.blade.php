@@ -96,7 +96,7 @@
 
                     <div class="delivery__type">
                         <div class="delivery-selector">
-                            <input type="radio" id="ems" class="btn-check" x-model="deliveryType" >
+                            <input type="radio" id="ems" class="btn-check" x-model="deliveryType" value="ems">
                             <label class="btn btn-outline-success" for="ems">EMS <br> <small>ускоренная</small></label>
                             <div class="delivery-selector__price-wrap">
                                 <small x-text="emsPrice"></small> <span>CZK</span>
@@ -104,7 +104,7 @@
 
                         </div>
                         <div class="delivery-selector">
-                            <input type="radio" id="post" class="btn-check" x-model="deliveryType" >
+                            <input type="radio" id="post" class="btn-check" x-model="deliveryType" value="post">
                             <label class="btn btn-outline-success" for="post">Почта <br> <small>обычная посылка</small></label>
                             <div class="delivery-selector__price-wrap">
                             <small x-text="postPrice"></small> <span>CZK</span>
