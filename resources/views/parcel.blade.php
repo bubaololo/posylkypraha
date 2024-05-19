@@ -137,21 +137,21 @@
                   customDelivery: false,
                   totalPrice: 0,
                   emsRates: [
-                    {weight: 2000, price: 750},
-                    {weight: 5000, price: 1050},
-                    {weight: 10000, price: 1650},
-                    {weight: 15000, price: 2150},
-                    {weight: 20000, price: 2650},
-                    {weight: 25000, price: 3150},
-                    {weight: 30000, price: 3650},
+                    {weight: 2000, price: 950},
+                    {weight: 5000, price: 1250},
+                    {weight: 10000, price: 1850},
+                    {weight: 15000, price: 2350},
+                    {weight: 20000, price: 2850},
+                    {weight: 25000, price: 3350},
+                    {weight: 30000, price: 3850},
                     {weight: Infinity, price: 0}
                   ],
                   postRates: [
-                    {weight: 2000, price: 600},
-                    {weight: 5000, price: 900},
-                    {weight: 10000, price: 1050},
-                    {weight: 15000, price: 1300},
-                    {weight: 20000, price: 1400},
+                    {weight: 2000, price: 800},
+                    {weight: 5000, price: 1100},
+                    {weight: 10000, price: 1250},
+                    {weight: 15000, price: 1500},
+                    {weight: 20000, price: 1600},
                     {weight: Infinity, price: 0}
                   ],
 
@@ -265,13 +265,13 @@
                                             <div class="quest__input-group">
                                                 <label for="sender_surname">Фамилия отправителя</label>
                                                 <input type="text" id="sender_surname" name="sender_surname" class="quest__input"
-                                                        value="@isset($credentials['sender_surname']) {{ $credentials['sender_surname'] }} @endisset" placeholder="Smith">
+                                                        value="@isset($credentials['sender_surname']) {{ $credentials['sender_surname'] }} @endisset" placeholder="Иванов">
 
                                             </div>
                                             <div class="quest__input-group">
                                                 <label for="sender_name">Имя отправителя</label>
                                                 <input type="text" id="sender_name" name="sender_name" class="quest__input"
-                                                        value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="John">
+                                                        value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="Иван">
                                             </div>
                                             <div class="quest__input-group">
                                                 <label for="sender_city">Город</label>
@@ -286,7 +286,7 @@
                                             <div class="quest__input-group">
                                                 <label for="sender_postal_code">Почтовый индекс</label>
                                                 <input type="text" id="sender_postal_code" name="sender_postal_code" class="quest__input"
-                                                        value="@isset($credentials['sender_postal_code']) {{ $credentials['sender_postal_code'] }} @endisset" placeholder="000000">
+                                                        value="@isset($credentials['sender_postal_code']) {{ $credentials['sender_postal_code'] }} @endisset" placeholder="00000">
                                             </div>
 
                                         </div>
