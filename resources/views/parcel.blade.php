@@ -406,9 +406,19 @@
                                             </div>
                                             <div class="quest__input-group">
                                                 <label for="tel">Телефон</label>
+                                                <script src="https://unpkg.com/imask"></script>
                                                 <input type="tel" id="tel" name="telephone"
                                                         class="quest__input"
-                                                        value="@isset($credentials['tel']){{ $credentials['tel'] }}@endisset" placeholder="89000000000" inputmode="tel">
+                                                        value="@isset($credentials['tel']){{ $credentials['tel'] }}@endisset" placeholder="+7 (___) ___-__-__" inputmode="tel">
+                                                <script>
+                                                  document.addEventListener('DOMContentLoaded', function() {
+                                                    var phoneInput = document.getElementById('tel');
+                                                    var maskOptions = {
+                                                      mask: '+{7} (000) 000-00-00'
+                                                    };
+                                                    var mask = IMask(phoneInput, maskOptions);
+                                                  });
+                                                </script>
                                             </div>
 
                                         </div>

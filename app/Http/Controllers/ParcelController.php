@@ -114,8 +114,8 @@ class ParcelController extends Controller
                 'value' => $item['value'],
             ]);
         }
-        $track = $parcel->track_id;
-
+        $track =  Track::find($parcel->track_id)->number;
+        
 //        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
         return view('order', compact('orderNum','track' ));
     }
