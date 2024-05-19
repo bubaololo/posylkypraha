@@ -42,7 +42,7 @@ class ParcelCheckout extends FormRequest
             'sender_surname' => 'required|max:50|string',
             'sender_city' => 'required|max:50|string',
             'sender_address' => 'required|max:50|string',
-            'sender_postal_code' => 'required|integer|min:7|max:7',
+            'sender_postal_code' => 'required|integer|max:99999',
             'recipient_name' => 'required|max:50|string',
             'telephone' => 'required|min:7|regex:/^[\d\+\(\)\-]+$/',
             'email' => 'required|email',
