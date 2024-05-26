@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title', 'Сибирские мухоморы')
-@section('meta_description', 'Купить красный мухомор')
+@section('title', 'Доставка посылок')
+@section('meta_description', 'Доставка посылок из Чеххи в Россию')
 @section('content')
 
 

@@ -2019,6 +2019,7 @@ span.prev-price {
 
 .footer-item img.footer-logo {
     margin-bottom: 40px;
+    max-width: 200px;
 }
 
 .footer-item p {
