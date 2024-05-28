@@ -46,7 +46,7 @@ class ParcelCheckout extends FormRequest
             'recipient_name' => 'required|max:50|string',
             'telephone' => 'required|min:7|regex:/^\+?[0-9\(\)\-\s]+$/',
             'email' => 'required|email',
-            'gdpr_check' => 'required|checked',
+            'gdpr_check' => 'required',
             'password' => 'min:8|confirmed'
         ];
     }
