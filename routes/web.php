@@ -52,5 +52,10 @@ Route::get('/order/{id}', [ProfileController::class, 'order'])->name('order.deta
 
 Route::resource('credentials', CredentialController::class);
 Route::get('articles', [ArticleController::class, 'postsList'])->name('posts.list');
-Route::get('{slug}', [ArticleController::class, 'show'])->name('post');
+//Route::get('{slug}', [ArticleController::class, 'show'])->name('post');
+
+Route::get('gdpr', function () {
+//    return 'Hello World';
+    return view('gdpr');
+});
 
