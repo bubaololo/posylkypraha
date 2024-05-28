@@ -291,6 +291,12 @@
 
                                         </div>
                                     </div>
+                                    <div  class="form-check">
+                                        <input class="form-check-input" type="checkbox" required value="1" name="gdpr_check" id="gdpr_check">
+                                        <label class="form-check-label" for="gdpr_check">
+                                          Согласен с условиями <a href="{{ route('gdpr') }}" target="_blank">GDPR</a>
+                                        </label>
+                                    </div>
                                     <div class="quest__slider_buttons_wrapper">
                                         <div id="sender-credentials-button" class="quest__next quest__button">Далее</div>
                                     </div>
@@ -799,7 +805,8 @@
             let sender_city = form.validate().element('#sender_city');
             let sender_address = form.validate().element('#sender_address');
             let sender_postal_code = form.validate().element('#sender_postal_code');
-            let credentialsCondition = sender_name && sender_surname && sender_city && sender_address && sender_postal_code;
+            let gdpr_check = form.validate().element('#gdpr_check');
+            let credentialsCondition = sender_name && sender_surname && sender_city && sender_address && sender_postal_code && gdpr_check;
             checkIfAllFieldsValidated(credentialsCondition);
           }, 10);
           // ----------------------------------------------------------------------------------------
