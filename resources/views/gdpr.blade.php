@@ -87,6 +87,10 @@
             margin-top: 20px;
             margin-bottom: 10px;
         }
+        .contract-wrapper h3 {
+            font-size: 1em;
+
+        }
         .contract-wrapper p, .contract-wrapper li {
             margin-bottom: 10px;
         }

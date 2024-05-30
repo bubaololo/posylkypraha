@@ -56,15 +56,7 @@
                                 <input type="text" required x-model="item.description" :name="'items[' + index + '][description]'" class="form-control" placeholder="Описание вложения">
                             </div>
                             <div class="package-item__controls-wrap">
-                                <div class="package-item__weight-wrap input-group input-group-sm">
-                                    <span class="input-group-text">Вес</span>
-                                    <div class="package-item__input-wrap">
-                                        <input type="number" min="0" x-model="item.weight_kg" :name="'items[' + index + '][weight_kg]'" class="form-control package-item__weight" placeholder="кг">
-                                    </div>
-                                    <div class="package-item__input-wrap">
-                                        <input type="number" min="0" x-model="item.weight_g" :name="'items[' + index + '][weight_g]'" class="form-control package-item__weight" placeholder="г">
-                                    </div>
-                                </div>
+
                                 <div class="package-item__quantity">
                                     <button type="button" class="btn btn-light px-3 package-item__quantity-btn" x-on:click="updateQuantity(item, -1)" x-bind:disabled="item.quantity <= 1">-</button>
                                     <div class="package-item__quantity-text">
@@ -74,6 +66,17 @@
                                     </div>
                                     <button type="button" class="btn btn-light px-3 me-2 package-item__quantity-btn" x-on:click="updateQuantity(item, 1)">+</button>
                                 </div>
+
+                                <div class="package-item__weight-wrap input-group input-group-sm">
+                                    <span class="input-group-text">Вес</span>
+                                    <div class="package-item__input-wrap">
+                                        <input type="number" min="0" x-model="item.weight_kg" :name="'items[' + index + '][weight_kg]'" class="form-control package-item__weight" placeholder="кг">
+                                    </div>
+                                    <div class="package-item__input-wrap">
+                                        <input type="number" min="0" x-model="item.weight_g" :name="'items[' + index + '][weight_g]'" class="form-control package-item__weight" placeholder="г">
+                                    </div>
+                                </div>
+
                                 <div class="package-item__value-wrap">
                                     <span class="input-group-text">Стоимость</span>
                                     <div class="package-item__input-wrap">
@@ -291,12 +294,7 @@
 
                                         </div>
                                     </div>
-                                    <div  class="form-check">
-                                        <input class="form-check-input" type="checkbox" required value="1" name="gdpr_check" id="gdpr_check">
-                                        <label class="form-check-label" for="gdpr_check">
-                                          Согласен с условиями <a href="{{ route('gdpr') }}" target="_blank">GDPR</a>
-                                        </label>
-                                    </div>
+
                                     <div class="quest__slider_buttons_wrapper">
                                         <div id="sender-credentials-button" class="quest__next quest__button">Далее</div>
                                     </div>
@@ -460,6 +458,12 @@
                                                 <label for="email">Email*</label>
                                                 <input type="text" id="email" name="email" class="quest__input"
                                                         value="@isset($credentials['email']){{ $credentials['email'] }}@endisset" placeholder="mail@mail.com">
+                                            </div>
+                                            <div  class="form-check">
+                                                <input class="form-check-input" type="checkbox" required value="1" name="gdpr_check" id="gdpr_check">
+                                                <label class="form-check-label" for="gdpr_check">
+                                                    Согласен с условиями <a href="{{ route('gdpr') }}" target="_blank">GDPR</a>
+                                                </label>
                                             </div>
                                             {{--<div class="quest__input-group quest__input-group_hidden" id="password-group">--}}
                                             {{--    <label for="password">пароль</label>--}}
@@ -805,8 +809,7 @@
             let sender_city = form.validate().element('#sender_city');
             let sender_address = form.validate().element('#sender_address');
             let sender_postal_code = form.validate().element('#sender_postal_code');
-            let gdpr_check = form.validate().element('#gdpr_check');
-            let credentialsCondition = sender_name && sender_surname && sender_city && sender_address && sender_postal_code && gdpr_check;
+            let credentialsCondition = sender_name && sender_surname && sender_city && sender_address && sender_postal_code;
             checkIfAllFieldsValidated(credentialsCondition);
           }, 10);
           // ----------------------------------------------------------------------------------------
