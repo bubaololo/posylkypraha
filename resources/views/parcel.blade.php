@@ -553,6 +553,8 @@
         <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=13c7547f-2a6d-45df-b5d4-e5d0ab448ddc&suggest_apikey=8fcb8959-11fc-479a-86ad-9e33372a96e2" type="text/javascript"></script>
         <script>
           let addressIsValid = null;
+          addressRetryCount = 0;
+          const maxRetries = 5; // Максимальное количество попыток
           ymaps.ready(init);
 
 
@@ -586,13 +588,33 @@
             }
 
             function geocode() {
+
+              if (addressRetryCount >= maxRetries) {
+                console.log('Превышено максимальное количество попыток');
+                showError('Адрес не найден или индекс не определён')
+                return;
+              }
+
               // Забираем запрос из поля ввода.
               var request = $('#suggest').val();
+
               // Геокодируем введённые данные.
               ymaps.geocode(request).then(function(res) {
                 var obj = res.geoObjects.get(0),
                     error, hint;
+
                 if (obj) {
+                  // Проверяем наличие post index.
+                  let postIndex = obj.properties.get('metaDataProperty.GeocoderMetaData.Address.postal_code');
+
+                  if (postIndex === undefined) {
+                    // Если post index undefined, перезапускаем функцию через 1 секунду.
+                    addressRetryCount++
+                    setTimeout(geocode, 300);
+
+                    return;
+                  }
+
                   // Об оценке точности ответа геокодера можно прочитать тут: https://tech.yandex.ru/maps/doc/geocoder/desc/reference/precision-docpage/
                   switch (obj.properties.get('metaDataProperty.GeocoderMetaData.precision')) {
                     case 'exact':
@@ -615,7 +637,6 @@
                 } else {
                   error = 'Адрес не найден';
                   hint = 'Уточните адрес';
-
                 }
 
                 // Если геокодер возвращает пустой массив или неточный результат, то показываем ошибку.
@@ -627,8 +648,8 @@
                   showResult(obj);
                 }
               }, function(e) {
-              })
-
+                console.error(e);
+              });
             }
 
             function showResult(obj) {
@@ -636,7 +657,7 @@
               //Извлекаем город из адреса
               // const adressString = obj.getAddressLine();
 
-              addressRetryCount = 0;
+
               const coord = obj.properties.get('boundedBy')[0];
               // регион
               const region = obj._getParsedXal().administrativeAreas[0];
