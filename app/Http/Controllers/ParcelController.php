@@ -71,7 +71,7 @@ class ParcelController extends Controller
         ]);
         $address = Address::create([
 //            'user_id' => Auth::id() ?? null,
-            'full_address' => $formData['address'],
+            
             'postal_code' => $formData['postal_code'],
             'admin_area' => $formData['admin_area'],
             'region' => $formData['region'],

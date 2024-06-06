@@ -19,9 +19,8 @@ return new class extends Migration
                 ->constrained()
                 ->onUpdate('cascade');
             $table->text('title')->nullable();
-            $table->text('full_address');
             $table->tinyText('postal_code');
-            $table->text('admin_area');
+            $table->text('admin_area')->nullable();
             $table->text('region');
             $table->text('city');
             $table->text('street');
