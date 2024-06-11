@@ -55,7 +55,9 @@ Route::get('articles', [ArticleController::class, 'postsList'])->name('posts.lis
 //Route::get('{slug}', [ArticleController::class, 'show'])->name('post');
 
 Route::get('gdpr', function () {
-//    return 'Hello World';
     return view('gdpr');
 })->name('gdpr');
+Route::get('conditions', function () {
+    return view('conditions');
+})->name('conditions');
 

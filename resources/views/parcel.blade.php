@@ -500,7 +500,7 @@
                                             <div  class="form-check">
                                                 <input class="form-check-input" type="checkbox" required value="1" name="gdpr_check" id="gdpr_check">
                                                 <label class="form-check-label" for="gdpr_check">
-                                                    Согласен с условиями <a href="{{ route('gdpr') }}" target="_blank">GDPR</a>
+                                                    Согласен с <a href="{{ route('gdpr') }}" target="_blank">GDPR</a> и <a href="{{ route('conditions') }}">условиями перевозки</a>
                                                 </label>
                                             </div>
                                             {{--<div class="quest__input-group quest__input-group_hidden" id="password-group">--}}
