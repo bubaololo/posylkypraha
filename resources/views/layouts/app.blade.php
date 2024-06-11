@@ -25,7 +25,7 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     @stack('styles')
 
-<!-- Scripts -->
+    <!-- Scripts -->
     {{--    @vite(['resources/sass/app.scss', 'resources/js/app.js'])--}}
 
     {{--    <link rel="stylesheet" href="{{ asset('build/assets/app.525f5899.css') }}">--}}
@@ -44,34 +44,29 @@
 
             <div class="main-menu stellarnav">
                 <ul class="menu-list">
-                    {{--                                    <li class="menu-item active"><a href="{{ route('index') }}"--}}
-                    {{--                                                                    data-effect="Home">Главная</a>--}}
-                    {{--                                    </li>--}}
-                    {{--<li class="menu-item"><a href="{{ route('products.list') }}" class="nav-link"--}}
-                    {{--            data-effect="About">Фасовки</a>--}}
+
+                    <li class="menu-item"><a href="{{ route('index') }}"
+                                data-effect="Home">Главная</a>
+                    </li>
+                    {{--<li class="menu-item">--}}
+                    {{--    <a href="{{ route('gdpr') }}" class="nav-link"--}}
+                    {{--            data-effect="Gdpr">Gdpr</a>--}}
                     {{--</li>--}}
 
-                    {{--                                    <li class="menu-item has-sub">--}}
-                    {{--                                        <a href="#pages" class="nav-link" data-effect="Pages">Pages</a>--}}
+                    <li class="menu-item has-sub">
+                        <a href="#pages" class="nav-link" data-effect="Pages">Документы</a>
 
-                    {{--                                        <ul>--}}
-                    {{--                                            <li class="active"><a href="{{ route('index') }}">Главная</a></li>--}}
-                    {{--                                            <li><a href="about.html">About</a></li>--}}
-                    {{--                                            <li><a href="styles.html">Styles</a></li>--}}
-                    {{--                                            <li><a href="blog.html">Blog</a></li>--}}
-                    {{--                                            <li><a href="single-post.html">Post Single</a></li>--}}
-                    {{--                                            <li><a href="{{ route('products.list') }}">Витрина</a></li>--}}
-                    {{--                                            <li><a href="single-product.html">Product Single</a></li>--}}
-                    {{--                                            <li><a href="contact.html">Contact</a></li>--}}
-                    {{--                                            <li><a href="thank-you.html">Thank You</a></li>--}}
-                    {{--                                        </ul>--}}
+                        <ul>
+                            <li ><a href="{{ route('gdpr') }}">Gdpr</a></li>
+                            <li ><a href="{{ route('conditions') }}">Условия доставки</a></li>
+                        </ul>
 
-                    {{--                                    </li>--}}
-                    {{--                                    <li class="menu-item"><a href="#popular-books" class="nav-link"--}}
-                    {{--                                                             data-effect="Shop">Shop</a></li>--}}
-                    {{--                                    <li class="menu-item"><a href="#latest-blog" class="nav-link"--}}
-                    {{--                                                             data-effect="Articles">Articles</a>--}}
-                    {{--                                    </li>--}}
+                    </li>
+                    {{--<li class="menu-item"><a href="#popular-books" class="nav-link"--}}
+                    {{--            data-effect="Shop">Shop</a></li>--}}
+                    {{--<li class="menu-item"><a href="#latest-blog" class="nav-link"--}}
+                    {{--            data-effect="Articles">Articles</a>--}}
+                    {{--</li>--}}
                     {{--<li class="menu-item"><a href="{{ route('posts.list') }}" class="nav-link"--}}
                     {{--            data-effect="Contact">Статьи</a></li>--}}
                     {{--@auth--}}
@@ -85,57 +80,57 @@
                     {{--        </svg>--}}
                     {{--        <span>Корзина: @livewire('cart-counter')</span></a>--}}
                     {{--</li>--}}
-{{--                    @guest--}}
-{{--                        <li class="menu-item has-sub">--}}
-{{--                            <a href="#pages" class="nav-link" data-effect="Pages">Аккаунт</a>--}}
+                    {{--@guest--}}
+                    {{--    <li class="menu-item has-sub">--}}
+                    {{--        <a href="#pages" class="nav-link" data-effect="Pages">Аккаунт</a>--}}
 
-{{--                            <ul>--}}
-{{--                                @if (Route::has('register'))--}}
+                    {{--        <ul>--}}
+                    {{--            @if (Route::has('register'))--}}
 
-{{--                                    <li><a class="nav-link"--}}
-{{--                                                href="{{ route('register') }}">{{ __('Зарегистрироваться') }}</a></li>--}}
+                    {{--                <li><a class="nav-link"--}}
+                    {{--                            href="{{ route('register') }}">{{ __('Зарегистрироваться') }}</a></li>--}}
 
-{{--                                @endif--}}
-{{--                                @if (Route::has('login'))--}}
+                    {{--            @endif--}}
+                    {{--            @if (Route::has('login'))--}}
 
-{{--                                    <li><a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a></li>--}}
+                    {{--                <li><a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a></li>--}}
 
-{{--                                @endif--}}
-{{--                            </ul>--}}
-{{--                        </li>--}}
+                    {{--            @endif--}}
+                    {{--        </ul>--}}
+                    {{--    </li>--}}
 
-{{--                    @else--}}
-{{--                        <li class="nav-item dropdown">--}}
-{{--                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"--}}
-{{--                                    role="button" data-bs-toggle="dropdown" aria-haspopup="true"--}}
-{{--                                    aria-expanded="false" v-pre>--}}
-{{--                                {{ Auth::user()->name }}--}}
-{{--                            </a>--}}
+                    {{--@else--}}
+                    {{--    <li class="nav-item dropdown">--}}
+                    {{--        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"--}}
+                    {{--                role="button" data-bs-toggle="dropdown" aria-haspopup="true"--}}
+                    {{--                aria-expanded="false" v-pre>--}}
+                    {{--            {{ Auth::user()->name }}--}}
+                    {{--        </a>--}}
 
-{{--                            <div class="dropdown-menu dropdown-menu-end"--}}
-{{--                                    aria-labelledby="navbarDropdown">--}}
-{{--                                <a class="dropdown-item" href="{{ route('logout') }}"--}}
-{{--                                        onclick="event.preventDefault();--}}
-{{--                                                     document.getElementById('logout-form').submit();">--}}
-{{--                                    {{ __('Logout') }}--}}
-{{--                                </a>--}}
+                    {{--        <div class="dropdown-menu dropdown-menu-end"--}}
+                    {{--                aria-labelledby="navbarDropdown">--}}
+                    {{--            <a class="dropdown-item" href="{{ route('logout') }}"--}}
+                    {{--                    onclick="event.preventDefault();--}}
+                    {{--                                 document.getElementById('logout-form').submit();">--}}
+                    {{--                {{ __('Logout') }}--}}
+                    {{--            </a>--}}
 
-{{--                                <form id="logout-form" action="{{ route('logout') }}" method="POST"--}}
-{{--                                        class="d-none">--}}
-{{--                                    @csrf--}}
-{{--                                </form>--}}
-{{--                            </div>--}}
-{{--                        </li>--}}
-{{--                    @endguest--}}
-{{--                </ul>--}}
+                    {{--            <form id="logout-form" action="{{ route('logout') }}" method="POST"--}}
+                    {{--                    class="d-none">--}}
+                    {{--                @csrf--}}
+                    {{--            </form>--}}
+                    {{--        </div>--}}
+                    {{--    </li>--}}
+                    {{--@endguest--}}
+                </ul>
 
-{{--                <div class="hamburger">--}}
-{{--                    <span class="bar"></span>--}}
-{{--                    <span class="bar"></span>--}}
-{{--                    <span class="bar"></span>--}}
-{{--                </div>--}}
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
 
-{{--            </div>--}}
+            </div>
 
         </div>
     </div>

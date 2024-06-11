@@ -374,7 +374,7 @@
                                                         placeholder="12Б" >
                                             </div>
                                             <div class="quest__input-group">
-                                                <label for="form_premise">Корпус</label>
+                                                <label for="form_premise">Корпус <small>(необязательно)</small></label>
                                                 <input type="text" id="form_premise" name="premise"
                                                         class="quest__input" value="@isset($credentials['premise']){{ $credentials['premise'] }}@endisset"
                                                         placeholder="3">
