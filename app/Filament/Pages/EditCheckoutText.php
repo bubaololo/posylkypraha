@@ -31,7 +31,7 @@ class EditCheckoutText extends Page implements HasForms
     
     public function mount(): void
     {
-        $record = CustomContent::first()->checkout_thanks;
+        $record = CustomContent::firstOrNew(['id' =>  1])?->checkout_thanks;
         $this->form->fill(['checkout_thanks' => $record]);
     }
     
@@ -59,10 +59,10 @@ class EditCheckoutText extends Page implements HasForms
     {
         try {
             $data = $this->form->getState();
-            $text = CustomContent::find(1);
+            $text = CustomContent::firstOrNew(['id' =>  1]);
             $text->checkout_thanks = $data['checkout_thanks'];
             $text->save();
-
+            
             Notification::make()
                 ->success()
                 ->title('СОХРАНЕНО')
