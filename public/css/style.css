@@ -2343,7 +2343,9 @@ span.prev-price {
         z-index: 101;
 
     }
-
+    .main-logo img {
+        max-height: 45px;
+    }
     .main-menu {
         position: fixed !important;
         right: 0;

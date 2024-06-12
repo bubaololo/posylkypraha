@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ParcelCheckout;
 use App\Models\Address;
+use App\Models\CustomContent;
 use App\Models\Enclosure;
 use App\Models\SenderCredential;
 use App\Models\Track;
@@ -115,9 +116,10 @@ class ParcelController extends Controller
             ]);
         }
         $track =  Track::find($parcel->track_id)?->number;
-        
+        $customText = CustomContent::first()->checkout_thanks;
+        $enclosures = $formData['items'];
 //        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
-        return view('order', compact('orderNum','track' ));
+        return view('order', compact('orderNum','track', 'customText', 'enclosures' ));
     }
     
     private function trimValuesRecursively(&$array)
