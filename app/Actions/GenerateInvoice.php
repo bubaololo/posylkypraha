@@ -28,8 +28,6 @@ class GenerateInvoice
             'type' => 1,
             'calculate_vat' => 2,
             'id_payment_method' => 170033,
-            'customer_IC' => '123456789',
-            'customer_DIC' => 'CZ123456789',
             'customer_name' => $sender,
             'customer_street' => $parcel->sender->address,
             'customer_city' => $parcel->sender->city,
