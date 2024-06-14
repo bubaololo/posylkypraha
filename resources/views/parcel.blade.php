@@ -140,21 +140,21 @@
                   customDelivery: false,
                   totalPrice: 0,
                   emsRates: [
-                    {weight: 2000, price: 950},
-                    {weight: 5000, price: 1250},
-                    {weight: 10000, price: 1850},
-                    {weight: 15000, price: 2350},
-                    {weight: 20000, price: 2850},
-                    {weight: 25000, price: 3350},
-                    {weight: 30000, price: 3850},
+                    {weight: 2000, price: 750},
+                    {weight: 5000, price: 1050},
+                    {weight: 10000, price: 1650},
+                    {weight: 15000, price: 2150},
+                    {weight: 20000, price: 2650},
+                    {weight: 25000, price: 3150},
+                    {weight: 30000, price: 3650},
                     {weight: Infinity, price: 0}
                   ],
                   postRates: [
-                    {weight: 2000, price: 800},
-                    {weight: 5000, price: 1100},
-                    {weight: 10000, price: 1250},
-                    {weight: 15000, price: 1500},
-                    {weight: 20000, price: 1600},
+                    {weight: 2000, price: 600},
+                    {weight: 5000, price: 900},
+                    {weight: 10000, price: 1050},
+                    {weight: 15000, price: 1300},
+                    {weight: 20000, price: 1400},
                     {weight: Infinity, price: 0}
                   ],
 
