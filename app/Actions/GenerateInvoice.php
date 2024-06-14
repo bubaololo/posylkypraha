@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Actions;
-use Filament\Notifications\Notification;
+
 use App\Models\Parcel;
+use Filament\Notifications\Notification;
 use VyfakturujAPI;
 
 class GenerateInvoice
 {
-    public function __invoke(Parcel $parcel) {
-    
-    $sender = $parcel->sender->name . ' ' . $parcel->sender->surnaname;
-    
-    $enclosures = $parcel->enclosures;
+    public function __invoke(Parcel $parcel)
+    {
+        
+        $sender = $parcel->sender->name . ' ' . $parcel->sender->surnaname;
+        
+        $enclosures = $parcel->enclosures;
         $items = $enclosures->map(function ($enclosure) {
             return [
                 'text' => $enclosure['description'], // Название вложения из 'description'
@@ -21,7 +23,7 @@ class GenerateInvoice
         })->toArray();
         
         $vyfakturuj_api = new VyfakturujAPI(env('VYFAKTURUJ_API_LOGIN'), env('VYFAKTURUJ_API_KEY'));
-    
+        
         $params = [
             'type' => 1,
             'calculate_vat' => 2,
@@ -36,16 +38,26 @@ class GenerateInvoice
             'currency' => 'EUR',
             'items' => $items
         ];
-    
+        
         $invoice = $vyfakturuj_api->createInvoice($params);
-//        dd($invoice);
-//        dd(json_encode($invoice, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
-    
+        $invoiceId = $invoice['id'];
+        
+        $emailParams = [
+            'type' => 3,
+            'to' => 'bubaololo@gmail.com',
+//    'cc' => '',
+//    'bcc' => '',
+//    'subject' => 'Vlastní předmět e-mailu',
+//    'body' => 'Vlastní text e-mailu, který si přejete odeslat',
+            'pdfAttachment' => true,
+        ];
+        $result = $vyfakturuj_api->invoice_sendMail($invoiceId, $emailParams);
+        
         return Notification::make()
             ->title('Счёт фактура отправлена')
             ->success()
             ->persistent()
             ->send();
-    
+        
     }
 }
