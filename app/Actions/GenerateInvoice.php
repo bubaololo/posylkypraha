@@ -11,7 +11,7 @@ class GenerateInvoice
     public function __invoke(Parcel $parcel)
     {
         
-        $sender = $parcel->sender->name . ' ' . $parcel->sender->surnaname;
+        $sender = $parcel->sender->name . ' ' . $parcel->sender->surname;
         
         $enclosures = $parcel->enclosures;
         $items = $enclosures->map(function ($enclosure) {
@@ -31,9 +31,9 @@ class GenerateInvoice
             'customer_IC' => '123456789',
             'customer_DIC' => 'CZ123456789',
             'customer_name' => $sender,
-            'customer_street' => 'Pouliční 79/C',
-            'customer_city' => 'Praha',
-            'customer_zip' => '10300',
+            'customer_street' => $parcel->sender->address,
+            'customer_city' => $parcel->sender->city,
+            'customer_zip' => $parcel->sender->postal_code,
             'customer_country_code' => 'CZ',
             'currency' => 'EUR',
             'items' => $items
@@ -44,7 +44,7 @@ class GenerateInvoice
         
         $emailParams = [
             'type' => 3,
-            'to' => 'bubaololo@gmail.com',
+            'to' => $parcel->sender->email,
 //    'cc' => '',
 //    'bcc' => '',
 //    'subject' => 'Vlastní předmět e-mailu',
@@ -54,7 +54,7 @@ class GenerateInvoice
         $result = $vyfakturuj_api->invoice_sendMail($invoiceId, $emailParams);
         
         return Notification::make()
-            ->title('Счёт фактура отправлена')
+            ->title('Счёт фактура'.$invoiceId.' отправлена')
             ->success()
             ->persistent()
             ->send();

@@ -350,16 +350,16 @@
                                                         placeholder="Новосибирская область" >
                                             </div>
                                             <div class="quest__input-group">
-                                                <label for="form_area">Район</label>
-                                                <input type="text" id="form_area" name="admin_area"
-                                                        class="quest__input" value="@isset($credentials['admin_area']){{ $credentials['admin_area'] }}@endisset"
-                                                        placeholder="Ленинский район" >
-                                            </div>
-                                            <div class="quest__input-group">
                                                 <label for="form_city">Город</label>
                                                 <input type="text" id="form_city" name="city"
                                                         class="quest__input" value="@isset($credentials['city']){{ $credentials['city'] }}@endisset"
                                                         placeholder="Новосибирск" >
+                                            </div>
+                                            <div class="quest__input-group">
+                                                <label for="form_area">Район</label>
+                                                <input type="text" id="form_area" name="admin_area"
+                                                        class="quest__input" value="@isset($credentials['admin_area']){{ $credentials['admin_area'] }}@endisset"
+                                                        placeholder="Ленинский район" >
                                             </div>
                                             <div class="quest__input-group">
                                                 <label for="form_street">Улица</label>
