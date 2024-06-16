@@ -13,14 +13,17 @@ class GenerateInvoice
         
         $sender = $parcel->sender->name . ' ' . $parcel->sender->surname;
         
-        $enclosures = $parcel->enclosures;
-        $items = $enclosures->map(function ($enclosure) {
-            return [
-                'text' => $enclosure['description'], // Название вложения из 'description'
-                'unit_price' => $enclosure['value'], // Цена вложения из 'value'
-                'vat_rate' => 15 // Фиксированная ставка НДС
-            ];
-        })->toArray();
+//        $enclosures = $parcel->enclosures;
+//        $items = $enclosures->map(function ($enclosure) {
+//            return [
+//                'text' => $enclosure['description'], // Название вложения из 'description'
+//                'unit_price' => $enclosure['value'], // Цена вложения из 'value'
+//                'vat_rate' => 15 // Фиксированная ставка НДС
+//            ];
+//        })->toArray();
+        
+        $items = [['text'=> 'delivery service','unit_price'=> $parcel->delivery_cost, 'vat_rate' => 15]];
+        
         
         $vyfakturuj_api = new VyfakturujAPI(env('VYFAKTURUJ_API_LOGIN'), env('VYFAKTURUJ_API_KEY'));
         
