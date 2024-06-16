@@ -36,7 +36,7 @@ class GenerateInvoice
             'customer_city' => $parcel->sender->city,
             'customer_zip' => $parcel->sender->postal_code,
             'customer_country_code' => 'CZ',
-            'currency' => 'EUR',
+            'currency' => 'CZK',
             'items' => $items
         ];
         
