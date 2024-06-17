@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DeliveryMethod;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +12,9 @@ class Parcel extends Model
     
     protected $guarded = [];
     
-
+    protected $casts = [
+        'delivery_method' => DeliveryMethod::class,
+    ];
     
     public function enclosures()
     {

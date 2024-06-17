@@ -35,7 +35,7 @@ return new class extends Migration {
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->enum('delivery_type',['ems','post']);
+            $table->tinyText('delivery_type');
             $table->boolean('custom_delivery')->nullable();
             $table->integer('delivery_cost');
             $table->boolean('paid')->default(0);
