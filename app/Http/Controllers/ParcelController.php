@@ -11,7 +11,8 @@ use App\Models\Track;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Parcel;
 use App\Models\RecipientCredential;
-use phpDocumentor\Reflection\Types\Integer;
+use App\Mail\OrderConfirmationMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class ParcelController extends Controller
@@ -119,6 +120,13 @@ class ParcelController extends Controller
         $customText = CustomContent::first()->checkout_thanks;
         $enclosures = $formData['items'];
 //        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
+    
+
+        
+        
+        Mail::to($senderCredentials->email)->send(new OrderConfirmationMail($orderNum, intval($track)));
+        
+        
         return view('order', compact('orderNum','track', 'customText', 'enclosures' ));
     }
     
