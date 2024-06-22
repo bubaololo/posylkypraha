@@ -266,15 +266,15 @@
                                         </div>
                                         <div class="quest__slide_forms_wrapper">
                                             <div class="quest__input-group">
-                                                <label for="sender_surname">Фамилия отправителя</label>
+                                                <label for="sender_surname">Фамилия отправителя (латиницей)</label>
                                                 <input type="text" id="sender_surname" name="sender_surname" class="quest__input"
-                                                        value="@isset($credentials['sender_surname']) {{ $credentials['sender_surname'] }} @endisset" placeholder="Иванов">
+                                                        value="@isset($credentials['sender_surname']) {{ $credentials['sender_surname'] }} @endisset" placeholder="Ivanova">
 
                                             </div>
                                             <div class="quest__input-group">
-                                                <label for="sender_name">Имя отправителя</label>
+                                                <label for="sender_name">Имя отправителя  (латиницей)</label>
                                                 <input type="text" id="sender_name" name="sender_name" class="quest__input"
-                                                        value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="Иван">
+                                                        value="@isset($credentials['sender_name']) {{ $credentials['sender_name'] }} @endisset" placeholder="Anna">
                                             </div>
                                             <div class="quest__input-group">
                                                 <label for="sender_city">Город</label>

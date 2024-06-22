@@ -13,6 +13,7 @@ use App\Models\Parcel;
 use App\Models\RecipientCredential;
 use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
+use App\Actions\GenerateInvoice;
 
 
 class ParcelController extends Controller
@@ -123,7 +124,7 @@ class ParcelController extends Controller
     
 
         
-        
+        self::generateInvoice($parcel);
         Mail::to($senderCredentials->email)->send(new OrderConfirmationMail($orderNum, intval($track)));
         
         
@@ -157,8 +158,15 @@ class ParcelController extends Controller
         }
         return $trackId;
     }
+    private static function generateInvoice(Parcel $parcel)
+    {
+        $action = new GenerateInvoice();
+        return $action($parcel);
+    }
     
 }
+
+
 
 //        $itemCounter = 0;
 //        foreach ($cartItems as $item) {

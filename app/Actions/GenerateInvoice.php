@@ -21,7 +21,7 @@ class GenerateInvoice
 //                'vat_rate' => 15 // Фиксированная ставка НДС
 //            ];
 //        })->toArray();
-        
+
 //        $items = [['text' => 'delivery service', 'unit_price' => $parcel->delivery_cost, 'vat_rate' => 15]];
         
         $vyfakturuj_api = new VyfakturujAPI(env('VYFAKTURUJ_API_LOGIN'), env('VYFAKTURUJ_API_KEY'));
@@ -43,12 +43,12 @@ class GenerateInvoice
         $invoiceId = $invoice['id'];
         
         $emailParams = [
-            'type' => 3,
+            'type' => 1,
             'to' => $parcel->sender->email,
 //    'cc' => '',
 //    'bcc' => '',
-//    'subject' => 'Vlastní předmět e-mailu',
-//    'body' => 'Vlastní text e-mailu, který si přejete odeslat',
+//            'subject' => 'ururu',
+//            'body' => 'azaza',
             'pdfAttachment' => true,
         ];
         $result = $vyfakturuj_api->invoice_sendMail($invoiceId, $emailParams);
@@ -63,7 +63,7 @@ class GenerateInvoice
     protected function formItemsObj(Parcel $parcel): array
     {
         $courierDelivery = $parcel->custom_delivery;
-        $serviceCost =  ($courierDelivery) ? 400 : 200;
+        $serviceCost = ($courierDelivery) ? 400 : 200;
         $deliveryType = $parcel->delivery_type;
         switch ($deliveryType) {
             case 'ems':
@@ -75,14 +75,14 @@ class GenerateInvoice
             default:
                 $deliveryText = 'Неизвестный тип услуги';
         }
-    
-    $items = [];
-    $items[] = ['text' => $deliveryText, 'unit_price' => $parcel->delivery_cost - $serviceCost, 'vat_rate' => 15];
-    $items[] = ['text' => 'Administrativní poplatek ', 'unit_price' => 200, 'vat_rate' => 15];
-    if($courierDelivery) {
-        $items[] = ['text' => 'Výjezd kurira', 'unit_price' => 200, 'vat_rate' => 15];
-    }
-    return $items;
+        
+        $items = [];
+        $items[] = ['text' => $deliveryText, 'unit_price' => $parcel->delivery_cost - $serviceCost, 'vat_rate' => 15];
+        $items[] = ['text' => 'Administrativní poplatek ', 'unit_price' => 200, 'vat_rate' => 15];
+        if ($courierDelivery) {
+            $items[] = ['text' => 'Výjezd kurira', 'unit_price' => 200, 'vat_rate' => 15];
+        }
+        return $items;
     }
     
 }
