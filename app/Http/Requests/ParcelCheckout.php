@@ -36,7 +36,7 @@ class ParcelCheckout extends FormRequest
             'street' => 'required',
             'house' => 'required',
             'premise' => 'max:50',
-            'postal_code' => 'required|integer',
+            'postal_code' => 'required|integer|max:999999',
             'sender_name' => 'required|max:50|string',
             'sender_surname' => 'required|max:50|string',
             'sender_city' => 'required|max:50|string',

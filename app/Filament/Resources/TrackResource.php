@@ -29,7 +29,8 @@ class TrackResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('number')->label('трек номер')
+                TextInput::make('number')->label('трек номер'),
+                TextInput::make('parcel.order_num')->label('заказ'),
             ]);
     }
 

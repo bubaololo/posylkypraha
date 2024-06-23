@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\GenerateInvoice;
 use App\Http\Requests\ParcelCheckout;
+use App\Mail\OrderConfirmationMail;
 use App\Models\Address;
 use App\Models\CustomContent;
 use App\Models\Enclosure;
+use App\Models\Parcel;
+use App\Models\RecipientCredential;
 use App\Models\SenderCredential;
 use App\Models\Track;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Parcel;
-use App\Models\RecipientCredential;
-use App\Mail\OrderConfirmationMail;
 use Illuminate\Support\Facades\Mail;
-use App\Actions\GenerateInvoice;
 
 
 class ParcelController extends Controller
@@ -47,10 +47,8 @@ class ParcelController extends Controller
         $formData = $request->all();
         
         $this->trimValuesRecursively($formData);
-//dd($formData);
 
 //        preparing data to send via bot
-        info(print_r($formData, true));
 
 //        store data
         
@@ -86,7 +84,6 @@ class ParcelController extends Controller
         ]);
         
         
-        
         $parcel = Parcel::create([
 //            'user_id' => Auth::id() ?? null,
             'order_num' => $orderNum,
@@ -117,18 +114,19 @@ class ParcelController extends Controller
                 'value' => $item['value'],
             ]);
         }
-        $track =  Track::find($parcel->track_id)?->number;
+        $track = Track::find($parcel->track_id)?->number;
         $customText = CustomContent::first()->checkout_thanks;
         $enclosures = $formData['items'];
 //        return view('order', compact('cartItems', 'formData', 'orderNum', 'subtotal', 'deliveryPrice', 'deliveryType', 'total'));
-    
-
+        
         
         self::generateInvoice($parcel);
-        Mail::to($senderCredentials->email)->send(new OrderConfirmationMail($orderNum, intval($track)));
-        Mail::raw('Заказ #'.$orderNum, function($message) { $message->to('posylkypraha@gmail.com')->subject('Новый заказ'); });
+        Mail::to($senderCredentials->email)->send(new OrderConfirmationMail($orderNum, $track));
+        Mail::raw('Заказ #' . $orderNum, function ($message) {
+            $message->to('posylkypraha@gmail.com')->subject('Новый заказ');
+        });
         
-        return view('order', compact('orderNum','track', 'customText', 'enclosures' ));
+        return view('order', compact('orderNum', 'track', 'customText', 'enclosures'));
     }
     
     private function trimValuesRecursively(&$array)
@@ -143,7 +141,7 @@ class ParcelController extends Controller
         unset($value);
     }
     
-    private function getUnusedTrackNumber():int|null
+    private function getUnusedTrackNumber(): int|null
     {
         // Используем левое соединение для поиска треков, которые не привязаны к посылкам
         $track = Track::leftJoin('parcels', 'tracks.id', '=', 'parcels.track_id')
@@ -151,13 +149,14 @@ class ParcelController extends Controller
             ->select('tracks.id')
             ->first();
         // Возвращаем ID трека или null, если таких треков нет
-        if($track) {
+        if ($track) {
             $trackId = $track->id;
         } else {
             $trackId = null;
         }
         return $trackId;
     }
+    
     private static function generateInvoice(Parcel $parcel)
     {
         $action = new GenerateInvoice();
