@@ -176,7 +176,7 @@
                                         fill="#fff"/>
                             </svg>
 
-                            <a class="footer-menu__item_telegram" href="https://t.me/sergeybogodelov">Telegram</a>
+                            <a class="footer-menu__item_telegram" href="https://t.me/posylky_praha">Telegram</a>
                         </li>
                         <li class="footer-menu__item menu-item">
 
@@ -234,7 +234,7 @@
 </g>
 </svg>
 
-                            <a class="footer-menu__item_email" href="mailto:bogodelovs@gmail.com">bogodelovs@gmail.com</a>
+                            <a class="footer-menu__item_email" href="mailto:posylkypraha@gmail.com">posylkypraha@gmail.com</a>
                         </li>
                         {{--                        <li class="menu-item">--}}
                         {{--                            <a href="#">donate</a>--}}
