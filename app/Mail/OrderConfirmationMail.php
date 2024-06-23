@@ -33,7 +33,7 @@ class OrderConfirmationMail extends Mailable
         return new Envelope(
 
             replyTo: [
-                new Address('bogodelovs@gmail.com', 'Sergey Bogodelov'),
+                new Address('posylkypraha@gmail.com', 'Sergey Bogodelov'),
             ],
             subject: 'Order confirmation',
         

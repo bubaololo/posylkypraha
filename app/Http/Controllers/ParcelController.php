@@ -126,7 +126,7 @@ class ParcelController extends Controller
         
         self::generateInvoice($parcel);
         Mail::to($senderCredentials->email)->send(new OrderConfirmationMail($orderNum, intval($track)));
-        
+        Mail::raw('Заказ #'.$orderNum, function($message) { $message->to('posylkypraha@gmail.com')->subject('Новый заказ'); });
         
         return view('order', compact('orderNum','track', 'customText', 'enclosures' ));
     }
