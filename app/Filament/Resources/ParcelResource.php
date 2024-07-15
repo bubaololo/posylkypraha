@@ -46,11 +46,11 @@ class ParcelResource extends Resource
                 TextColumn::make('order_num')->label('номер заказа')->searchable(),
                 TextColumn::make('track.number')->label('трек номер')->searchable(),
                 TextColumn::make('delivery_type')->label('тип доставки'),
-//                TextColumn::make('sender.name')
-//                    ->label('Отправитель')
-//                    ->formatStateUsing(function ($state, Parcel $parcel) {
-//                        return $parcel->sender->name . ' ' . $parcel->sender->surname;
-//                    }),
+                TextColumn::make('sender.name')
+                    ->label('Отправитель')
+                    ->formatStateUsing(function ($state, Parcel $parcel) {
+                        return $parcel->sender->name . ' ' . $parcel->sender->surname;
+                    }),
 //                TextColumn::make('recipient.name')
 //                    ->label('Получатель')
 //                    ->formatStateUsing(function ($state, Parcel $parcel) {
@@ -63,7 +63,7 @@ class ParcelResource extends Resource
                     ->formatStateUsing(function ($state, Parcel $parcel) {
                         return $parcel->enclosures()->count();
                     }),
-                ToggleColumn::make('sent')->label('Отправлена'),
+//                ToggleColumn::make('sent')->label('Отправлена'),
                 TextColumn::make('created_at')
                     ->date()->label('создан')
             ])
@@ -72,7 +72,7 @@ class ParcelResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make()->openUrlInNewTab(),
 //                Tables\Actions\EditAction::make(),
                 Action::make('generate_invoice')
                     ->action(function (Parcel $parcel, GenerateInvoice $generateInvoice) {
@@ -152,6 +152,11 @@ class ParcelResource extends Resource
                                 ->schema([
                                     IconEntry::make('custom_delivery')->label('Забрать курьером')
                                         ->boolean()
+                                ]),
+                            Components\Grid::make(2)
+                                ->schema([
+                                    TextEntry::make('track')->label('Трек номер')
+                                    
                                 ]),
                         
                         ])->from('lg'),
