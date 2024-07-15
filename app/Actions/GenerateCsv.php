@@ -21,7 +21,7 @@ class GenerateCsv
             $file = fopen('php://output', 'w');
             fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
             // Заголовки столбцов
-            fputcsv($file, ['Sender', 'Addressee',
+            fputcsv($file, ['Трек №','Sender', 'Addressee',
                 'Postcode', 'Region','Rayon','City, town','улица','дом','корпус','квартира', 'телефон',
                 'Номер вложения','Описание вложения','weight kg', 'weight g','количество','объявленная ценность']);
             // Заполнение данных
@@ -29,8 +29,9 @@ class GenerateCsv
 //                dd($parcel->enclosures);
                 $enclosureIndex = 1;
                 foreach($parcel->enclosures as $enclosure) {
-                    
+                    $track = $parcel->track;
                     fputcsv($file, [
+                        $parcel->track()->first()->number,
                         $parcel->sender->name.' '.$parcel->sender->surname,
                         $parcel->recipient->name.' '.$parcel->recipient->surname,
                         $parcel->address->postal_code,

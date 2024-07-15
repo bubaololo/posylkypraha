@@ -43,4 +43,8 @@ class Parcel extends Model
     public function track() {
         return $this->belongsTo(Track::class);
     }
+    public function getTrackInfoAttribute()
+    {
+        return $this->track()->first()->number;
+    }
 }
