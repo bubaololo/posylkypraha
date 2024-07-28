@@ -30,7 +30,7 @@ class TrackResource extends Resource
         return $form
             ->schema([
                 TextInput::make('number')->label('трек номер'),
-                TextInput::make('parcel.order_num')->label('заказ'),
+                TextInput::make('parcel.id')->label('заказ'),
             ]);
     }
 
@@ -39,7 +39,7 @@ class TrackResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('number')->label('трек номер'),
-                TextColumn::make('parcel.order_num')->label('заказ'),
+                TextColumn::make('parcel.id')->label('заказ'),
             ])
             ->filters([
                 //

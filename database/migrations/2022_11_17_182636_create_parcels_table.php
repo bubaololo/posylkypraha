@@ -14,7 +14,6 @@ return new class extends Migration {
     {
         Schema::create('parcels', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_num');
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained()

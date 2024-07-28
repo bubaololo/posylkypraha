@@ -20,7 +20,7 @@ class OrderConfirmationMail extends Mailable
     
     
 
-    public function __construct( public int $orderNumber, public string $trackNumber)
+    public function __construct( public int $orderNumber, public ?string $trackNumber)
     {
     
     }

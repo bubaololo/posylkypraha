@@ -37,12 +37,10 @@ class ParcelController extends Controller
     
     public function store(ParcelCheckout $request)
     {
-        if ($request->has('registerCheck') && $request->input('registerCheck') == '1') {
-            // Call the register method on your authentication controller
-            app('App\Http\Controllers\Auth\RegisterController')->register($request);
-        }
-        
-        $orderNum = rand(10000, 99999);
+//        if ($request->has('registerCheck') && $request->input('registerCheck') == '1') {
+//            // Call the register method on your authentication controller
+//            app('App\Http\Controllers\Auth\RegisterController')->register($request);
+//        }
         
         $formData = $request->all();
         
@@ -61,6 +59,7 @@ class ParcelController extends Controller
             'postal_code' => $formData['sender_postal_code'],
             'email' => $formData['email'],
         ]);
+        info('sender credentials id'.$senderCredentials->id);
         $recipientCredentials = RecipientCredential::create([
 //            'user_id' => Auth::id() ?? null,
             'name' => $formData['recipient_name'],
@@ -86,7 +85,7 @@ class ParcelController extends Controller
         
         $parcel = Parcel::create([
 //            'user_id' => Auth::id() ?? null,
-            'order_num' => $orderNum,
+            
             'sender_credentials_id' => $senderCredentials->id,
             'recipient_credentials_id' => $recipientCredentials->id,
             'address_id' => $address->id,
@@ -104,6 +103,7 @@ class ParcelController extends Controller
 //            }
 //        }
         $parcelId = $parcel->id;
+        $orderNum = $parcelId;
         foreach ($formData['items'] as $item) {
             Enclosure::create([
                 'parcel_id' => $parcelId,
@@ -114,6 +114,7 @@ class ParcelController extends Controller
                 'value' => $item['value'],
             ]);
         }
+        
         $track = Track::find($parcel->track_id)?->number;
         $customText = CustomContent::first()->checkout_thanks;
         $enclosures = $formData['items'];

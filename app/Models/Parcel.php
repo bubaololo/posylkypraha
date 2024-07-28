@@ -11,7 +11,7 @@ class Parcel extends Model
     use HasFactory;
     
     protected $guarded = [];
-    
+    protected $with = ['enclosures'];
     protected $casts = [
         'delivery_method' => DeliveryMethod::class,
     ];
